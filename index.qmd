@@ -1,0 +1,27 @@
+---
+title: "Victoria Sass"
+subtitle: Ph.D Candidate | Sociology | University of Washington
+image: images/professional_pic.png
+about:
+  template: jolla
+  image-shape: round
+  image-width: 25em
+  links: 
+    - text: Email
+      icon: envelope-at
+      href: mailto:vsass@uw.edu
+    - text: Google Scholar
+      icon: google
+      href: https://scholar.google.com/citations?user=A3lEdiIAAAAJ&hl=en
+    - text: GitHub
+      icon: github 
+      href: https://github.com/vsass
+    - text: CV
+      icon: file-person
+      href: resume.pdf
+  id: about
+---
+
+::: {#about}
+My research interests broadly focus on health disparities, the social construction of disease, and the relationship between physical and mental health outcomes. My dissertation seeks to better understand the long-term mental and physical health effects of a weight-centric health paradigm through the mechanism of dieting for weight-loss and/or weight-maintenance.
+:::
