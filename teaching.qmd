@@ -1,0 +1,26 @@
+---
+title: "Teaching"
+---
+
+Below is a list of all the courses for which I have served as a teaching assistant or instructor during my time at the University of Washington.
+
+___
+
+#### <span style="color:#5B0B15">Instructor</span>
+
+- **CS&SS 508** [<span style="color:#5B0B15">Introduction to R for Social Scientists</span>](https://vsass.github.io/CSSS508) *(Graduate Course)* - Autumn 2023
+- **Sociology 316** <span style="color:#5B0B15">Sociological Theory</span> - Summer 2023
+- **Sociology 221** <span style="color:#5B0B15">Statistical Concepts and Methods for the Social Sciences</span> - Summer 2021
+- **Sociology 404** <span style="color:#5B0B15">Sociology in Practice: Community/Civic Internship Program</span> - Spring 2018
+- **Sociology 404** <span style="color:#5B0B15">Sociology in Practice: Community/Civic Internship Program</span> - Winter 2018
+- **Sociology 321** <span style="color:#5B0B15">Case-Based Social Statistics I</span> *(Honors Course)* - Autumn 2017
+
+#### <span style="color:#414A37">Teaching Assistant</span>
+
+- **Sociology 506** <span style="color:#414A37">Methodology: Quantitative Techniques in Sociology</span> *(Graduate Course)* - Spring 2021
+- **Sociology 505** <span style="color:#414A37">Applied Social Statistics</span> *(Graduate Course)* - Winter 2021
+- **Sociology 504** <span style="color:#414A37">Applied Social Statistics</span> *(Graduate Course)* - Autumn 2020
+- **Statistics 220** <span style="color:#414A37">Basic Statistics</span> - Summer 2015
+- **Sociology 270** <span style="color:#414A37">Social Problems</span> - Spring 2015
+- **Sociology 201** <span style="color:#414A37">Surviving in South Africa: Contemporary Health and Population Issues</span> - Winter 2015
+- **Sociology 300** <span style="color:#414A37">Foundations of Social Inquiry</span> - Fall 2014

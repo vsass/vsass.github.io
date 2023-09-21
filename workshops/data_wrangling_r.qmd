@@ -1,0 +1,11 @@
+---
+title: "Data Wrangling in R"
+format: revealjs
+---
+
+Here is an example of code: 
+
+```{r, echo = TRUE}
+1 + 1 
+```
+
