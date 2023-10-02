@@ -26,5 +26,12 @@
     "title": "Research",
     "section": "",
     "text": "I’m still working on this page! Check back soon for updates and in the meantime click the Google icon to the right to see my published work."
+  },
+  {
+    "objectID": "workshops/data_wrangling_r.html",
+    "href": "workshops/data_wrangling_r.html",
+    "title": "Data Wrangling in R",
+    "section": "",
+    "text": "Here is an example of code:\n\n1 + 1 \n\n[1] 2"
   }
 ]

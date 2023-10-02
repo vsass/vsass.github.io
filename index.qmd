@@ -1,7 +1,7 @@
 ---
 title: "Victoria Sass"
 subtitle: Ph.D Candidate | Sociology | University of Washington
-image: images/professional_pic.png
+image: images/casual_pic.jpg
 about:
   template: jolla
   image-shape: round
