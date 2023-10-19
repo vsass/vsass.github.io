@@ -39,7 +39,7 @@
     "href": "workshops/data_wrangling_r.html#title-slide",
     "title": "",
     "section": "",
-    "text": "Data Wrangling in R\nCSSCR Workshop\n18 October, 2023\nVictoria Sass"
+    "text": "Data Wrangling in R\nCSSCR Workshop\n19 October, 2023\nVictoria Sass"
   },
   {
     "objectID": "workshops/data_wrangling_r.html#roadmap",
@@ -866,5 +866,40 @@
     "title": "",
     "section": "Select Specific Rows Per Group: slice_*\n",
     "text": "Select Specific Rows Per Group: slice_*\n\n\nflights |&gt; \n  group_by(dest) |&gt; \n5  slice_max(arr_delay, n = 1) |&gt;\n  relocate(dest) \n\n\n5\n\nYou can vary n to select more than one row, or instead of n =, you can use prop = 0.1 to select (e.g.) 10% of the rows in each group.\n\n\n\n\n# A tibble: 108 × 19\n# Groups:   dest [105]\n   dest   year month   day dep_time sched_dep_time dep_delay arr_time\n   &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;\n 1 ABQ    2013     7    22     2145           2007        98      132\n 2 ACK    2013     7    23     1139            800       219     1250\n 3 ALB    2013     1    25      123           2000       323      229\n 4 ANC    2013     8    17     1740           1625        75     2042\n 5 ATL    2013     7    22     2257            759       898      121\n 6 AUS    2013     7    10     2056           1505       351     2347\n 7 AVL    2013     8    13     1156            832       204     1417\n 8 BDL    2013     2    21     1728           1316       252     1839\n 9 BGR    2013    12     1     1504           1056       248     1628\n10 BHM    2013     4    10       25           1900       325      136\n# ℹ 98 more rows\n# ℹ 11 more variables: sched_arr_time &lt;int&gt;, arr_delay &lt;dbl&gt;, carrier &lt;chr&gt;,\n#   flight &lt;int&gt;, tailnum &lt;chr&gt;, origin &lt;chr&gt;, air_time &lt;dbl&gt;, distance &lt;dbl&gt;,\n#   hour &lt;dbl&gt;, minute &lt;dbl&gt;, time_hour &lt;dttm&gt;\n\n\n\n\n\n\nThere are 105 groups but 108 rows! Why? slice_min() and slice_max() keep tied values so n = 1 means “give us all rows with the highest value.” If you want exactly one row per group you can set with_ties = FALSE."
+  },
+  {
+    "objectID": "workshops/intro_quarto.html#title-slide",
+    "href": "workshops/intro_quarto.html#title-slide",
+    "title": "",
+    "section": "",
+    "text": "Introduction to Quarto\nCSSCR Workshop\nWinter 2024\nVictoria Sass"
+  },
+  {
+    "objectID": "workshops/intro_quarto.html#title-slide-data-menu-titleintroduction-to-quarto-background-imageimagesrainier_night.jpeg-background-size90",
+    "href": "workshops/intro_quarto.html#title-slide-data-menu-titleintroduction-to-quarto-background-imageimagesrainier_night.jpeg-background-size90",
+    "title": "",
+    "section": "{#title-slide data-menu-title=“Introduction to Quarto” background-image=“images/rainier_night.jpeg” background-size:90%}",
+    "text": "{#title-slide data-menu-title=“Introduction to Quarto” background-image=“images/rainier_night.jpeg” background-size:90%}\nIntroduction to Quarto\nCSSCR Workshop\nWinter 2024\nVictoria Sass"
+  },
+  {
+    "objectID": "workshops/intro_quarto.html#title-slide-data-menu-titleintroduction-to-quarto-background-imageimagesrainier_night.jpeg-background-size-90",
+    "href": "workshops/intro_quarto.html#title-slide-data-menu-titleintroduction-to-quarto-background-imageimagesrainier_night.jpeg-background-size-90",
+    "title": "",
+    "section": "{#title-slide data-menu-title=“Introduction to Quarto” background-image=“images/rainier_night.jpeg” background-size: 90%}",
+    "text": "{#title-slide data-menu-title=“Introduction to Quarto” background-image=“images/rainier_night.jpeg” background-size: 90%}\nIntroduction to Quarto\nCSSCR Workshop\nWinter 2024\nVictoria Sass"
+  },
+  {
+    "objectID": "workshops/intro_quarto.html#roadmap",
+    "href": "workshops/intro_quarto.html#roadmap",
+    "title": "",
+    "section": "Roadmap",
+    "text": "Roadmap"
+  },
+  {
+    "objectID": "workshops/intro_r_rstudio.html#title-slide",
+    "href": "workshops/intro_r_rstudio.html#title-slide",
+    "title": "",
+    "section": "",
+    "text": "Introduction to R & RStudio\nIntroduction to R & RStudio\nCSSCR Workshop\nCSSCR Workshop\nSpring 2024\nVictoria Sass"
   }
 ]

@@ -1,5 +1,45 @@
 ---
-title: "Introduction to Quarto"
-format: revealjs
+execute: 
+  echo: true
+  message: false
+  warning: false
+  fig-format: "svg"
+format: 
+  revealjs:
+    highlight-style: a11y-dark
+    reference-location: margin
+    theme: csscr_styles2.scss
+    slide-number: true
+    code-link: true
+    chalkboard: true
+    incremental: false 
+    smaller: true
+    preview-links: true
+    code-line-numbers: true
+    history: false
+    progress: true
+    link-external-icon: true
+    code-annotations: hover
+    pointer:
+      color: "#b18eb1"
+revealjs-plugins:
+  - pointer
 ---
 
+```{r}
+#| echo: false
+#| cache: false
+require(downlit)
+require(xml2)
+require(tidyverse)
+```
+
+## {#title-slide data-menu-title="Introduction to Quarto" background-image="images/rainier_night.jpeg" background-size="cover"}
+
+[Introduction to Quarto]{.custom-title}
+
+[CSSCR Workshop]{.custom-subtitle}
+
+[Winter 2024]{.custom-subtitle2}
+
+[Victoria Sass]{.custom-subtitle3}

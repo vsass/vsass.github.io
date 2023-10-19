@@ -37,7 +37,7 @@ library(nycflights13)
 #options(width = 90)
 ```
 
-## {#title-slide data-menu-title="Data Wrangling in R" background-image="images/rainier.png"}
+## {#title-slide data-menu-title="Data Wrangling in R" background-image="images/rainier.png" background-size="1950px 1200px" background-color="#4B2E83"}
 
 [Data Wrangling in R]{.custom-title}
 

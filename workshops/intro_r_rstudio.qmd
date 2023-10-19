@@ -1,4 +1,49 @@
 ---
-title: "Introduction to R using R Studio"
-format: revealjs
+execute: 
+  echo: true
+  message: false
+  warning: false
+  fig-format: "svg"
+format: 
+  revealjs:
+    highlight-style: a11y-dark
+    reference-location: margin
+    theme: csscr_styles3.scss
+    slide-number: true
+    code-link: true
+    chalkboard: true
+    incremental: false 
+    smaller: true
+    preview-links: true
+    code-line-numbers: true
+    history: false
+    progress: true
+    link-external-icon: true
+    code-annotations: hover
+    pointer:
+      color: "#b18eb1"
+revealjs-plugins:
+  - pointer
 ---
+
+```{r}
+#| echo: false
+#| cache: false
+require(downlit)
+require(xml2)
+require(tidyverse)
+```
+
+## {#title-slide data-menu-title="Introduction to R & RStudio" background-image="images/cherry_blossoms.png" background-size="1950px 1200px"}
+
+[Introduction to R & RStudio]{.custom-title-shading}
+
+[Introduction to R & RStudio]{.custom-title}
+
+[CSSCR Workshop]{.custom-subtitle-shading}
+
+[CSSCR Workshop]{.custom-subtitle}
+
+[Spring 2024]{.custom-subtitle2}
+
+[Victoria Sass]{.custom-subtitle3}
