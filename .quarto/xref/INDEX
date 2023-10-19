@@ -1,0 +1,17 @@
+{
+  "research.qmd": {
+    "research.html": "a382cdce"
+  },
+  "index.qmd": {
+    "index.html": "210d6eb5"
+  },
+  "workshops/intro_r_rstudio.qmd": {
+    "intro_r_rstudio.html": "aa71529f"
+  },
+  "workshops/intro_quarto.qmd": {
+    "intro_quarto.html": "108c9c4a"
+  },
+  "workshops/data_wrangling_r.qmd": {
+    "data_wrangling_r.html": "f129902d"
+  }
+}
