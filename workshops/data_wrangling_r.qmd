@@ -43,7 +43,7 @@ library(nycflights13)
 
 [CSSCR Workshop]{.custom-subtitle}
 
-[`r format(Sys.Date(), '%d %B, %Y')`]{.custom-subtitle2}
+[`r format(Sys.Date(), '%d %B %Y')`]{.custom-subtitle2}
 
 [Victoria Sass]{.custom-subtitle3}
 
