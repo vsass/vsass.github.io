@@ -23,8 +23,6 @@ website:
         menu:
           - text: "Introduction to R using R Studio"
             href: workshops/intro_r_rstudio.qmd
-          - text: "Introduction to R Markdown"
-            href: workshops/intro_r_markdown.qmd
           - text: "Introduction to Quarto"
             href: workshops/intro_quarto.qmd
           - text: "Data Wrangling in R"
