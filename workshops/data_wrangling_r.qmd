@@ -2181,3 +2181,19 @@ If there are multiple rows in the input that correspond to one cell in the outpu
 # Thanks!{.section-title background-color="#4B2E83"}
 
 # {data-menu-title="R Knowledge Comic" .section-title background-image="images/r_knowledge.png"}
+
+## Useful Resources
+
+. . . 
+
+#### Cheatsheets
+
+* [readr](https://rstudio.github.io/cheatsheets/data-import.pdf)
+* [dplyr](https://rstudio.github.io/cheatsheets/data-transformation.pdf)
+* [tidyr](https://rstudio.github.io/cheatsheets/tidyr.pdf)
+
+. . . 
+
+#### Introductory Book
+
+[R for Data Science (2e)](https://r4ds.hadley.nz/) by Hadley Wickham

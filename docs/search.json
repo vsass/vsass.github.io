@@ -901,5 +901,12 @@
     "title": "",
     "section": "",
     "text": "Introduction to R & RStudio\nIntroduction to R & RStudio\nCSSCR Workshop\nCSSCR Workshop\nSpring 2024\nVictoria Sass"
+  },
+  {
+    "objectID": "workshops/data_wrangling_r.html#useful-resources",
+    "href": "workshops/data_wrangling_r.html#useful-resources",
+    "title": "",
+    "section": "Useful Resources",
+    "text": "Useful Resources\n\nCheatsheets\n\nreadr\ndplyr\ntidyr\n\n. . .\nIntroductory Book\nR for Data Science (2e) by Hadley Wickham"
   }
 ]
