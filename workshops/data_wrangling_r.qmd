@@ -52,10 +52,11 @@ library(nycflights13)
 ::: {.incremental}
 * Importing and Exporting Data
 * Manipulating and Summarizing Data
+* Merging Data
 * Tidying and Reshaping Data
 :::
 
-# Importing and Exporting Data{.section-title background-color="#B7A57A"}
+# Importing and Exporting Data{.section-title background-color="#4B2E83"}
 
 ## Data Packages
 
@@ -190,6 +191,7 @@ Sometimes a particular dataset or file read from a different software will code 
 
 ```{r}
 #| eval: false
+#| code-line-numbers: "|2"
 billboard_2000_raw <- read_csv(file = "data/billboard.csv", 
                                na = c("N/A", "999"))
 ```
@@ -200,6 +202,7 @@ Depending on how the data were input, there may be several lines that precede th
 
 ```{r}
 #| eval: false
+#| code-line-numbers: "|2"
 billboard_2000_raw <- read_csv(file = "data/billboard.csv", 
                                skip = 1)
 ```
@@ -221,14 +224,16 @@ billboard_2000_raw <- read_csv(file = "data/billboard.csv",
 billboard_renamed |>  names() |> head(10) # <2>
 ```
 
-1. `paste` "pastes" together the first argument to the second argument (separated by whatever is specified in the `sep` argument) as character strings. Since the first argument here is a singular value, it is repeated for the entire length of the vector in the second argument. The first several values of `paste("wk", 1:76, sep = "_")` are: `r head(paste("wk", 1:76, sep = "_"))`
-2. Our first official usage of the pipe! `names` here returns the column names of our data frame.
+1. First few entries: "wk_1"  "wk_2"  "wk_3"
+2. `names` returns the column names.
+
 . . . 
 
 If you don't have any variable names you can specify that instead. 
 
 ```{r}
 #| eval: false
+#| code-line-numbers: "|2"
 billboard_2000_raw <- read_csv(file = "data/billboard.csv", 
                                col_names = FALSE) 
 ```
@@ -240,30 +245,31 @@ If you simply want to change your variables to snake case (all lower case; words
 ```{r}
 #| output-location: fragment
 # Download pacakge first
-# install.packages("janitor") # <1> 
+# install.packages("janitor") # <3> 
 
 # Create new object for renamed data
 billboard_renamed <- billboard_2000_raw |> 
-  janitor::clean_names(numerals = "right") # <2>
+  janitor::clean_names(numerals = "right") # <4>
 
 billboard_renamed |>  names() |> head(10)
 ```
 
-1. Run in the console first. 
-2. You can call a function without loading its package by specifying its package name followed by `::` before it; <br> The `numerals` argument specifies if you additionally want to put a separator before a number. 
+3. Run in the console first. 
+4. You can call a function without loading its package by specifying its package name followed by `::` before it; <br> The `numerals` argument specifies if you additionally want to put a separator before a number. 
 
 ## Other Data File Types with `readr`
 
-The other functions in `readr` employ as similar approach to `read_csv` so the trick is just knowing which to use for what data type. 
+The other functions in `readr` employ a similar approach to `read_csv` so the trick is just knowing which to use for what data type. 
 
-::: {.incremental}
+. . . 
+
 * `read_csv2` is separated by semicolons (instead of commas)
 * `read_tsv` is separated by tabs
 * `read_delim` guesses the delimiter
 * `read_fwf` reads in fixed-width-files
 * `read_table` is a variation of `fwf` where columns are separated by white space
 * `read_log` reads in Apache-style log files
-:::
+
 
 ## Other Packages to Read in Data
 
@@ -346,10 +352,10 @@ flowchart LR
     id1((Variable))==>C(["3. Does it match the ISO8601 standard?"])==>id4{{Date/Date-time}}
     id1((Variable))==>D(["4. None of the above"])==>id5{{String}}
     style id1 fill:#4B2E83,color:#B7A57A,stroke:#B7A57A
-    style id2 fill:#B7A57A,color:##4B2E83,stroke:##4B2E83
-    style id3 fill:#B7A57A,color:##4B2E83,stroke:##4B2E83
-    style id4 fill:#B7A57A,color:##4B2E83,stroke:##4B2E83
-    style id5 fill:#B7A57A,color:##4B2E83,stroke:##4B2E83
+    style id2 fill:#B7A57A,color:#4B2E83,stroke:#4B2E83
+    style id3 fill:#B7A57A,color:#4B2E83,stroke:#4B2E83
+    style id4 fill:#B7A57A,color:#4B2E83,stroke:#4B2E83
+    style id5 fill:#B7A57A,color:#4B2E83,stroke:#4B2E83
     style A fill:#FFFFFF,color:#000000,stroke:#000000
     style B fill:#FFFFFF,color:#000000,stroke:#000000
     style C fill:#FFFFFF,color:#000000,stroke:#000000
@@ -491,14 +497,14 @@ There are not many songs in the data that charted for 60+ weeks—and none in th
 ```{r}
 #| output-location: fragment
 class(c(T, F, NA, FALSE, TRUE))
-class(c(1, NA, 17.5, 5.3, NA)) # <1>
-class(as.Date(c(NA, "2023-10-31", "1986-06-21", "1997-01-15"), tz = "America/Los_Angeles")) # <2>
+class(c(1, NA, 17.5, 5.3, NA)) # <5>
+class(as.Date(c(NA, "2023-10-31", "1986-06-21", "1997-01-15"), tz = "America/Los_Angeles")) # <6>
 class(c("apple", NA, "mango", "blackberry", "plum")) 
 class(c(NA, NA, NA, NA, NA))
 ```
 
-1. `class` returns the data type of its first argument. 
-2. `as.Date` turns a character string of dates into an official date class in Base `R`. If we had an accompanying time stamp we would need to use `as.POSIXct` which turns a character string of dates and times into an official date-time class in Base `R`. 
+5. `class` returns the data type of its first argument. 
+6. `as.Date` turns a character string of dates into an official date class in Base `R`. If we had an accompanying time stamp we would need to use `as.POSIXct` which turns a character string of dates and times into an official date-time class in Base `R`. 
 :::
 
 ::: aside
@@ -514,11 +520,11 @@ Since the `wk*` variables should all be read in as integers, we can specify this
 ```{r}
 #| output-location: fragment
 # Create character string of shortcode column types
-bb_types <- paste(c("icctD", rep("i", 76)), collapse="") # <1>
+bb_types <- paste(c("icctD", rep("i", 76)), collapse="") # <7>
 bb_types 
 ```
 
-1. You can short-code column types with `i` = integer, `c` = character, `t` = time, `D` = date. <br> The `collapse` argument collapses the first two arguments into one complete character string.
+7. You can short-code column types with `i` = integer, `c` = character, `t` = time, `D` = date. <br> The `collapse` argument collapses the first two arguments into one complete character string.
 
 . . . 
 
@@ -527,10 +533,10 @@ bb_types
 ```{r}
 # re-read in data with column types specified
 billboard_2000_raw <- read_csv(file = "data/billboard.csv", 
-                               col_types = bb_types) # <2> 
+                               col_types = bb_types) # <8> 
 ```
 
-2. This string now specifies the data type for each column of our data frame. Visit [this reference page](https://readr.tidyverse.org/reference/cols.html) to see all available column types and their short codes. 
+8. See all column types and short codes [here](https://readr.tidyverse.org/reference/cols.html).
 
 ## Column types
 
@@ -559,67 +565,6 @@ billboard_2000_raw <- read_csv(file = "data/billboard.csv",
 <br>
 
 In summary, the `col-types` argument gives you greater control over how your data are read in and can save you recoding time down the road and/or point out where your data are behaving differently than you expect. 
-
-## Reading in Multiple Files 
-
-If you data are split across multiple files you can read them in all at once by specifying the `id` argument. 
-
-```{r}
-#| output-location: fragment
-# Create list of files manually
-sales_files <- c("data/01-sales.csv", "data/02-sales.csv", "data/03-sales.csv")
-read_csv(sales_files, id = "file")
-```
-
-## Reading in Multiple Files 
-
-If you have too many files to reasonable type out all their names you can also use the base `r` function `list.files` to list the files for you. 
-
-```{r}
-#| output-location: fragment
-# Create list of files with pattern-matching
-sales_files <- list.files("data", pattern = "sales\\.csv$", full.names = TRUE) # <1>
-sales_files
-```
-
-1. Using regular expressions to search for files by pattern-matching is extremely powerful, particularly if you're searching through large directories with many files. Learn more [here](https://r4ds.hadley.nz/regexps.html). 
-
-## Data Entry
-
-Sometimes you'll need to create a data set in your code. You can do this two ways: 
-
-::: {.panel-tabset}
-
-### `tibble()`
-
-Tibbles lay out the data by columns (i.e. a dataframe transposed).
-
-```{r}
-#| output-location: fragment
-# Creating data with tibble
-tibble( 
-  x = c(1, 2, 5), 
-  y = c("h", "m", "g"),
-  z = c(0.08, 0.83, 0.60)
-)
-```
-
-### `tribble()`
-
-Tibbles (`tr`ansposed ti`bble`) lay out the data by rows (i.e. the way a dataframe looks) which is much more intuitive.
-
-```{r}
-#| output-location: fragment
-# Creating data with tribble
-tribble( 
-  ~x, ~y, ~z,
-  1, "h", 0.08,
-  2, "m", 0.83,
-  5, "g", 0.60
-)
-```
-
-:::
 
 ## Writing Delimited Files
 
@@ -711,7 +656,7 @@ To save `R` objects and all associated metadata you have two options:
 
 :::
 
-# Manipulating and Summarizing Data{.section-title background-color="#B7A57A"}
+# Manipulating and Summarizing Data{.section-title background-color="#4B2E83"}
 
 ## Death to Spreadsheets
 
@@ -724,18 +669,18 @@ Tools like *Excel* or *Google Sheets* let you manipulate spreadsheets using func
  
 . . .  
  
-Today, we'll use `R` to manipulate data more *transparently* and *reproducibly*.
+We want to know how to use `R` to manipulate data more *transparently* and *reproducibly*.
 
 # Logical Operators{.section-title background-color="#B7A57A"}
 
 ## Data types in `R`
 
-Going back to our list of data types in `R`: 
+There are a variety of data types in `R`: 
 
 . . . 
 
-* ~~Factors~~
-* ~~Date/Date-time~~
+* Factors
+* Date/Date-time
 * Logical
 * Numeric
 * Missing Values
@@ -743,38 +688,14 @@ Going back to our list of data types in `R`:
 
 ## Data types in `R`
 
-Going back to our list of data types in `R`: 
+There are a variety of data types in `R`: 
 
-* ~~Factors~~
-* ~~Date/Date-time~~
+* Factors
+* Date/Date-time
 * <span style="color:#e15759">Logical</span>
 * Numeric
 * Missing Values
 * Strings
-
-## Booleans
-
-The simplest data type is a boolean, or binary, variable: `TRUE` or `FALSE`^[or `NA`]. 
-
-. . . 
-
-More often than not our data don't actually have a variable with this data type, but they are definitely created and evalutated in the data manipulation and summarizing process. 
-
-. . . 
-
-Logical operators refer to base functions which allow us to **test if a condition** is present between two objects. 
-
-. . . 
-
-For example, we may test
-
-+ Is A equal to B?
-+ Is A greater than B?
-+ Is A within B?
-
-. . . 
-
-Naturally, these types of expressions produce a binary outcome of `T` or `F` which enables us to transform our data in a variety of ways!
 
 ## Logical Operators in `R`
   
@@ -833,73 +754,6 @@ Naturally, these types of expressions produce a binary outcome of `T` or `F` whi
 You may also see `&&` and `||` but they are what's known as short-circuiting operators and are not to be used in `dplyr` functions (used for programming not data manipulation); they'll only ever return a single `TRUE` or `FALSE`.
 :::
 
-## Unexpected Behavior
-
-Be careful using `==` with numbers: 
-
-. . . 
-
-```{r}
-x <- c(1 / 49 * 49, sqrt(2) ^ 2)
-x
-x == c(1, 2) # <1> 
-print(x, digits = 16) # <2>
-```
-
-1. Computers store numbers with a fixed number of decimal places so there’s no way to *precisely* represent decimals. 
-2. `dplyr::near()` is a useful alternative which ignores small differences. 
-
-. . . 
-
-Similarly mysterious, missing values (`NA`) represent the unknown. Almost anything conditional involving `NA`s will also be unknown:
-
-```{r}
-NA > 5
-10 == NA
-NA == NA # <3> 
-```
-
-3. The logic here: if you have one unknown and a second unknown, you don't actually know if they equal one another!
-
-. . .  
-
-This is the reason we use `is.na()` to check for missingness. 
-
-```{r}
-is.na(c(NA, 5))
-```
-
-## Examples of Logical Operators
-
-Let's create two objects, `A` and `B`
-
-```{r}
-A <- c(5, 10, 15)
-B <- c(5, 15, 25)
-```
-
-. . . 
-
-Comparisons:
-
-```{r}
-A == B
-A > B
-A %in% B # <1>
-```
-1. Will return a vector the length of `A` that is `TRUE` whenever a value in `A` is anywhere in `B`. <br> **Note**: You CAN use `%in%` to search for `NA`s.
-
-. . . 
-
-Combinations: 
-
-```{r}
-A > 5 & A <= B 
-B < 10 | B > 20 # <2>
-!(A == 10)
-```
-2. Be sure not to cut corners (i.e. writing <br> `B < 10 | > 20`). The code won't technically error but it won't evaluate the way you expect it to. Read more about the confusing logic behind this [here](https://r4ds.hadley.nz/logicals#order-of-operations). 
-
 ## Logical Summaries
 
 :::: {.columns}
@@ -955,9 +809,9 @@ if_else(condition = "A logical vector",
 
 ```{r}
 x <- c(-3:3, NA)
-if_else(x > 0, "+ve", "-ve", "???") # <1> 
+if_else(x > 0, "+ve", "-ve", "???") # <4> 
 ```
-1. There’s an optional fourth argument, `missing` which will be used if the input is `NA`.
+4. There’s an optional fourth argument, `missing` which will be used if the input is `NA`.
 
 . . . 
 
@@ -973,12 +827,12 @@ case_when(
   x == 0   ~ "0",
   x < 0    ~ "-ve", 
   x > 0    ~ "+ve",
-  is.na(x) ~ "???" # <2>
-) # <3> 
+  is.na(x) ~ "???" # <5>
+) # <6> 
 ```
 
-2. Use `.default` if you want to create a “default”/catch all value. 
-3. Both functions require compatible types: i.e. numerical and logical, strings and factors, dates and datetimes, `NA` and everything. 
+5. Use `.default` if you want to create a “default”/catch all value. 
+6. Both functions require compatible types: i.e. numerical and logical, strings and factors, dates and datetimes, `NA` and everything. 
 
 # {data-menu-title="`dplyr`" background-image="images/dplyr.png" background-size="contain" background-position="center" .section-title background-color="#B7A57A"}
 
@@ -998,12 +852,12 @@ To demonstrate data transformations we're going to use the `nycflights13` datase
 
 ```{r}
 # Download and load data
-# install.packages("nycflights13") # <1>
-library(nycflights13) # <2>
+# install.packages("nycflights13") # <7>
+library(nycflights13) # <8>
 ```
 
-1. Run in console. 
-2. Load into `R` session. 
+7. Run in console. 
+8. Load into `R` session. 
 
 . . . 
 
@@ -1011,18 +865,18 @@ library(nycflights13) # <2>
 
 ```{r}
 #| eval: false
-data(flights) # <1> 
-data(airlines) # <2>
-data(airports) # <3>
-data(planes) # <4>
-data(weather) # <5>
+data(flights) # <9> 
+data(airlines) # <10>
+data(airports) # <11>
+data(planes) # <12>
+data(weather) # <13>
 ```
 
-1. flights leaving JFK, LGA, or EWR in 2013
-2. airline abbreviations
-3. airport metadata
-4. airplane metadata
-5. hourly weather data for JFK, LGA, and EWR
+9. flights leaving JFK, LGA, or EWR in 2013
+10. airline abbreviations
+11. airport metadata
+12. airplane metadata
+13. hourly weather data for JFK, LGA, and EWR
 
 ## `dplyr` Basics
 
@@ -1052,12 +906,12 @@ We often get *big* datasets, and we only want some of the entries. We can subset
 
 ```{r}
 delay_2hr <- flights |> 
-  filter(dep_delay > 120) # <1>
-delay_2hr # <2>
+  filter(dep_delay > 120) # <14>
+delay_2hr # <15>
 ```
 
-1. Here's where all your new knowledge about logical operators comes in handy! Make sure to use `==` not `=` to test the logical condition. 
-2. Now, `delay_2hr` is an object in our environment which contains rows corresponding to flights that experienced at least a 2 hour delay.
+14. Here's where we'll use a lot of logical operators. Make sure to use `==` not `=` to test the logical condition. 
+15. Now, `delay_2hr` is an object in our environment which contains rows corresponding to flights that experienced at least a 2 hour delay.
 
 ## Subset Columns: `select()`
 
@@ -1069,10 +923,10 @@ We can select columns by name:
 
 ```{r}
 flights |> 
-  select(year, month, day) # <3>
+  select(year, month, day) # <16>
 ```
 
-3. You can use a `-` before a variable name or a vector of variables to drop them from the data (i.e. <br> `select(-c(year, month, day))`).
+16. You can use a `-` before a variable name or a vector of variables to drop them from the data (i.e. <br> `select(-c(year, month, day))`).
 
 ## Subset Columns: `select()`
 
@@ -1083,10 +937,10 @@ We can select columns between variables (inclusive):
 
 ```{r}
 flights |> 
-  select(year:day) # <4>
+  select(year:day) # <17>
 ```
 
-4. Add a `!` before `year` and you'll drop this group of variables from the data. 
+17. Add a `!` before `year` and you'll drop this group of variables from the data. 
 
 ## Subset Columns: `select()`
 
@@ -1096,10 +950,10 @@ We can select columns based on a condition:
 
 ```{r}
 flights |> 
-  select(where(is.character)) # <5>
+  select(where(is.character)) # <18>
 ```
 
-5. There are a number of helper functions you can use with `select()` including `starts_with()`, `ends_with()`, `contains()` and `num_range()`. Read more about these and more [here](https://tidyselect.r-lib.org/reference/index.html). 
+18. There are a number of helper functions you can use with `select()` including `starts_with()`, `ends_with()`, `contains()` and `num_range()`. Read more about these and more [here](https://tidyselect.r-lib.org/reference/index.html). 
 
 ## Finding Unique Rows: `distinct()`
 
@@ -1109,10 +963,10 @@ You may want to find the unique combinations of variables in a dataset.  Use `di
 
 ```{r}
 flights |> 
-  distinct(origin, dest) # <6>
+  distinct(origin, dest) # <19>
 ```
 
-6. Find all unique origin and destination pairs.
+19. Find all unique origin and destination pairs.
 
 ## `distinct()` drops variables!
 
@@ -1122,10 +976,10 @@ By default, `distinct()` drops unused variables. If you don't want to drop them,
 
 ```{r}
 flights |> 
-  distinct(origin, dest, .keep_all = TRUE) # <7> 
+  distinct(origin, dest, .keep_all = TRUE) # <20> 
 ```
 
-7. It’s not a coincidence that all of these distinct flights are on January 1: `distinct()` will find the first occurrence of a unique row in the dataset and discard the rest. Use `count()` if you're looking for the number of occurrences. 
+20. It’s not a coincidence that all of these distinct flights are on January 1: `distinct()` will find the first occurrence of a unique row in the dataset and discard the rest. Use `count()` if you're looking for the number of occurrences. 
 
 ## Count Unique Rows: `count()` 
 
@@ -1133,10 +987,10 @@ flights |>
 
 ```{r}
 flights |>
-  count(origin, dest, sort = TRUE) # <8>
+  count(origin, dest, sort = TRUE) # <21>
 ```
 
-8. `sort = TRUE` arranges them in descending order of number of occurrences. 
+21. `sort = TRUE` arranges them in descending order of number of occurrences. 
 
 # Modifying data{.section-title background-color="#B7A57A"}
 
@@ -1148,10 +1002,10 @@ Sometimes it's useful to sort rows in your data, in ascending (low to high) or d
 
 ```{r}
 flights |> 
-  arrange(year, month, day, dep_time) # <1> 
+  arrange(year, month, day, dep_time) # <22> 
 ```
 
-1. If you provide more than one column name, each additional column will be used to break ties in the values of preceding columns.
+22. If you provide more than one column name, each additional column will be used to break ties in the values of preceding columns.
 
 ## Sorting Data by Rows: `arrange()`
 
@@ -1172,10 +1026,10 @@ You may receive data with unintuitive variable names. Change them using `rename(
 
 ```{r}
 flights |> 
-  rename(tail_num = tailnum) # <2>
+  rename(tail_num = tailnum) # <23>
 ```
 
-2. `rename(new_name = old_name)` is the format. Reminder to use `janitor::clean_names()` if you want to automate this process for a lot of variables. 
+23. `rename(new_name = old_name)` is the format. Reminder to use `janitor::clean_names()` if you want to automate this process for a lot of variables. 
 
 . . . 
 
@@ -1195,11 +1049,11 @@ flights |>
   mutate(
     gain = dep_delay - arr_delay,
     speed = distance / air_time * 60,
-    .before = 1 # <3> 
+    .before = 1 # <24> 
   )
 ```
 
-3. By default, `mutate()` adds new columns on the right hand side of your dataset, which makes it difficult to see if anything happened. You can use the `.before` argument to specify which numeric index (or variable name) to move the newly created variable to. `.after` is an alternative argument for this.   
+24. By default, `mutate()` adds new columns on the right hand side of your dataset, which makes it difficult to see if anything happened. You can use the `.before` argument to specify which numeric index (or variable name) to move the newly created variable to. `.after` is an alternative argument for this.   
 
 ## Specifying Variables to Keep: `mutate()`
 
@@ -1211,11 +1065,11 @@ flights |>
     gain = dep_delay - arr_delay,
     hours = air_time / 60,
     gain_per_hour = gain / hours,
-    .keep = "used" # <4> 
+    .keep = "used" # <25> 
   )
 ```
 
-4. "used" retains only the variables used to create the new variables, which is useful for checking your work. Other options include: "all," "unused," and "none."
+25. "used" retains only the variables used to create the new variables, which is useful for checking your work. Other options include: "all," "unused," and "none."
 
 ## Move Variables Around: `relocate()`
 
@@ -1223,10 +1077,10 @@ You might want to collect related variables together or move important variables
 
 ```{r}
 flights |> 
-  relocate(time_hour, air_time) # <5>
+  relocate(time_hour, air_time) # <26>
 ```
 
-5. By default `relocate()` moves variables to the front but you can also specify where to put them using the `.before` and `.after` arguments, just like in `mutate()`.
+26. By default `relocate()` moves variables to the front but you can also specify where to put them using the `.before` and `.after` arguments, just like in `mutate()`.
 
 # Summarizing data{.section-title background-color="#B7A57A"}
 
@@ -1236,10 +1090,10 @@ If you want to analyze your data by specific groupings, use `group_by()`:
 
 ```{r}
 flights |> 
-  group_by(month) # <1>
+  group_by(month) # <27>
 ```
 
-1. `group_by()` doesn’t change the data but you’ll notice that the output indicates that it is “grouped by” month `(Groups: month [12])`. This means subsequent operations will now work “by month”.
+27. `group_by()` doesn’t change the data but you’ll notice that the output indicates that it is “grouped by” month `(Groups: month [12])`. This means subsequent operations will now work “by month”.
 
 ## Summarizing Data: `summarize()`
 
@@ -1265,11 +1119,11 @@ Let's see what this looks like in our flights dataset:
 ```{r}
 flights |> 
   summarize(
-    avg_delay = mean(dep_delay) # <2> 
+    avg_delay = mean(dep_delay) # <28> 
   )
 ```
 
-2. The `NA` produced here is a result of calling `mean` on `dep_delay`. Any summarizing function will return `NA` if **any** of the values are `NA`. We can set `na.rm = TRUE` to change this behavior. 
+28. The `NA` produced here is a result of calling `mean` on `dep_delay`. Any summarizing function will return `NA` if **any** of the values are `NA`. We can set `na.rm = TRUE` to change this behavior. 
 
 ## `summarize()` Example
 
@@ -1309,11 +1163,11 @@ flights |>
   group_by(month) |> 
   summarize(
     delay = mean(dep_delay, na.rm = TRUE), 
-    n = n() # <3>
+    n = n() # <29>
   )
 ```
 
-3. `n()` returns the number of rows in each group. 
+29. `n()` returns the number of rows in each group. 
 
 ## Grouping by Multiple Variables <span style="color:#B7A57A">{{< fa scroll >}}</span> {.scrollable} 
 
@@ -1344,11 +1198,11 @@ flights |>
   summarize(
     delay = mean(dep_delay, na.rm = TRUE), 
     n = n(),
-    .by = month # <4>
+    .by = month # <30>
   )
 ```
 
-4. `.by` works with all verbs and has the advantage that you don’t need to use the `.groups` argument to suppress the grouping message or `ungroup()` when you’re done.
+30. `.by` works with all verbs and has the advantage that you don’t need to use the `.groups` argument to suppress the grouping message or `ungroup()` when you’re done.
 
 ## Select Specific Rows Per Group: `slice_*`
 
@@ -1373,19 +1227,17 @@ Let's find the flights that are most delayed upon arrival at each destination.
 ```{r}
 flights |> 
   group_by(dest) |> 
-  slice_max(arr_delay, n = 1) |> # <5>
+  slice_max(arr_delay, n = 1) |> # <31>
   relocate(dest) 
 ```
 
-5. You can vary `n` to select more than one row, or instead of `n =`, you can use `prop = 0.1` to select (e.g.) 10% of the rows in each group.
-
-. . . 
+31. You can vary `n` to select more than one row, or instead of `n =`, you can use `prop = 0.1` to select (e.g.) 10% of the rows in each group.
 
 ::: aside
 There are 105 groups but 108 rows! Why? `slice_min()` and `slice_max()` keep tied values so `n = 1` means "give us all rows with the highest value." If you want exactly one row per group you can set `with_ties = FALSE`.
 :::
 
-# Merging Data {.section-title background-color="#B7A57A"}
+# Merging Data {.section-title background-color="#4B2E83"}
 
 ## Why Merge Data?
 
@@ -1911,7 +1763,7 @@ The joins we've discussed thus far have all been equi-joins, where the rows matc
 Rolling joins are a special type of inequality join where instead of getting every row that satisfies the inequality, you get just the closest row. You can turn any inequality join into a rolling join by adding closest().
 :::
 
-# Tidying and Reshaping Data {.section-title background-color="#B7A57A"}
+# Tidying and Reshaping Data {.section-title background-color="#4B2E83"}
 
 # {data-menu-title="`tidyr`" background-image="images/tidyr.png" background-size="contain" background-position="center" .section-title background-color="#B7A57A"}
 
@@ -2181,10 +2033,6 @@ summary(billboard_2000$week)
 ```
 2. You can use `mutate()` to overwrite existing columns. 
 
-. . . 
-
-More sophisticated tools for character strings will be covered later in this course!
-
 ## Use `pivot_longer` arguments
 
 Alternatively (and more efficiently), there are a number of optional arguments for `pivot_longer` that are meant to help deal with naming issues.
@@ -2329,3 +2177,7 @@ wide_stats
 ## <span style="color:orange">{{< fa triangle-exclamation >}}</span> Nested Data
 If there are multiple rows in the input that correspond to one cell in the output you'll get a list-column. This means that you 1) need to fix something in your code/data because it shouldn't be nested in this way or 2) need to use `unnest_wider()` or `unnest_longer()` in order to access this column of data. More on this [here](https://r4ds.hadley.nz/rectangling.html#unnesting). 
 :::
+
+# Thanks!{.section-title background-color="#4B2E83"}
+
+# {data-menu-title="R Knowledge Comic" .section-title background-image="images/r_knowledge.png"}
