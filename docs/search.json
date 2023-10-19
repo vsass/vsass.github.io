@@ -33,5 +33,838 @@
     "title": "Data Wrangling in R",
     "section": "",
     "text": "Here is an example of code:\n\n1 + 1 \n\n[1] 2"
+  },
+  {
+    "objectID": "workshops/data_wrangling_r.html#title-slide",
+    "href": "workshops/data_wrangling_r.html#title-slide",
+    "title": "",
+    "section": "",
+    "text": "Data Wrangling in R\nCSSCR Workshop\n18 October, 2023\nVictoria Sass"
+  },
+  {
+    "objectID": "workshops/data_wrangling_r.html#roadmap",
+    "href": "workshops/data_wrangling_r.html#roadmap",
+    "title": "",
+    "section": "Roadmap",
+    "text": "Roadmap\n\n\nImporting and Exporting Data\nManipulating and Summarizing Data\nTidying and Reshaping Data"
+  },
+  {
+    "objectID": "workshops/data_wrangling_r.html#data-packages",
+    "href": "workshops/data_wrangling_r.html#data-packages",
+    "title": "",
+    "section": "Data Packages",
+    "text": "Data Packages\nR has a big user base. If you are working with a popular data source, it will often have a devoted R package on CRAN or Github.\n\nExamples:\n\n\nWDI: World Development Indicators (World Bank)\n\ntidycensus: Census and American Community Survey\n\nquantmod: financial data from Yahoo, FRED, Google\n\ngssr: The General Social Survey Cumulative Data (1972-2021)\n\npsidR: Panel Study of Income Dynamics (basic & public datasets)\n\n\n\nIf you have an actual data file, you’ll have to import it yourself…"
+  },
+  {
+    "objectID": "workshops/data_wrangling_r.html#delimited-text-files",
+    "href": "workshops/data_wrangling_r.html#delimited-text-files",
+    "title": "",
+    "section": "Delimited Text Files",
+    "text": "Delimited Text Files\nBesides a package, it’s easiest when data is stored in a text file. The most commonly encountered delimitd file is a .csv.\n\nA comma-separated values (.csv) file looks like the following:\n\"Subject\",\"Depression\",\"Sex\",\"Week\",\"HamD\",\"Imipramine\"\n101,\"Non-endogenous\",\"Second\",0,26,NA\n101,\"Non-endogenous\",\"Second\",1,22,NA\n101,\"Non-endogenous\",\"Second\",2,18,4.04305\n101,\"Non-endogenous\",\"Second\",3,7,3.93183\n101,\"Non-endogenous\",\"Second\",4,4,4.33073\n101,\"Non-endogenous\",\"Second\",5,3,4.36945\n103,\"Non-endogenous\",\"First\",0,33,NA\n103,\"Non-endogenous\",\"First\",1,24,NA\n103,\"Non-endogenous\",\"First\",2,15,2.77259"
+  },
+  {
+    "objectID": "workshops/data_wrangling_r.html#readr",
+    "href": "workshops/data_wrangling_r.html#readr",
+    "title": "",
+    "section": "readr",
+    "text": "readr\nR has some built-in functions for importing data, such as read.table() and read.csv().\n\nThe readr package provides similar functions, like read_csv(), that have slightly better features:\n\n\nFaster!\nBetter defaults (e.g. doesn’t automatically convert characters to factors)\nA bit smarter about dates and times\nLoading progress bars for large files\n\n\n\n\nreadr is one of the core tidyverse packages so loading tidyverse will load it too:\n\nlibrary(tidyverse)\n\n\n\nAlternatively, you can just load readr like so:\n\nlibrary(readr)"
+  },
+  {
+    "objectID": "workshops/data_wrangling_r.html#readr-importing-example",
+    "href": "workshops/data_wrangling_r.html#readr-importing-example",
+    "title": "",
+    "section": "\nreadr Importing Example",
+    "text": "readr Importing Example\nLet’s import some data about song ranks on the Billboard Hot 100 in 2000:\n\nbillboard_2000_raw &lt;- read_csv(file = \"data/billboard.csv\")\n\n\nHow do we know it loaded?\n\n\nLet’s look at it!\n\nglimpse(billboard_2000_raw)\n\n\n\nRows: 317\nColumns: 81\n$ year         &lt;dbl&gt; 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 200…\n$ artist       &lt;chr&gt; \"2 Pac\", \"2Ge+her\", \"3 Doors Down\", \"3 Doors Down\", \"504 …\n$ track        &lt;chr&gt; \"Baby Don't Cry (Keep...\", \"The Hardest Part Of ...\", \"Kr…\n$ time         &lt;time&gt; 04:22:00, 03:15:00, 03:53:00, 04:24:00, 03:35:00, 03:24:…\n$ date.entered &lt;date&gt; 2000-02-26, 2000-09-02, 2000-04-08, 2000-10-21, 2000-04-…\n$ wk1          &lt;dbl&gt; 87, 91, 81, 76, 57, 51, 97, 84, 59, 76, 84, 57, 50, 71, 7…\n$ wk2          &lt;dbl&gt; 82, 87, 70, 76, 34, 39, 97, 62, 53, 76, 84, 47, 39, 51, 6…\n$ wk3          &lt;dbl&gt; 72, 92, 68, 72, 25, 34, 96, 51, 38, 74, 75, 45, 30, 28, 5…\n$ wk4          &lt;dbl&gt; 77, NA, 67, 69, 17, 26, 95, 41, 28, 69, 73, 29, 28, 18, 4…\n$ wk5          &lt;dbl&gt; 87, NA, 66, 67, 17, 26, 100, 38, 21, 68, 73, 23, 21, 13, …\n$ wk6          &lt;dbl&gt; 94, NA, 57, 65, 31, 19, NA, 35, 18, 67, 69, 18, 19, 13, 3…\n$ wk7          &lt;dbl&gt; 99, NA, 54, 55, 36, 2, NA, 35, 16, 61, 68, 11, 20, 11, 34…\n$ wk8          &lt;dbl&gt; NA, NA, 53, 59, 49, 2, NA, 38, 14, 58, 65, 9, 17, 1, 29, …\n$ wk9          &lt;dbl&gt; NA, NA, 51, 62, 53, 3, NA, 38, 12, 57, 73, 9, 17, 1, 27, …\n$ wk10         &lt;dbl&gt; NA, NA, 51, 61, 57, 6, NA, 36, 10, 59, 83, 11, 17, 2, 30,…\n$ wk11         &lt;dbl&gt; NA, NA, 51, 61, 64, 7, NA, 37, 9, 66, 92, 1, 17, 2, 36, N…\n$ wk12         &lt;dbl&gt; NA, NA, 51, 59, 70, 22, NA, 37, 8, 68, NA, 1, 3, 3, 37, N…\n$ wk13         &lt;dbl&gt; NA, NA, 47, 61, 75, 29, NA, 38, 6, 61, NA, 1, 3, 3, 39, N…\n$ wk14         &lt;dbl&gt; NA, NA, 44, 66, 76, 36, NA, 49, 1, 67, NA, 1, 7, 4, 49, N…\n$ wk15         &lt;dbl&gt; NA, NA, 38, 72, 78, 47, NA, 61, 2, 59, NA, 4, 10, 12, 57,…\n$ wk16         &lt;dbl&gt; NA, NA, 28, 76, 85, 67, NA, 63, 2, 63, NA, 8, 17, 11, 63,…\n$ wk17         &lt;dbl&gt; NA, NA, 22, 75, 92, 66, NA, 62, 2, 67, NA, 12, 25, 13, 65…\n$ wk18         &lt;dbl&gt; NA, NA, 18, 67, 96, 84, NA, 67, 2, 71, NA, 22, 29, 15, 68…\n$ wk19         &lt;dbl&gt; NA, NA, 18, 73, NA, 93, NA, 83, 3, 79, NA, 23, 29, 18, 79…\n$ wk20         &lt;dbl&gt; NA, NA, 14, 70, NA, 94, NA, 86, 4, 89, NA, 43, 40, 20, 86…\n$ wk21         &lt;dbl&gt; NA, NA, 12, NA, NA, NA, NA, NA, 5, NA, NA, 44, 43, 30, NA…\n$ wk22         &lt;dbl&gt; NA, NA, 7, NA, NA, NA, NA, NA, 5, NA, NA, NA, 50, 40, NA,…\n$ wk23         &lt;dbl&gt; NA, NA, 6, NA, NA, NA, NA, NA, 6, NA, NA, NA, NA, 39, NA,…\n$ wk24         &lt;dbl&gt; NA, NA, 6, NA, NA, NA, NA, NA, 9, NA, NA, NA, NA, 44, NA,…\n$ wk25         &lt;dbl&gt; NA, NA, 6, NA, NA, NA, NA, NA, 13, NA, NA, NA, NA, NA, NA…\n$ wk26         &lt;dbl&gt; NA, NA, 5, NA, NA, NA, NA, NA, 14, NA, NA, NA, NA, NA, NA…\n$ wk27         &lt;dbl&gt; NA, NA, 5, NA, NA, NA, NA, NA, 16, NA, NA, NA, NA, NA, NA…\n$ wk28         &lt;dbl&gt; NA, NA, 4, NA, NA, NA, NA, NA, 23, NA, NA, NA, NA, NA, NA…\n$ wk29         &lt;dbl&gt; NA, NA, 4, NA, NA, NA, NA, NA, 22, NA, NA, NA, NA, NA, NA…\n$ wk30         &lt;dbl&gt; NA, NA, 4, NA, NA, NA, NA, NA, 33, NA, NA, NA, NA, NA, NA…\n$ wk31         &lt;dbl&gt; NA, NA, 4, NA, NA, NA, NA, NA, 36, NA, NA, NA, NA, NA, NA…\n$ wk32         &lt;dbl&gt; NA, NA, 3, NA, NA, NA, NA, NA, 43, NA, NA, NA, NA, NA, NA…\n$ wk33         &lt;dbl&gt; NA, NA, 3, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…\n$ wk34         &lt;dbl&gt; NA, NA, 3, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…\n$ wk35         &lt;dbl&gt; NA, NA, 4, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…\n$ wk36         &lt;dbl&gt; NA, NA, 5, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…\n$ wk37         &lt;dbl&gt; NA, NA, 5, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…\n$ wk38         &lt;dbl&gt; NA, NA, 9, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…\n$ wk39         &lt;dbl&gt; NA, NA, 9, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…\n$ wk40         &lt;dbl&gt; NA, NA, 15, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…\n$ wk41         &lt;dbl&gt; NA, NA, 14, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…\n$ wk42         &lt;dbl&gt; NA, NA, 13, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…\n$ wk43         &lt;dbl&gt; NA, NA, 14, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…\n$ wk44         &lt;dbl&gt; NA, NA, 16, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…\n$ wk45         &lt;dbl&gt; NA, NA, 17, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…\n$ wk46         &lt;dbl&gt; NA, NA, 21, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…\n$ wk47         &lt;dbl&gt; NA, NA, 22, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…\n$ wk48         &lt;dbl&gt; NA, NA, 24, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…\n$ wk49         &lt;dbl&gt; NA, NA, 28, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…\n$ wk50         &lt;dbl&gt; NA, NA, 33, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…\n$ wk51         &lt;dbl&gt; NA, NA, 42, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…\n$ wk52         &lt;dbl&gt; NA, NA, 42, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…\n$ wk53         &lt;dbl&gt; NA, NA, 49, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…\n$ wk54         &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…\n$ wk55         &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…\n$ wk56         &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…\n$ wk57         &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…\n$ wk58         &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…\n$ wk59         &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…\n$ wk60         &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…\n$ wk61         &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…\n$ wk62         &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…\n$ wk63         &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…\n$ wk64         &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…\n$ wk65         &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…\n$ wk66         &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…\n$ wk67         &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…\n$ wk68         &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…\n$ wk69         &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…\n$ wk70         &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…\n$ wk71         &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…\n$ wk72         &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…\n$ wk73         &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…\n$ wk74         &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…\n$ wk75         &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…\n$ wk76         &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…"
+  },
+  {
+    "objectID": "workshops/data_wrangling_r.html#alternate-solution",
+    "href": "workshops/data_wrangling_r.html#alternate-solution",
+    "title": "",
+    "section": "Alternate Solution",
+    "text": "Alternate Solution\nWhen you import data from an external file you’ll also see it in the Global Environment tab in the upper-right pane of RStudio:\n\n\n\nYou can also import the data manually!\nIn the upper right-hand pane of RStudio (make sure you’re in the Environment tab), select:\nImport Dataset &gt; From Text (readr) and browse to the file on your computer1.\n\n\nOnce you’ve imported the data, you can copy/paste the import code from the console into your file!!\nThis makes the process reproducible!\n\n\n\n\n\nIdeally you’ve saved it in your project folder!"
+  },
+  {
+    "objectID": "workshops/data_wrangling_r.html#manual-data-import",
+    "href": "workshops/data_wrangling_r.html#manual-data-import",
+    "title": "",
+    "section": "Manual Data Import",
+    "text": "Manual Data Import"
+  },
+  {
+    "objectID": "workshops/data_wrangling_r.html#specifying-nas",
+    "href": "workshops/data_wrangling_r.html#specifying-nas",
+    "title": "",
+    "section": "Specifying NAs",
+    "text": "Specifying NAs\nSometimes a particular dataset or file read from a different software will code NAs differently than R. If that’s the case, you can add additional specifications to read_csv for what to read in as NA.\n\nbillboard_2000_raw &lt;- read_csv(file = \"data/billboard.csv\", \n                               na = c(\"N/A\", \"999\"))"
+  },
+  {
+    "objectID": "workshops/data_wrangling_r.html#skipping-lines",
+    "href": "workshops/data_wrangling_r.html#skipping-lines",
+    "title": "",
+    "section": "Skipping lines",
+    "text": "Skipping lines\nDepending on how the data were input, there may be several lines that precede the beginning of the data table you’re interested in importing. You can skip these lines of metadata with the skip argument:\n\nbillboard_2000_raw &lt;- read_csv(file = \"data/billboard.csv\", \n                               skip = 1)"
+  },
+  {
+    "objectID": "workshops/data_wrangling_r.html#variable-names",
+    "href": "workshops/data_wrangling_r.html#variable-names",
+    "title": "",
+    "section": "Variable names",
+    "text": "Variable names\nread_csv will automatically take the first row as column names. If you want to rename them you can save yourself some time recoding later on if you specify your preferred variable names upfront with the col_names argument.\n\nIt takes a character vector to be used as column names (in their order of appearance).\n\nbillboard_2000_raw &lt;- read_csv(file = \"data/billboard.csv\", \n                               col_names = c(\"year\", \"artist\", \"track\", \"time\", \"date_entered\", \n1                                             paste(\"wk\", 1:76, sep = \"_\")))\n\n2billboard_renamed |&gt;  names() |&gt; head(10)\n\n\n1\n\npaste “pastes” together the first argument to the second argument (separated by whatever is specified in the sep argument) as character strings. Since the first argument here is a singular value, it is repeated for the entire length of the vector in the second argument. The first several values of paste(\"wk\", 1:76, sep = \"_\") are: wk_1, wk_2, wk_3, wk_4, wk_5, wk_6\n\n2\n\nOur first official usage of the pipe! names here returns the column names of our data frame. . . .\n\n\n\n\nIf you don’t have any variable names you can specify that instead.\n\nbillboard_2000_raw &lt;- read_csv(file = \"data/billboard.csv\", \n                               col_names = FALSE)"
+  },
+  {
+    "objectID": "workshops/data_wrangling_r.html#snake-case",
+    "href": "workshops/data_wrangling_r.html#snake-case",
+    "title": "",
+    "section": "Snake Case",
+    "text": "Snake Case\nIf you simply want to change your variables to snake case (all lower case; words separated by _), you can use the function clean_names() from the janitor package which replaces other punctuation separators with _.\n\n# Download pacakge first\n1# install.packages(\"janitor\")\n\n# Create new object for renamed data\nbillboard_renamed &lt;- billboard_2000_raw |&gt; \n2  janitor::clean_names(numerals = \"right\")\n\nbillboard_renamed |&gt;  names() |&gt; head(10)\n\n\n1\n\nRun in the console first.\n\n2\n\nYou can call a function without loading its package by specifying its package name followed by :: before it;  The numerals argument specifies if you additionally want to put a separator before a number.\n\n\n\n\n\n\n [1] \"year\"         \"artist\"       \"track\"        \"time\"         \"date_entered\"\n [6] \"wk_1\"         \"wk_2\"         \"wk_3\"         \"wk_4\"         \"wk_5\""
+  },
+  {
+    "objectID": "workshops/data_wrangling_r.html#other-data-file-types-with-readr",
+    "href": "workshops/data_wrangling_r.html#other-data-file-types-with-readr",
+    "title": "",
+    "section": "Other Data File Types with readr\n",
+    "text": "Other Data File Types with readr\n\nThe other functions in readr employ as similar approach to read_csv so the trick is just knowing which to use for what data type.\n\n\n\nread_csv2 is separated by semicolons (instead of commas)\n\nread_tsv is separated by tabs\n\nread_delim guesses the delimiter\n\nread_fwf reads in fixed-width-files\n\nread_table is a variation of fwf where columns are separated by white space\n\nread_log reads in Apache-style log files"
+  },
+  {
+    "objectID": "workshops/data_wrangling_r.html#other-packages-to-read-in-data",
+    "href": "workshops/data_wrangling_r.html#other-packages-to-read-in-data",
+    "title": "",
+    "section": "Other Packages to Read in Data",
+    "text": "Other Packages to Read in Data\nThere are a range of other ways, besides delimited files, that data are stored.\nThe following packages are part of the extended tidyverse and therefore operate with similar syntax and logic as readr."
+  },
+  {
+    "objectID": "workshops/data_wrangling_r.html#other-packages-to-read-in-data-1",
+    "href": "workshops/data_wrangling_r.html#other-packages-to-read-in-data-1",
+    "title": "",
+    "section": "Other Packages to Read in Data",
+    "text": "Other Packages to Read in Data\nThere are a range of other ways, besides delimited files, that data are stored.\nThe following packages are part of the extended tidyverse and therefore operate with similar syntax and logic as readr.\n\n\n\n\n\nFor Excel files (.xls or .xlsx), use package readxl1\n\n\n\n\n\n\nNote: For Excel files and Googlesheets You won’t keep text formatting, color, comments, or merged cells. See the openxlsx package for those capabilities. Also, tidyxl can help import non-tabular data from Excel.\nFunctions have additional arguments to read in specific sheets or a range of cells."
+  },
+  {
+    "objectID": "workshops/data_wrangling_r.html#other-packages-to-read-in-data-2",
+    "href": "workshops/data_wrangling_r.html#other-packages-to-read-in-data-2",
+    "title": "",
+    "section": "Other Packages to Read in Data",
+    "text": "Other Packages to Read in Data\nThere are a range of other ways, besides delimited files, that data are stored.\nThe following packages are part of the extended tidyverse and therefore operate with similar syntax and logic as readr.\n\n\n\n\n\nFor Excel files (.xls or .xlsx), use package readxl1\n\nFor Google Docs Spreadsheets, use package googlesheets42\n\n\n\n\n\n\nNote: For Excel files and Googlesheets You won’t keep text formatting, color, comments, or merged cells. See the openxlsx package for those capabilities. Also, tidyxl can help import non-tabular data from Excel.\nFunctions have additional arguments to read in specific sheets or a range of cells.Very similar to readxl with some slight variations you can read about here."
+  },
+  {
+    "objectID": "workshops/data_wrangling_r.html#other-packages-to-read-in-data-3",
+    "href": "workshops/data_wrangling_r.html#other-packages-to-read-in-data-3",
+    "title": "",
+    "section": "Other Packages to Read in Data",
+    "text": "Other Packages to Read in Data\nThere are a range of other ways, besides delimited files, that data are stored.\nThe following packages are part of the extended tidyverse and therefore operate with similar syntax and logic as readr.\n\n\n\n\n\nFor Excel files (.xls or .xlsx), use package readxl1\n\nFor Google Docs Spreadsheets, use package googlesheets42\n\nFor Stata, SPSS, and SAS files, use package haven3\n\n\n\n\n\n\nNote: For Excel files and Googlesheets You won’t keep text formatting, color, comments, or merged cells. See the openxlsx package for those capabilities. Also, tidyxl can help import non-tabular data from Excel.\nFunctions have additional arguments to read in specific sheets or a range of cells.Very similar to readxl with some slight variations you can read about here.SAS, SPSS, and Stata have so-called “labelled” vectors for which haven provides a class to represent in R. Alternatively, you can get rid of them with these functions."
+  },
+  {
+    "objectID": "workshops/data_wrangling_r.html#how-does-readr-parse-different-data-types",
+    "href": "workshops/data_wrangling_r.html#how-does-readr-parse-different-data-types",
+    "title": "",
+    "section": "How does readr parse different data types?",
+    "text": "How does readr parse different data types?\nFor each column in a data frame, readr functions pull the first 1000 rows and checks:\n\n\n\n\nflowchart LR\n    id1((Variable))==&gt;A([\"1. Does it contain only F, T, FALSE, TRUE, or NA (ignoring case)?\"])==&gt;id2{{Logical}}\n    id1((Variable))==&gt;B([\"2. Does it contain only numbers (e.g., 1, -4.5, 5e6, Inf?)\"])==&gt;id3{{Number}}\n    id1((Variable))==&gt;C([\"3. Does it match the ISO8601 standard?\"])==&gt;id4{{Date/Date-time}}\n    id1((Variable))==&gt;D([\"4. None of the above\"])==&gt;id5{{String}}\n    style id1 fill:#4B2E83,color:#B7A57A,stroke:#B7A57A\n    style id2 fill:#B7A57A,color:##4B2E83,stroke:##4B2E83\n    style id3 fill:#B7A57A,color:##4B2E83,stroke:##4B2E83\n    style id4 fill:#B7A57A,color:##4B2E83,stroke:##4B2E83\n    style id5 fill:#B7A57A,color:##4B2E83,stroke:##4B2E83\n    style A fill:#FFFFFF,color:#000000,stroke:#000000\n    style B fill:#FFFFFF,color:#000000,stroke:#000000\n    style C fill:#FFFFFF,color:#000000,stroke:#000000\n    style D fill:#FFFFFF,color:#000000,stroke:#000000"
+  },
+  {
+    "objectID": "workshops/data_wrangling_r.html#how-does-readr-parse-different-data-types-1",
+    "href": "workshops/data_wrangling_r.html#how-does-readr-parse-different-data-types-1",
+    "title": "",
+    "section": "How does readr parse different data types?",
+    "text": "How does readr parse different data types?\nFor each column in a data frame, readr functions pull the first 1000 rows and checks:\n\n\n\n\nflowchart LR\n    id1((Variable))==&gt;A([\"1. Does it contain only F, T, FALSE, TRUE, or NA (ignoring case)?\"])==&gt;id2{{Logical}}\n    id1((Variable))==&gt;B([\"2. Does it contain only numbers (e.g., 1, -4.5, 5e6, Inf?)\"])==&gt;id3{{Number}}\n    id1((Variable))==&gt;C([\"3. Does it match the ISO8601 standard?\"])==&gt;id4{{Date/Date-time}}\n    id1((Variable))==&gt;D([\"4. None of the above\"])==&gt;id5{{String}}\n    style id1 fill:#4B2E83,color:#B7A57A,stroke:#B7A57A\n    style id2 fill:#4B2E83,color:#B7A57A,stroke:#B7A57A\n    style id3 fill:#B7A57A,color:#4B2E83,stroke:#4B2E83\n    style id4 fill:#B7A57A,color:#4B2E83,stroke:#4B2E83\n    style id5 fill:#B7A57A,color:#4B2E83,stroke:#4B2E83\n    style A fill:#B7A57A,color:#000000,stroke:#000000\n    style B fill:#FFFFFF,color:#000000,stroke:#000000\n    style C fill:#FFFFFF,color:#000000,stroke:#000000\n    style D fill:#FFFFFF,color:#000000,stroke:#000000"
+  },
+  {
+    "objectID": "workshops/data_wrangling_r.html#how-does-readr-parse-different-data-types-2",
+    "href": "workshops/data_wrangling_r.html#how-does-readr-parse-different-data-types-2",
+    "title": "",
+    "section": "How does readr parse different data types?",
+    "text": "How does readr parse different data types?\nFor each column in a data frame, readr functions pull the first 1000 rows and checks:\n\n\n\n\nflowchart LR\n    id1((Variable))==&gt;A([\"1. Does it contain only F, T, FALSE, TRUE, or NA (ignoring case)?\"])==&gt;id2{{Logical}}\n    id1((Variable))==&gt;B([\"2. Does it contain only numbers (e.g., 1, -4.5, 5e6, Inf?)\"])==&gt;id3{{Number}}\n    id1((Variable))==&gt;C([\"3. Does it match the ISO8601 standard?\"])==&gt;id4{{Date/Date-time}}\n    id1((Variable))==&gt;D([\"4. None of the above\"])==&gt;id5{{String}}\n    style id1 fill:#4B2E83,color:#B7A57A,stroke:#B7A57A\n    style id2 fill:#B7A57A,color:#4B2E83,stroke:#4B2E83\n    style id3 fill:#4B2E83,color:#B7A57A,stroke:#B7A57A\n    style id4 fill:#B7A57A,color:#4B2E83,stroke:#4B2E83\n    style id5 fill:#B7A57A,color:#4B2E83,stroke:#4B2E83\n    style A fill:#FFFFFF,color:#000000,stroke:#000000\n    style B fill:#B7A57A,color:#000000,stroke:#000000\n    style C fill:#FFFFFF,color:#000000,stroke:#000000\n    style D fill:#FFFFFF,color:#000000,stroke:#000000"
+  },
+  {
+    "objectID": "workshops/data_wrangling_r.html#how-does-readr-parse-different-data-types-3",
+    "href": "workshops/data_wrangling_r.html#how-does-readr-parse-different-data-types-3",
+    "title": "",
+    "section": "How does readr parse different data types?",
+    "text": "How does readr parse different data types?\nFor each column in a data frame, readr functions pull the first 1000 rows and checks:\n\n\n\n\nflowchart LR\n    id1((Variable))==&gt;A([\"1. Does it contain only F, T, FALSE, TRUE, or NA (ignoring case)?\"])==&gt;id2{{Logical}}\n    id1((Variable))==&gt;B([\"2. Does it contain only numbers (e.g., 1, -4.5, 5e6, Inf?)\"])==&gt;id3{{Number}}\n    id1((Variable))==&gt;C([\"3. Does it match the ISO8601 standard?\"])==&gt;id4{{Date/Date-time}}\n    id1((Variable))==&gt;D([\"4. None of the above\"])==&gt;id5{{String}}\n    style id1 fill:#4B2E83,color:#B7A57A,stroke:#B7A57A\n    style id2 fill:#B7A57A,color:#4B2E83,stroke:#4B2E83\n    style id3 fill:#B7A57A,color:#4B2E83,stroke:#4B2E83\n    style id4 fill:#4B2E83,color:#B7A57A,stroke:#B7A57A\n    style id5 fill:#B7A57A,color:#4B2E83,stroke:#4B2E83\n    style A fill:#FFFFFF,color:#000000,stroke:#000000\n    style B fill:#FFFFFF,color:#000000,stroke:#000000\n    style C fill:#B7A57A,color:#000000,stroke:#000000\n    style D fill:#FFFFFF,color:#000000,stroke:#000000"
+  },
+  {
+    "objectID": "workshops/data_wrangling_r.html#how-does-readr-parse-different-data-types-4",
+    "href": "workshops/data_wrangling_r.html#how-does-readr-parse-different-data-types-4",
+    "title": "",
+    "section": "How does readr parse different data types?",
+    "text": "How does readr parse different data types?\nFor each column in a data frame, readr functions pull the first 1000 rows and checks:\n\n\n\n\nflowchart LR\n    id1((Variable))==&gt;A([\"1. Does it contain only F, T, FALSE, TRUE, or NA (ignoring case)?\"])==&gt;id2{{Logical}}\n    id1((Variable))==&gt;B([\"2. Does it contain only numbers (e.g., 1, -4.5, 5e6, Inf?)\"])==&gt;id3{{Number}}\n    id1((Variable))==&gt;C([\"3. Does it match the ISO8601 standard?\"])==&gt;id4{{Date/Date-time}}\n    id1((Variable))==&gt;D([\"4. None of the above\"])==&gt;id5{{String}}\n    style id1 fill:#4B2E83,color:#B7A57A,stroke:#B7A57A\n    style id2 fill:#B7A57A,color:#4B2E83,stroke:#4B2E83\n    style id3 fill:#B7A57A,color:#4B2E83,stroke:#4B2E83\n    style id4 fill:#B7A57A,color:#4B2E83,stroke:#4B2E83\n    style id5 fill:#4B2E83,color:#B7A57A,stroke:#B7A57A\n    style A fill:#FFFFFF,color:#000000,stroke:#000000\n    style B fill:#FFFFFF,color:#000000,stroke:#000000\n    style C fill:#FFFFFF,color:#000000,stroke:#000000\n    style D fill:#B7A57A,color:#000000,stroke:#000000"
+  },
+  {
+    "objectID": "workshops/data_wrangling_r.html#most-common-issue-with-reading-in-data",
+    "href": "workshops/data_wrangling_r.html#most-common-issue-with-reading-in-data",
+    "title": "",
+    "section": "Most Common Issue with Reading in Data",
+    "text": "Most Common Issue with Reading in Data\nThe most common problem that occurs when reading in data is having mixed data. Most often, given the heuristic provided in the last slide, will parse a variable as a character string to preserve whatever it contains.\n\nLet’s actually look at how the billboard data was read in:\n\nglimpse(billboard_2000_raw) \n\n\n\nRows: 317\nColumns: 81\n$ year         &lt;dbl&gt; 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 200…\n$ artist       &lt;chr&gt; \"2 Pac\", \"2Ge+her\", \"3 Doors Down\", \"3 Doors Down\", \"504 …\n$ track        &lt;chr&gt; \"Baby Don't Cry (Keep...\", \"The Hardest Part Of ...\", \"Kr…\n$ time         &lt;time&gt; 04:22:00, 03:15:00, 03:53:00, 04:24:00, 03:35:00, 03:24:…\n$ date.entered &lt;date&gt; 2000-02-26, 2000-09-02, 2000-04-08, 2000-10-21, 2000-04-…\n$ wk1          &lt;dbl&gt; 87, 91, 81, 76, 57, 51, 97, 84, 59, 76, 84, 57, 50, 71, 7…\n$ wk2          &lt;dbl&gt; 82, 87, 70, 76, 34, 39, 97, 62, 53, 76, 84, 47, 39, 51, 6…\n$ wk3          &lt;dbl&gt; 72, 92, 68, 72, 25, 34, 96, 51, 38, 74, 75, 45, 30, 28, 5…\n$ wk4          &lt;dbl&gt; 77, NA, 67, 69, 17, 26, 95, 41, 28, 69, 73, 29, 28, 18, 4…\n$ wk5          &lt;dbl&gt; 87, NA, 66, 67, 17, 26, 100, 38, 21, 68, 73, 23, 21, 13, …\n$ wk6          &lt;dbl&gt; 94, NA, 57, 65, 31, 19, NA, 35, 18, 67, 69, 18, 19, 13, 3…\n$ wk7          &lt;dbl&gt; 99, NA, 54, 55, 36, 2, NA, 35, 16, 61, 68, 11, 20, 11, 34…\n$ wk8          &lt;dbl&gt; NA, NA, 53, 59, 49, 2, NA, 38, 14, 58, 65, 9, 17, 1, 29, …\n$ wk9          &lt;dbl&gt; NA, NA, 51, 62, 53, 3, NA, 38, 12, 57, 73, 9, 17, 1, 27, …\n$ wk10         &lt;dbl&gt; NA, NA, 51, 61, 57, 6, NA, 36, 10, 59, 83, 11, 17, 2, 30,…\n$ wk11         &lt;dbl&gt; NA, NA, 51, 61, 64, 7, NA, 37, 9, 66, 92, 1, 17, 2, 36, N…\n$ wk12         &lt;dbl&gt; NA, NA, 51, 59, 70, 22, NA, 37, 8, 68, NA, 1, 3, 3, 37, N…\n$ wk13         &lt;dbl&gt; NA, NA, 47, 61, 75, 29, NA, 38, 6, 61, NA, 1, 3, 3, 39, N…\n$ wk14         &lt;dbl&gt; NA, NA, 44, 66, 76, 36, NA, 49, 1, 67, NA, 1, 7, 4, 49, N…\n$ wk15         &lt;dbl&gt; NA, NA, 38, 72, 78, 47, NA, 61, 2, 59, NA, 4, 10, 12, 57,…\n$ wk16         &lt;dbl&gt; NA, NA, 28, 76, 85, 67, NA, 63, 2, 63, NA, 8, 17, 11, 63,…\n$ wk17         &lt;dbl&gt; NA, NA, 22, 75, 92, 66, NA, 62, 2, 67, NA, 12, 25, 13, 65…\n$ wk18         &lt;dbl&gt; NA, NA, 18, 67, 96, 84, NA, 67, 2, 71, NA, 22, 29, 15, 68…\n$ wk19         &lt;dbl&gt; NA, NA, 18, 73, NA, 93, NA, 83, 3, 79, NA, 23, 29, 18, 79…\n$ wk20         &lt;dbl&gt; NA, NA, 14, 70, NA, 94, NA, 86, 4, 89, NA, 43, 40, 20, 86…\n$ wk21         &lt;dbl&gt; NA, NA, 12, NA, NA, NA, NA, NA, 5, NA, NA, 44, 43, 30, NA…\n$ wk22         &lt;dbl&gt; NA, NA, 7, NA, NA, NA, NA, NA, 5, NA, NA, NA, 50, 40, NA,…\n$ wk23         &lt;dbl&gt; NA, NA, 6, NA, NA, NA, NA, NA, 6, NA, NA, NA, NA, 39, NA,…\n$ wk24         &lt;dbl&gt; NA, NA, 6, NA, NA, NA, NA, NA, 9, NA, NA, NA, NA, 44, NA,…\n$ wk25         &lt;dbl&gt; NA, NA, 6, NA, NA, NA, NA, NA, 13, NA, NA, NA, NA, NA, NA…\n$ wk26         &lt;dbl&gt; NA, NA, 5, NA, NA, NA, NA, NA, 14, NA, NA, NA, NA, NA, NA…\n$ wk27         &lt;dbl&gt; NA, NA, 5, NA, NA, NA, NA, NA, 16, NA, NA, NA, NA, NA, NA…\n$ wk28         &lt;dbl&gt; NA, NA, 4, NA, NA, NA, NA, NA, 23, NA, NA, NA, NA, NA, NA…\n$ wk29         &lt;dbl&gt; NA, NA, 4, NA, NA, NA, NA, NA, 22, NA, NA, NA, NA, NA, NA…\n$ wk30         &lt;dbl&gt; NA, NA, 4, NA, NA, NA, NA, NA, 33, NA, NA, NA, NA, NA, NA…\n$ wk31         &lt;dbl&gt; NA, NA, 4, NA, NA, NA, NA, NA, 36, NA, NA, NA, NA, NA, NA…\n$ wk32         &lt;dbl&gt; NA, NA, 3, NA, NA, NA, NA, NA, 43, NA, NA, NA, NA, NA, NA…\n$ wk33         &lt;dbl&gt; NA, NA, 3, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…\n$ wk34         &lt;dbl&gt; NA, NA, 3, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…\n$ wk35         &lt;dbl&gt; NA, NA, 4, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…\n$ wk36         &lt;dbl&gt; NA, NA, 5, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…\n$ wk37         &lt;dbl&gt; NA, NA, 5, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…\n$ wk38         &lt;dbl&gt; NA, NA, 9, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…\n$ wk39         &lt;dbl&gt; NA, NA, 9, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…\n$ wk40         &lt;dbl&gt; NA, NA, 15, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…\n$ wk41         &lt;dbl&gt; NA, NA, 14, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…\n$ wk42         &lt;dbl&gt; NA, NA, 13, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…\n$ wk43         &lt;dbl&gt; NA, NA, 14, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…\n$ wk44         &lt;dbl&gt; NA, NA, 16, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…\n$ wk45         &lt;dbl&gt; NA, NA, 17, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…\n$ wk46         &lt;dbl&gt; NA, NA, 21, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…\n$ wk47         &lt;dbl&gt; NA, NA, 22, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…\n$ wk48         &lt;dbl&gt; NA, NA, 24, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…\n$ wk49         &lt;dbl&gt; NA, NA, 28, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…\n$ wk50         &lt;dbl&gt; NA, NA, 33, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…\n$ wk51         &lt;dbl&gt; NA, NA, 42, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…\n$ wk52         &lt;dbl&gt; NA, NA, 42, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…\n$ wk53         &lt;dbl&gt; NA, NA, 49, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…\n$ wk54         &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…\n$ wk55         &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…\n$ wk56         &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…\n$ wk57         &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…\n$ wk58         &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…\n$ wk59         &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…\n$ wk60         &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…\n$ wk61         &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…\n$ wk62         &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…\n$ wk63         &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…\n$ wk64         &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…\n$ wk65         &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…\n$ wk66         &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…\n$ wk67         &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…\n$ wk68         &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…\n$ wk69         &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…\n$ wk70         &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…\n$ wk71         &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…\n$ wk72         &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…\n$ wk73         &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…\n$ wk74         &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…\n$ wk75         &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…\n$ wk76         &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…"
+  },
+  {
+    "objectID": "workshops/data_wrangling_r.html#what-went-wrong",
+    "href": "workshops/data_wrangling_r.html#what-went-wrong",
+    "title": "",
+    "section": "What Went Wrong?",
+    "text": "What Went Wrong?\nSince readr uses the values in the first 1000 rows to guess the type of the column (logical, numeric, date/date-time, character), if the first 1000 rows don’t have any data, they will be coded as logical variables.\n\nThere are not many songs in the data that charted for 60+ weeks—and none in the first 1000 that charted for 66+ weeks!\n\n\n\n\n\n  NA is logical?\n\n\n\nclass(c(T, F, NA, FALSE, TRUE))\n1class(c(1, NA, 17.5, 5.3, NA))\n2class(as.Date(c(NA, \"2023-10-31\", \"1986-06-21\", \"1997-01-15\"), tz = \"America/Los_Angeles\"))\nclass(c(\"apple\", NA, \"mango\", \"blackberry\", \"plum\")) \nclass(c(NA, NA, NA, NA, NA))\n\n\n1\n\nclass returns the data type of its first argument.\n\n2\n\nas.Date turns a character string of dates into an official date class in Base R. If we had an accompanying time stamp we would need to use as.POSIXct which turns a character string of dates and times into an official date-time class in Base R.\n\n\n\n\n\n\n[1] \"logical\"\n[1] \"numeric\"\n[1] \"Date\"\n[1] \"character\"\n[1] \"logical\"\n\n\n\n\n\n\n\n\nTechnically, NAs can be any data type depending upon what they are grouped with. However, by themselves they are a logical indicator of missing data, so their class is logical."
+  },
+  {
+    "objectID": "workshops/data_wrangling_r.html#column-types",
+    "href": "workshops/data_wrangling_r.html#column-types",
+    "title": "",
+    "section": "Column types",
+    "text": "Column types\nSince the wk* variables should all be read in as integers, we can specify this explicitly with the col_types argument.\n\n\n# Create character string of shortcode column types\n1bb_types &lt;- paste(c(\"icctD\", rep(\"i\", 76)), collapse=\"\")\nbb_types \n\n\n1\n\nYou can short-code column types with i = integer, c = character, t = time, D = date.  The collapse argument collapses the first two arguments into one complete character string.\n\n\n\n\n\n\n[1] \"icctDiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii\"\n\n\n\n\n\n\n# re-read in data with column types specified\nbillboard_2000_raw &lt;- read_csv(file = \"data/billboard.csv\", \n2                               col_types = bb_types)\n\n\n2\n\nThis string now specifies the data type for each column of our data frame. Visit this reference page to see all available column types and their short codes."
+  },
+  {
+    "objectID": "workshops/data_wrangling_r.html#column-types-1",
+    "href": "workshops/data_wrangling_r.html#column-types-1",
+    "title": "",
+    "section": "Column types",
+    "text": "Column types\nTo specify a default column type you can use .default like so:\n\nbillboard_2000_raw &lt;- read_csv(file = \"data/billboard.csv\", \n                               col_types = cols(.default = col_character())) \n\n\n\nAnother useful helper is cols_only() for when you only want to read in a subset of all available variables.\n\nbillboard_2000_raw &lt;- read_csv(file = \"data/billboard.csv\", \n                               col_types = cols_only(x = col_character)) \n\n\n\n\nIn summary, the col-types argument gives you greater control over how your data are read in and can save you recoding time down the road and/or point out where your data are behaving differently than you expect."
+  },
+  {
+    "objectID": "workshops/data_wrangling_r.html#reading-in-multiple-files",
+    "href": "workshops/data_wrangling_r.html#reading-in-multiple-files",
+    "title": "",
+    "section": "Reading in Multiple Files",
+    "text": "Reading in Multiple Files\nIf you data are split across multiple files you can read them in all at once by specifying the id argument.\n\n# Create list of files manually\nsales_files &lt;- c(\"data/01-sales.csv\", \"data/02-sales.csv\", \"data/03-sales.csv\")\nread_csv(sales_files, id = \"file\")\n\n\n\n# A tibble: 19 × 6\n   file              month     year brand  item     n\n   &lt;chr&gt;             &lt;chr&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;\n 1 data/01-sales.csv January   2019     1  1234     3\n 2 data/01-sales.csv January   2019     1  8721     9\n 3 data/01-sales.csv January   2019     1  1822     2\n 4 data/01-sales.csv January   2019     2  3333     1\n 5 data/01-sales.csv January   2019     2  2156     9\n 6 data/01-sales.csv January   2019     2  3987     6\n 7 data/01-sales.csv January   2019     2  3827     6\n 8 data/02-sales.csv February  2019     1  1234     8\n 9 data/02-sales.csv February  2019     1  8721     2\n10 data/02-sales.csv February  2019     1  1822     3\n11 data/02-sales.csv February  2019     2  3333     1\n12 data/02-sales.csv February  2019     2  2156     3\n13 data/02-sales.csv February  2019     2  3987     6\n14 data/03-sales.csv March     2019     1  1234     3\n15 data/03-sales.csv March     2019     1  3627     1\n16 data/03-sales.csv March     2019     1  8820     3\n17 data/03-sales.csv March     2019     2  7253     1\n18 data/03-sales.csv March     2019     2  8766     3\n19 data/03-sales.csv March     2019     2  8288     6"
+  },
+  {
+    "objectID": "workshops/data_wrangling_r.html#reading-in-multiple-files-1",
+    "href": "workshops/data_wrangling_r.html#reading-in-multiple-files-1",
+    "title": "",
+    "section": "Reading in Multiple Files",
+    "text": "Reading in Multiple Files\nIf you have too many files to reasonable type out all their names you can also use the base r function list.files to list the files for you.\n\n# Create list of files with pattern-matching\n1sales_files &lt;- list.files(\"data\", pattern = \"sales\\\\.csv$\", full.names = TRUE)\nsales_files\n\n\n1\n\nUsing regular expressions to search for files by pattern-matching is extremely powerful, particularly if you’re searching through large directories with many files. Learn more here.\n\n\n\n\n\n\n[1] \"data/01-sales.csv\" \"data/02-sales.csv\" \"data/03-sales.csv\""
+  },
+  {
+    "objectID": "workshops/data_wrangling_r.html#data-entry",
+    "href": "workshops/data_wrangling_r.html#data-entry",
+    "title": "",
+    "section": "Data Entry",
+    "text": "Data Entry\nSometimes you’ll need to create a data set in your code. You can do this two ways:\n\n\ntibble()\ntribble()\n\n\n\nTibbles lay out the data by columns (i.e. a dataframe transposed).\n\n# Creating data with tibble\ntibble( \n  x = c(1, 2, 5), \n  y = c(\"h\", \"m\", \"g\"),\n  z = c(0.08, 0.83, 0.60)\n)\n\n\n\n# A tibble: 3 × 3\n      x y         z\n  &lt;dbl&gt; &lt;chr&gt; &lt;dbl&gt;\n1     1 h      0.08\n2     2 m      0.83\n3     5 g      0.6 \n\n\n\n\nTibbles (transposed tibble) lay out the data by rows (i.e. the way a dataframe looks) which is much more intuitive.\n\n# Creating data with tribble\ntribble( \n  ~x, ~y, ~z,\n  1, \"h\", 0.08,\n  2, \"m\", 0.83,\n  5, \"g\", 0.60\n)\n\n\n\n# A tibble: 3 × 3\n      x y         z\n  &lt;dbl&gt; &lt;chr&gt; &lt;dbl&gt;\n1     1 h      0.08\n2     2 m      0.83\n3     5 g      0.6"
+  },
+  {
+    "objectID": "workshops/data_wrangling_r.html#writing-delimited-files",
+    "href": "workshops/data_wrangling_r.html#writing-delimited-files",
+    "title": "",
+    "section": "Writing Delimited Files",
+    "text": "Writing Delimited Files\nGetting data out of R into a delimited file is very similar to getting it into R:\n\nwrite_csv(billboard_2000_raw, path = \"data/billboard_data.csv\")\n\nThis saved the data we pulled off the web in a file called billboard_data.csv in the data folder of my working directory.\n\nHowever, saving data in this way will not preserve R data types since delimited files code everything as a character string.\n\n\nTo save R objects and all associated metadata you have two options:\n\n\n.Rds format:\n.Rdata or .Rda format:\n\n\n\n\nUsed for single objects, doesn’t save original the object name\nSave: write_rds(old_object_name, \"path.Rds\")\n\nLoad: new_object_name &lt;- read_rds(\"path.Rds\")\n\n\n\n\n\nUsed for saving multiple files where the original object names are preserved\nSave: save(object1, object2, ... , file = \"path.Rdata\")\n\nLoad: load(\"path.Rdata\") without assignment operator"
+  },
+  {
+    "objectID": "workshops/data_wrangling_r.html#writing-other-file-types",
+    "href": "workshops/data_wrangling_r.html#writing-other-file-types",
+    "title": "",
+    "section": "Writing Other File-Types",
+    "text": "Writing Other File-Types\n\n\nwritexl\ngooglesheets4\nhaven\n\n\n\n\n\n\n\nwrite_xlsx() writes to an xlsx file\n\n\n\n\n\n\n\n\n\n\n\nsheet_write() or write_sheet() (over)writes new data into a Sheet\n\ngs4_create() creates a new Sheet\n\nsheet_append() appends rows to a sheet\n\nrange_write() (over)writes new data into a range\n\nrange_flood() floods a range of cells\n`range_clear() clears a range of cells\n\n\n\n\n\n\n\n\n\n\n\nwrite_dta() writes Stata DTA files\n\nwrite_sav() writes SPSS files\n\nwrite_xpt() writes SAS transport files"
+  },
+  {
+    "objectID": "workshops/data_wrangling_r.html#why-merge-data",
+    "href": "workshops/data_wrangling_r.html#why-merge-data",
+    "title": "",
+    "section": "Why Merge Data?",
+    "text": "Why Merge Data?\nIn practice, we often collect data from different sources. To analyze the data, we usually must first combine (merge) them.\n\nFor example, imagine you would like to study county-level patterns with respect to age and grocery spending. However, you can only find,\n\nCounty level age data from the US Census, and\nCounty level grocery spending data from the US Department of Agriculture\n\n\n\nMerge the data!!\n\n\nTo do this we’ll be using the various join functions from the dplyr package."
+  },
+  {
+    "objectID": "workshops/data_wrangling_r.html#joining-in-concept",
+    "href": "workshops/data_wrangling_r.html#joining-in-concept",
+    "title": "",
+    "section": "Joining in Concept",
+    "text": "Joining in Concept\nWe need to think about the following when we want to merge data frames A and B:\n\n\nWhich rows are we keeping from each data frame?\n\n\n\n\nWhich columns are we keeping from each data frame?\n\n\n\n\n\nWhich variables determine whether rows match?"
+  },
+  {
+    "objectID": "workshops/data_wrangling_r.html#keys",
+    "href": "workshops/data_wrangling_r.html#keys",
+    "title": "",
+    "section": "Keys",
+    "text": "Keys\nKeys are the way that two datasets are connected to one another. The two types of keys are:\n\n\n\nPrimary: a variable or set of variables that uniquely identifies each observation.\n\nWhen more than one variable makes up the primary key it’s called a compound key\n\n\n\n\nForeign: a variable (or set of variables) that corresponds to a primary key in another table."
+  },
+  {
+    "objectID": "workshops/data_wrangling_r.html#primary-keys-fa-scroll",
+    "href": "workshops/data_wrangling_r.html#primary-keys-fa-scroll",
+    "title": "",
+    "section": "Primary Keys \n",
+    "text": "Primary Keys \n\nLet’s look at our data to gain a better sense of what this all means.\n\n\nairlines\nairports\nplanes\nweather\nflights\n\n\n\n\nairlines records two pieces of data about each airline: its carrier code and its full name. You can identify an airline with its two letter carrier code, making carrier the primary key.\n\n\nairlines \n\n# A tibble: 16 × 2\n   carrier name                       \n   &lt;chr&gt;   &lt;chr&gt;                      \n 1 9E      Endeavor Air Inc.          \n 2 AA      American Airlines Inc.     \n 3 AS      Alaska Airlines Inc.       \n 4 B6      JetBlue Airways            \n 5 DL      Delta Air Lines Inc.       \n 6 EV      ExpressJet Airlines Inc.   \n 7 F9      Frontier Airlines Inc.     \n 8 FL      AirTran Airways Corporation\n 9 HA      Hawaiian Airlines Inc.     \n10 MQ      Envoy Air                  \n11 OO      SkyWest Airlines Inc.      \n12 UA      United Air Lines Inc.      \n13 US      US Airways Inc.            \n14 VX      Virgin America             \n15 WN      Southwest Airlines Co.     \n16 YV      Mesa Airlines Inc.         \n\n\n\n\n\nairports records data about each airport. You can identify each airport by its three letter airport code, making faa the primary key.\n\n\nairports\n\n# A tibble: 1,458 × 8\n   faa   name                             lat    lon   alt    tz dst   tzone    \n   &lt;chr&gt; &lt;chr&gt;                          &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;    \n 1 04G   Lansdowne Airport               41.1  -80.6  1044    -5 A     America/…\n 2 06A   Moton Field Municipal Airport   32.5  -85.7   264    -6 A     America/…\n 3 06C   Schaumburg Regional             42.0  -88.1   801    -6 A     America/…\n 4 06N   Randall Airport                 41.4  -74.4   523    -5 A     America/…\n 5 09J   Jekyll Island Airport           31.1  -81.4    11    -5 A     America/…\n 6 0A9   Elizabethton Municipal Airport  36.4  -82.2  1593    -5 A     America/…\n 7 0G6   Williams County Airport         41.5  -84.5   730    -5 A     America/…\n 8 0G7   Finger Lakes Regional Airport   42.9  -76.8   492    -5 A     America/…\n 9 0P2   Shoestring Aviation Airfield    39.8  -76.6  1000    -5 U     America/…\n10 0S9   Jefferson County Intl           48.1 -123.    108    -8 A     America/…\n# ℹ 1,448 more rows\n\n\n\n\n\nplanes records data about each plane. You can identify a plane by its tail number, making tailnum the primary key.\n\n\nplanes\n\n# A tibble: 3,322 × 9\n   tailnum  year type              manufacturer model engines seats speed engine\n   &lt;chr&gt;   &lt;int&gt; &lt;chr&gt;             &lt;chr&gt;        &lt;chr&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; \n 1 N10156   2004 Fixed wing multi… EMBRAER      EMB-…       2    55    NA Turbo…\n 2 N102UW   1998 Fixed wing multi… AIRBUS INDU… A320…       2   182    NA Turbo…\n 3 N103US   1999 Fixed wing multi… AIRBUS INDU… A320…       2   182    NA Turbo…\n 4 N104UW   1999 Fixed wing multi… AIRBUS INDU… A320…       2   182    NA Turbo…\n 5 N10575   2002 Fixed wing multi… EMBRAER      EMB-…       2    55    NA Turbo…\n 6 N105UW   1999 Fixed wing multi… AIRBUS INDU… A320…       2   182    NA Turbo…\n 7 N107US   1999 Fixed wing multi… AIRBUS INDU… A320…       2   182    NA Turbo…\n 8 N108UW   1999 Fixed wing multi… AIRBUS INDU… A320…       2   182    NA Turbo…\n 9 N109UW   1999 Fixed wing multi… AIRBUS INDU… A320…       2   182    NA Turbo…\n10 N110UW   1999 Fixed wing multi… AIRBUS INDU… A320…       2   182    NA Turbo…\n# ℹ 3,312 more rows\n\n\n\n\n\nweather records data about the weather at the origin airports. You can identify each observation by the combination of location and time, making origin and time_hour the compound primary key.\n\n\nweather\n\n# A tibble: 26,115 × 15\n   origin  year month   day  hour  temp  dewp humid wind_dir wind_speed\n   &lt;chr&gt;  &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;      &lt;dbl&gt;\n 1 EWR     2013     1     1     1  39.0  26.1  59.4      270      10.4 \n 2 EWR     2013     1     1     2  39.0  27.0  61.6      250       8.06\n 3 EWR     2013     1     1     3  39.0  28.0  64.4      240      11.5 \n 4 EWR     2013     1     1     4  39.9  28.0  62.2      250      12.7 \n 5 EWR     2013     1     1     5  39.0  28.0  64.4      260      12.7 \n 6 EWR     2013     1     1     6  37.9  28.0  67.2      240      11.5 \n 7 EWR     2013     1     1     7  39.0  28.0  64.4      240      15.0 \n 8 EWR     2013     1     1     8  39.9  28.0  62.2      250      10.4 \n 9 EWR     2013     1     1     9  39.9  28.0  62.2      260      15.0 \n10 EWR     2013     1     1    10  41    28.0  59.6      260      13.8 \n# ℹ 26,105 more rows\n# ℹ 5 more variables: wind_gust &lt;dbl&gt;, precip &lt;dbl&gt;, pressure &lt;dbl&gt;,\n#   visib &lt;dbl&gt;, time_hour &lt;dttm&gt;\n\n\n\n\n\nflights actually contains foreign keys that correspond to the primary keys of the other datasets.\n\n\nflights\n\n# A tibble: 336,776 × 19\n    year month   day dep_time sched_dep_time dep_delay arr_time sched_arr_time\n   &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;          &lt;int&gt;\n 1  2013     1     1      517            515         2      830            819\n 2  2013     1     1      533            529         4      850            830\n 3  2013     1     1      542            540         2      923            850\n 4  2013     1     1      544            545        -1     1004           1022\n 5  2013     1     1      554            600        -6      812            837\n 6  2013     1     1      554            558        -4      740            728\n 7  2013     1     1      555            600        -5      913            854\n 8  2013     1     1      557            600        -3      709            723\n 9  2013     1     1      557            600        -3      838            846\n10  2013     1     1      558            600        -2      753            745\n# ℹ 336,766 more rows\n# ℹ 11 more variables: arr_delay &lt;dbl&gt;, carrier &lt;chr&gt;, flight &lt;int&gt;,\n#   tailnum &lt;chr&gt;, origin &lt;chr&gt;, dest &lt;chr&gt;, air_time &lt;dbl&gt;, distance &lt;dbl&gt;,\n#   hour &lt;dbl&gt;, minute &lt;dbl&gt;, time_hour &lt;dttm&gt;"
+  },
+  {
+    "objectID": "workshops/data_wrangling_r.html#foreign-keys",
+    "href": "workshops/data_wrangling_r.html#foreign-keys",
+    "title": "",
+    "section": "Foreign Keys",
+    "text": "Foreign Keys\n\nNote: grey shading indicates the primary key for that particular dataset.\n\n\nflights$origin –&gt; airports$faa\n\n\nflights$dest –&gt; airports$faa\n\n\nflights$origin-flights$time_hour –&gt; weather$origin-weather$time_hour.\n\nflights$tailnum –&gt; planes$tailnum\n\n\nflights$carrier –&gt; airlines$carrier"
+  },
+  {
+    "objectID": "workshops/data_wrangling_r.html#checking-keys",
+    "href": "workshops/data_wrangling_r.html#checking-keys",
+    "title": "",
+    "section": "Checking Keys",
+    "text": "Checking Keys\nA nice feature of these data are that the primary and foreign keys have the same name and almost every variable name used across multiple tables has the same meaning.1 This isn’t always the case!2\n\nIt is good practice to make sure your primary keys actually uniquely identify an observation and that they don’t have any missing values.\n\n\n\nplanes |&gt; \n1  count(tailnum) |&gt;\n  filter(n &gt; 1)\n\n\n1\n\nIf your primary keys uniquely identify each observation you’ll get an empty tibble in return.\n\n\n\n\n\n\n# A tibble: 0 × 2\n# ℹ 2 variables: tailnum &lt;chr&gt;, n &lt;int&gt;\n\n\n\n\n\nplanes |&gt; \n2  filter(is.na(tailnum))\n\n\n2\n\nIf none of your primary keys are missing you’ll get an empty tibble in return here too.\n\n\n\n\n# A tibble: 0 × 9\n# ℹ 9 variables: tailnum &lt;chr&gt;, year &lt;int&gt;, type &lt;chr&gt;, manufacturer &lt;chr&gt;,\n#   model &lt;chr&gt;, engines &lt;int&gt;, seats &lt;int&gt;, speed &lt;int&gt;, engine &lt;chr&gt;\n\n\n\nWith the exception of year: it means year of departure in flights and year of manufacture in planes. We’ll cover how to handle this shortly."
+  },
+  {
+    "objectID": "workshops/data_wrangling_r.html#surrogate-keys",
+    "href": "workshops/data_wrangling_r.html#surrogate-keys",
+    "title": "",
+    "section": "Surrogate Keys",
+    "text": "Surrogate Keys\nSometimes you’ll want to create an index of your observations to serve as a surrogate key because the compound primary key is not particlarly easy to reference.\n\nFor example, our flights dataset has three variables that uniquely identify each observation: time_hour, carrier, flight.\n\n\n\nflights2 &lt;- flights |&gt; \n3  mutate(id = row_number(), .before = 1)\nflights2\n\n\n3\n\nrow_number() simply specifies the row number of the dataframe.\n\n\n\n\n\n\n# A tibble: 336,776 × 20\n      id  year month   day dep_time sched_dep_time dep_delay arr_time\n   &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;\n 1     1  2013     1     1      517            515         2      830\n 2     2  2013     1     1      533            529         4      850\n 3     3  2013     1     1      542            540         2      923\n 4     4  2013     1     1      544            545        -1     1004\n 5     5  2013     1     1      554            600        -6      812\n 6     6  2013     1     1      554            558        -4      740\n 7     7  2013     1     1      555            600        -5      913\n 8     8  2013     1     1      557            600        -3      709\n 9     9  2013     1     1      557            600        -3      838\n10    10  2013     1     1      558            600        -2      753\n# ℹ 336,766 more rows\n# ℹ 12 more variables: sched_arr_time &lt;int&gt;, arr_delay &lt;dbl&gt;, carrier &lt;chr&gt;,\n#   flight &lt;int&gt;, tailnum &lt;chr&gt;, origin &lt;chr&gt;, dest &lt;chr&gt;, air_time &lt;dbl&gt;,\n#   distance &lt;dbl&gt;, hour &lt;dbl&gt;, minute &lt;dbl&gt;, time_hour &lt;dttm&gt;"
+  },
+  {
+    "objectID": "workshops/data_wrangling_r.html#basic-equi--joins",
+    "href": "workshops/data_wrangling_r.html#basic-equi--joins",
+    "title": "",
+    "section": "Basic (Equi-) Joins",
+    "text": "Basic (Equi-) Joins\nAll join functions have the same basic interface: they take a pair of data frames and return one data frame.\n\nThe order of the rows and columns is primarily going to be determined by the first data frame.\n\n\ndplyr has two types of joins: mutating and filtering.\n\n\n\n\n\nMutating Joins\nAdd new variables to one data frame from matching observations from another data frame.\n\nleft_join()\nright_join()\ninner_join()\nfull_join()\n\n\n\n\n\nFiltering Joins\nFilter observations from one data frame based on whether or not they match an observation in another data frame.\n\nsemi_join()\nanti-join()"
+  },
+  {
+    "objectID": "workshops/data_wrangling_r.html#mutating-joins-1",
+    "href": "workshops/data_wrangling_r.html#mutating-joins-1",
+    "title": "",
+    "section": "Mutating Joins",
+    "text": "Mutating Joins"
+  },
+  {
+    "objectID": "workshops/data_wrangling_r.html#left_join-fa-scroll",
+    "href": "workshops/data_wrangling_r.html#left_join-fa-scroll",
+    "title": "",
+    "section": "\nleft_join() \n",
+    "text": "left_join() \n\n\n\n\n\n\n\n\n\nThe most common type of join\nAppends columns from y to x by the rows in x\n\n\nNA added if there is nothing from y\n\n\n\nNatural join: when all variables that appear in both datasets are used as the join key\n\nIf the join_by() argument is not specified, left_join() will automatically join by all columns that have names and values in common."
+  },
+  {
+    "objectID": "workshops/data_wrangling_r.html#left_join-in-nycflights13",
+    "href": "workshops/data_wrangling_r.html#left_join-in-nycflights13",
+    "title": "",
+    "section": "\nleft_join in nycflights13\n",
+    "text": "left_join in nycflights13\n\n\nflights2 &lt;- flights |&gt; \n  select(year, time_hour, origin, dest, tailnum, carrier)\n\nWith only the pertinent variables from the flights dataset, we can see how a left_join works with the airlines dataset.\n\nflights2 |&gt;\n  left_join(airlines)\n\n\n\nJoining with `by = join_by(carrier)`\n\n\n# A tibble: 336,776 × 7\n    year time_hour           origin dest  tailnum carrier name                  \n   &lt;int&gt; &lt;dttm&gt;              &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;                 \n 1  2013 2013-01-01 05:00:00 EWR    IAH   N14228  UA      United Air Lines Inc. \n 2  2013 2013-01-01 05:00:00 LGA    IAH   N24211  UA      United Air Lines Inc. \n 3  2013 2013-01-01 05:00:00 JFK    MIA   N619AA  AA      American Airlines Inc.\n 4  2013 2013-01-01 05:00:00 JFK    BQN   N804JB  B6      JetBlue Airways       \n 5  2013 2013-01-01 06:00:00 LGA    ATL   N668DN  DL      Delta Air Lines Inc.  \n 6  2013 2013-01-01 05:00:00 EWR    ORD   N39463  UA      United Air Lines Inc. \n 7  2013 2013-01-01 06:00:00 EWR    FLL   N516JB  B6      JetBlue Airways       \n 8  2013 2013-01-01 06:00:00 LGA    IAD   N829AS  EV      ExpressJet Airlines I…\n 9  2013 2013-01-01 06:00:00 JFK    MCO   N593JB  B6      JetBlue Airways       \n10  2013 2013-01-01 06:00:00 LGA    ORD   N3ALAA  AA      American Airlines Inc.\n# ℹ 336,766 more rows"
+  },
+  {
+    "objectID": "workshops/data_wrangling_r.html#different-variable-meanings",
+    "href": "workshops/data_wrangling_r.html#different-variable-meanings",
+    "title": "",
+    "section": "Different variable meanings",
+    "text": "Different variable meanings\n\nflights2 |&gt; \n  left_join(planes)\n\n\n\nJoining with `by = join_by(year, tailnum)`\n\n\n# A tibble: 336,776 × 13\n    year time_hour           origin dest  tailnum carrier type  manufacturer\n   &lt;int&gt; &lt;dttm&gt;              &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt;       \n 1  2013 2013-01-01 05:00:00 EWR    IAH   N14228  UA      &lt;NA&gt;  &lt;NA&gt;        \n 2  2013 2013-01-01 05:00:00 LGA    IAH   N24211  UA      &lt;NA&gt;  &lt;NA&gt;        \n 3  2013 2013-01-01 05:00:00 JFK    MIA   N619AA  AA      &lt;NA&gt;  &lt;NA&gt;        \n 4  2013 2013-01-01 05:00:00 JFK    BQN   N804JB  B6      &lt;NA&gt;  &lt;NA&gt;        \n 5  2013 2013-01-01 06:00:00 LGA    ATL   N668DN  DL      &lt;NA&gt;  &lt;NA&gt;        \n 6  2013 2013-01-01 05:00:00 EWR    ORD   N39463  UA      &lt;NA&gt;  &lt;NA&gt;        \n 7  2013 2013-01-01 06:00:00 EWR    FLL   N516JB  B6      &lt;NA&gt;  &lt;NA&gt;        \n 8  2013 2013-01-01 06:00:00 LGA    IAD   N829AS  EV      &lt;NA&gt;  &lt;NA&gt;        \n 9  2013 2013-01-01 06:00:00 JFK    MCO   N593JB  B6      &lt;NA&gt;  &lt;NA&gt;        \n10  2013 2013-01-01 06:00:00 LGA    ORD   N3ALAA  AA      &lt;NA&gt;  &lt;NA&gt;        \n# ℹ 336,766 more rows\n# ℹ 5 more variables: model &lt;chr&gt;, engines &lt;int&gt;, seats &lt;int&gt;, speed &lt;int&gt;,\n#   engine &lt;chr&gt;\n\n\n\nWhen we try to do this, however, we get a bunch of NAs. Why?"
+  },
+  {
+    "objectID": "workshops/data_wrangling_r.html#different-variable-meanings-1",
+    "href": "workshops/data_wrangling_r.html#different-variable-meanings-1",
+    "title": "",
+    "section": "Different variable meanings",
+    "text": "Different variable meanings\n\nflights2 |&gt; \n  left_join(planes)\n\nJoining with `by = join_by(year, tailnum)`\n\n\n# A tibble: 336,776 × 13\n    year time_hour           origin dest  tailnum carrier type  manufacturer\n   &lt;int&gt; &lt;dttm&gt;              &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt;       \n 1  2013 2013-01-01 05:00:00 EWR    IAH   N14228  UA      &lt;NA&gt;  &lt;NA&gt;        \n 2  2013 2013-01-01 05:00:00 LGA    IAH   N24211  UA      &lt;NA&gt;  &lt;NA&gt;        \n 3  2013 2013-01-01 05:00:00 JFK    MIA   N619AA  AA      &lt;NA&gt;  &lt;NA&gt;        \n 4  2013 2013-01-01 05:00:00 JFK    BQN   N804JB  B6      &lt;NA&gt;  &lt;NA&gt;        \n 5  2013 2013-01-01 06:00:00 LGA    ATL   N668DN  DL      &lt;NA&gt;  &lt;NA&gt;        \n 6  2013 2013-01-01 05:00:00 EWR    ORD   N39463  UA      &lt;NA&gt;  &lt;NA&gt;        \n 7  2013 2013-01-01 06:00:00 EWR    FLL   N516JB  B6      &lt;NA&gt;  &lt;NA&gt;        \n 8  2013 2013-01-01 06:00:00 LGA    IAD   N829AS  EV      &lt;NA&gt;  &lt;NA&gt;        \n 9  2013 2013-01-01 06:00:00 JFK    MCO   N593JB  B6      &lt;NA&gt;  &lt;NA&gt;        \n10  2013 2013-01-01 06:00:00 LGA    ORD   N3ALAA  AA      &lt;NA&gt;  &lt;NA&gt;        \n# ℹ 336,766 more rows\n# ℹ 5 more variables: model &lt;chr&gt;, engines &lt;int&gt;, seats &lt;int&gt;, speed &lt;int&gt;,\n#   engine &lt;chr&gt;\n\n\nJoin is trying to use tailnum and year as a compound key. While both datasets have year as a variable, they mean different things. Therefore, we need to be explicit here about what to join by."
+  },
+  {
+    "objectID": "workshops/data_wrangling_r.html#different-variable-meanings-2",
+    "href": "workshops/data_wrangling_r.html#different-variable-meanings-2",
+    "title": "",
+    "section": "Different variable meanings",
+    "text": "Different variable meanings\n\nflights2 |&gt; \n4  left_join(planes, join_by(tailnum))\n\n\n4\n\njoin_by(tailnum) is short for join_by(tailnum == tailnum) making these types of basic joins equi joins.\n\n\n\n\n\n\n# A tibble: 336,776 × 14\n   year.x time_hour           origin dest  tailnum carrier year.y type          \n    &lt;int&gt; &lt;dttm&gt;              &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;    &lt;int&gt; &lt;chr&gt;         \n 1   2013 2013-01-01 05:00:00 EWR    IAH   N14228  UA        1999 Fixed wing mu…\n 2   2013 2013-01-01 05:00:00 LGA    IAH   N24211  UA        1998 Fixed wing mu…\n 3   2013 2013-01-01 05:00:00 JFK    MIA   N619AA  AA        1990 Fixed wing mu…\n 4   2013 2013-01-01 05:00:00 JFK    BQN   N804JB  B6        2012 Fixed wing mu…\n 5   2013 2013-01-01 06:00:00 LGA    ATL   N668DN  DL        1991 Fixed wing mu…\n 6   2013 2013-01-01 05:00:00 EWR    ORD   N39463  UA        2012 Fixed wing mu…\n 7   2013 2013-01-01 06:00:00 EWR    FLL   N516JB  B6        2000 Fixed wing mu…\n 8   2013 2013-01-01 06:00:00 LGA    IAD   N829AS  EV        1998 Fixed wing mu…\n 9   2013 2013-01-01 06:00:00 JFK    MCO   N593JB  B6        2004 Fixed wing mu…\n10   2013 2013-01-01 06:00:00 LGA    ORD   N3ALAA  AA          NA &lt;NA&gt;          \n# ℹ 336,766 more rows\n# ℹ 6 more variables: manufacturer &lt;chr&gt;, model &lt;chr&gt;, engines &lt;int&gt;,\n#   seats &lt;int&gt;, speed &lt;int&gt;, engine &lt;chr&gt;\n\n\n\n\nWhen you have the same variable name but they mean different things you can specify a particular suffix with the suffix argument."
+  },
+  {
+    "objectID": "workshops/data_wrangling_r.html#different-variable-names",
+    "href": "workshops/data_wrangling_r.html#different-variable-names",
+    "title": "",
+    "section": "Different variable names",
+    "text": "Different variable names\nIf you have keys that have the same meaning (values) but are named different things in their respective datasets you’d also specify that with join_by()\n\n\nflights2 |&gt; \n5  left_join(airports, join_by(dest == faa))\n\n\n5\n\nby = c(\"dest\" = \"faa\") was the former syntax for this and you still might see that in older code.\n\n\n\n\n\n\n# A tibble: 336,776 × 13\n    year time_hour           origin dest  tailnum carrier name         lat   lon\n   &lt;int&gt; &lt;dttm&gt;              &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;      &lt;dbl&gt; &lt;dbl&gt;\n 1  2013 2013-01-01 05:00:00 EWR    IAH   N14228  UA      George Bu…  30.0 -95.3\n 2  2013 2013-01-01 05:00:00 LGA    IAH   N24211  UA      George Bu…  30.0 -95.3\n 3  2013 2013-01-01 05:00:00 JFK    MIA   N619AA  AA      Miami Intl  25.8 -80.3\n 4  2013 2013-01-01 05:00:00 JFK    BQN   N804JB  B6      &lt;NA&gt;        NA    NA  \n 5  2013 2013-01-01 06:00:00 LGA    ATL   N668DN  DL      Hartsfiel…  33.6 -84.4\n 6  2013 2013-01-01 05:00:00 EWR    ORD   N39463  UA      Chicago O…  42.0 -87.9\n 7  2013 2013-01-01 06:00:00 EWR    FLL   N516JB  B6      Fort Laud…  26.1 -80.2\n 8  2013 2013-01-01 06:00:00 LGA    IAD   N829AS  EV      Washingto…  38.9 -77.5\n 9  2013 2013-01-01 06:00:00 JFK    MCO   N593JB  B6      Orlando I…  28.4 -81.3\n10  2013 2013-01-01 06:00:00 LGA    ORD   N3ALAA  AA      Chicago O…  42.0 -87.9\n# ℹ 336,766 more rows\n# ℹ 4 more variables: alt &lt;dbl&gt;, tz &lt;dbl&gt;, dst &lt;chr&gt;, tzone &lt;chr&gt;\n\n\n\n\nThis will match dest to faa for the join and then drop faa."
+  },
+  {
+    "objectID": "workshops/data_wrangling_r.html#different-variable-names-1",
+    "href": "workshops/data_wrangling_r.html#different-variable-names-1",
+    "title": "",
+    "section": "Different variable names",
+    "text": "Different variable names\nYou can request dplyr to keep both keys with keep = TRUE argument.\n\n\nflights2 |&gt; \n  left_join(airports, join_by(dest == faa), keep = TRUE) \n\n\n\n# A tibble: 336,776 × 14\n    year time_hour           origin dest  tailnum carrier faa   name         lat\n   &lt;int&gt; &lt;dttm&gt;              &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt;      &lt;dbl&gt;\n 1  2013 2013-01-01 05:00:00 EWR    IAH   N14228  UA      IAH   George Bu…  30.0\n 2  2013 2013-01-01 05:00:00 LGA    IAH   N24211  UA      IAH   George Bu…  30.0\n 3  2013 2013-01-01 05:00:00 JFK    MIA   N619AA  AA      MIA   Miami Intl  25.8\n 4  2013 2013-01-01 05:00:00 JFK    BQN   N804JB  B6      &lt;NA&gt;  &lt;NA&gt;        NA  \n 5  2013 2013-01-01 06:00:00 LGA    ATL   N668DN  DL      ATL   Hartsfiel…  33.6\n 6  2013 2013-01-01 05:00:00 EWR    ORD   N39463  UA      ORD   Chicago O…  42.0\n 7  2013 2013-01-01 06:00:00 EWR    FLL   N516JB  B6      FLL   Fort Laud…  26.1\n 8  2013 2013-01-01 06:00:00 LGA    IAD   N829AS  EV      IAD   Washingto…  38.9\n 9  2013 2013-01-01 06:00:00 JFK    MCO   N593JB  B6      MCO   Orlando I…  28.4\n10  2013 2013-01-01 06:00:00 LGA    ORD   N3ALAA  AA      ORD   Chicago O…  42.0\n# ℹ 336,766 more rows\n# ℹ 5 more variables: lon &lt;dbl&gt;, alt &lt;dbl&gt;, tz &lt;dbl&gt;, dst &lt;chr&gt;, tzone &lt;chr&gt;"
+  },
+  {
+    "objectID": "workshops/data_wrangling_r.html#right_join",
+    "href": "workshops/data_wrangling_r.html#right_join",
+    "title": "",
+    "section": "right_join()",
+    "text": "right_join()\n\nHas the same interface as a left_join but keeps all rows in y instead of x"
+  },
+  {
+    "objectID": "workshops/data_wrangling_r.html#inner_join",
+    "href": "workshops/data_wrangling_r.html#inner_join",
+    "title": "",
+    "section": "inner_join()",
+    "text": "inner_join()\n\nHas the same interface as a left_join but only keeps rows that occur in both x and y"
+  },
+  {
+    "objectID": "workshops/data_wrangling_r.html#full_join",
+    "href": "workshops/data_wrangling_r.html#full_join",
+    "title": "",
+    "section": "full_join()",
+    "text": "full_join()\n\nHas the same interface as a left_join but keeps all rows in either x or y"
+  },
+  {
+    "objectID": "workshops/data_wrangling_r.html#filtering-joins-1",
+    "href": "workshops/data_wrangling_r.html#filtering-joins-1",
+    "title": "",
+    "section": "Filtering Joins",
+    "text": "Filtering Joins"
+  },
+  {
+    "objectID": "workshops/data_wrangling_r.html#semi_join",
+    "href": "workshops/data_wrangling_r.html#semi_join",
+    "title": "",
+    "section": "semi_join()",
+    "text": "semi_join()\n\nKeeps all rows in x that have a match in y"
+  },
+  {
+    "objectID": "workshops/data_wrangling_r.html#semi_join-in-nycflights13",
+    "href": "workshops/data_wrangling_r.html#semi_join-in-nycflights13",
+    "title": "",
+    "section": "\nsemi_join() in nycflights13\n",
+    "text": "semi_join() in nycflights13\n\nWe could use a semi-join to filter the airports dataset to show just the origin airports.\n\n\nairports |&gt; \n  semi_join(flights2, join_by(faa == origin))\n\n\n\n# A tibble: 3 × 8\n  faa   name                  lat   lon   alt    tz dst   tzone           \n  &lt;chr&gt; &lt;chr&gt;               &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;           \n1 EWR   Newark Liberty Intl  40.7 -74.2    18    -5 A     America/New_York\n2 JFK   John F Kennedy Intl  40.6 -73.8    13    -5 A     America/New_York\n3 LGA   La Guardia           40.8 -73.9    22    -5 A     America/New_York"
+  },
+  {
+    "objectID": "workshops/data_wrangling_r.html#anti_join",
+    "href": "workshops/data_wrangling_r.html#anti_join",
+    "title": "",
+    "section": "anti_join()",
+    "text": "anti_join()\n\nReturns all rows in x that don’t have a match in y"
+  },
+  {
+    "objectID": "workshops/data_wrangling_r.html#anti_join-in-nycflights13",
+    "href": "workshops/data_wrangling_r.html#anti_join-in-nycflights13",
+    "title": "",
+    "section": "\nanti_join() in nycflights13\n",
+    "text": "anti_join() in nycflights13\n\nWe can find rows that are missing from airports by looking for flights that don’t have a matching destination airport.\n\n\nairports |&gt; \n  semi_join(flights2, join_by(faa == origin))\n\n\n\n# A tibble: 3 × 8\n  faa   name                  lat   lon   alt    tz dst   tzone           \n  &lt;chr&gt; &lt;chr&gt;               &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;           \n1 EWR   Newark Liberty Intl  40.7 -74.2    18    -5 A     America/New_York\n2 JFK   John F Kennedy Intl  40.6 -73.8    13    -5 A     America/New_York\n3 LGA   La Guardia           40.8 -73.9    22    -5 A     America/New_York\n\n\n\n\n\nThis type of join is useful for finding missing values that are implicit in the data (i.e. NAs that don’t show up in the data but only exist as an absence.)"
+  },
+  {
+    "objectID": "workshops/data_wrangling_r.html#more-than-one-match",
+    "href": "workshops/data_wrangling_r.html#more-than-one-match",
+    "title": "",
+    "section": "More Than One Match",
+    "text": "More Than One Match\n\n\nThere are three possible outcomes for a row in x:\n\n\nIf it doesn’t match anything, it’s dropped.\nIf it matches 1 row in y, it’s preserved.\nIf it matches more than 1 row in y, it’s duplicated once for each match.\n\n\n\n\nWhat happens if we match on more than one row?"
+  },
+  {
+    "objectID": "workshops/data_wrangling_r.html#more-than-one-match-1",
+    "href": "workshops/data_wrangling_r.html#more-than-one-match-1",
+    "title": "",
+    "section": "More Than One Match",
+    "text": "More Than One Match\n\ndf1 &lt;- tibble(key = c(1, 2, 2), val_x = c(\"x1\", \"x2\", \"x3\"))\ndf2 &lt;- tibble(key = c(1, 2, 2), val_y = c(\"y1\", \"y2\", \"y3\"))\n\ndf1 |&gt; \n  inner_join(df2, join_by(key))\n\n\n\n# A tibble: 5 × 3\n    key val_x val_y\n  &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;\n1     1 x1    y1   \n2     2 x2    y2   \n3     2 x2    y3   \n4     2 x3    y2   \n5     2 x3    y3   \n\n\n\nIf you are doing this deliberately, you can set relationship = “many-to-many”, as the warning suggests.\n\n\n\nGiven their nature, filtering joins never duplicate rows like mutating joins do. They will only ever return a subset of the datasets."
+  },
+  {
+    "objectID": "workshops/data_wrangling_r.html#non-equi-joins",
+    "href": "workshops/data_wrangling_r.html#non-equi-joins",
+    "title": "",
+    "section": "Non-Equi Joins",
+    "text": "Non-Equi Joins\nThe joins we’ve discussed thus far have all been equi-joins, where the rows match if the x key equals the y key. But you can also specify other types of relationships.\n\ndplyr has four different types of non-equi joins:\n\n\n\n\n\n\nCross joins match every pair of rows.\n\n\n\n\n\n\n\n\nCross joins, aka self-joins, are useful when generating permutations (e.g. creating every possible combination of values). This comes in handy when creating datasets of predicted probabilities for plotting in ggplot."
+  },
+  {
+    "objectID": "workshops/data_wrangling_r.html#non-equi-joins-1",
+    "href": "workshops/data_wrangling_r.html#non-equi-joins-1",
+    "title": "",
+    "section": "Non-Equi Joins",
+    "text": "Non-Equi Joins\nThe joins we’ve discussed thus far have all been equi-joins, where the rows match if the x key equals the y key. But you can also specify other types of relationships.\ndplyr has four different types of non-equi joins:\n\n\n\n\nCross joins match every pair of rows.\n\nInequality joins use &lt;, &lt;=, &gt;, and &gt;= instead of ==.\n\n\nOverlap joins are a special type of inequality join designed to work with ranges1.\n\n\n\n\n\n\n\n\n\nInequality joins can be used to restrict the cross join so that instead of generating all permutations, we generate all combinations.\nOverlap joins provide three helpers that use inequality joins to make it easier to work with intervals: between(), within(), overlaps(). Read more about their functionality and specifications here."
+  },
+  {
+    "objectID": "workshops/data_wrangling_r.html#non-equi-joins-2",
+    "href": "workshops/data_wrangling_r.html#non-equi-joins-2",
+    "title": "",
+    "section": "Non-Equi Joins",
+    "text": "Non-Equi Joins\nThe joins we’ve discussed thus far have all been equi-joins, where the rows match if the x key equals the y key. But you can also specify other types of relationships.\ndplyr has four different types of non-equi joins:\n\n\n\n\nCross joins match every pair of rows.\n\nInequality joins use &lt;, &lt;=, &gt;, and &gt;= instead of ==.\n\n\nOverlap joins are a special type of inequality join designed to work with ranges.\n\n\n\nRolling joins are similar to inequality joins but only find the closest match.\n\n\n\n\n\n\n\nRolling joins are a special type of inequality join where instead of getting every row that satisfies the inequality, you get just the closest row. You can turn any inequality join into a rolling join by adding closest()."
+  },
+  {
+    "objectID": "workshops/data_wrangling_r.html#initial-spot-checks",
+    "href": "workshops/data_wrangling_r.html#initial-spot-checks",
+    "title": "",
+    "section": "Initial Spot Checks",
+    "text": "Initial Spot Checks\nFirst things to check after loading new data:\n\n\nDid all the rows/columns from the original file make it in?\n\nCheck using dim() or str()\n\n\n\nAre the column names in good shape?\n\nUse names() to check; fix with rename()\n\n\n\nAre there “decorative” blank rows or columns to remove?\n\n\nfilter() or select() out those rows/columns\n\n\nHow are missing values represented: NA, \" \" (blank), . (period), 999?\n\nRead in the data again specifying NAs with the na argument\n\n\nAre there character data (e.g. ZIP codes with leading zeroes) being incorrectly represented as numeric or vice versa?\n\nRead in the data again specifying desired col_types"
+  },
+  {
+    "objectID": "workshops/data_wrangling_r.html#what-is-tidy-data",
+    "href": "workshops/data_wrangling_r.html#what-is-tidy-data",
+    "title": "",
+    "section": "What is Tidy Data",
+    "text": "What is Tidy Data\nTidy data1 (aka “long data”) are such that:\n\n\n\n\n\n\nThe values for a single observation are in their own row.\nThe values for a single variable are in their own column.\nThere is only one value per cell.\n\n\nRead the original article here."
+  },
+  {
+    "objectID": "workshops/data_wrangling_r.html#why-do-we-want-tidy-data",
+    "href": "workshops/data_wrangling_r.html#why-do-we-want-tidy-data",
+    "title": "",
+    "section": "Why do we Want Tidy Data?",
+    "text": "Why do we Want Tidy Data?\n\n\n\nEasier to understand many rows than many columns1\n\nRequired for plotting in ggplot22\n\nRequired for many types of statistical procedures (e.g. hierarchical or mixed effects models)\nFewer issues with missing values and “imbalanced” repeated measures data\nHaving a consistent method for storing data means it’s easier to learn the tools to work with it since there’s an underlying uniformity.\n\n\n\nMost real-world data is not tidy because data are often organized for goals other than analysis (i.e. data entry) and most people aren’t familiar with the principles of tidy data.\n\nPlacing variables in columns also leverages R’s vectorized nature, i.e. most built-in R functions work with values of vectors.In fact, all tidyverse functions are designed to work with tidy data."
+  },
+  {
+    "objectID": "workshops/data_wrangling_r.html#slightly-messy-data",
+    "href": "workshops/data_wrangling_r.html#slightly-messy-data",
+    "title": "",
+    "section": "Slightly “Messy” Data",
+    "text": "Slightly “Messy” Data\n\n\n\n\nProgram\nFirst Year\nSecond Year\n\n\n\nEvans School\n10\n6\n\n\nArts & Sciences\n5\n6\n\n\nPublic Health\n2\n3\n\n\nOther\n5\n1\n\n\n\n\n\nWhat is an observation?\n\nA group of students from a program of a given year\n\n\nWhat are the variables?\n\nProgram, Year\n\n\nWhat are the values?\n\nProgram: Evans School, Arts & Sciences, Public Health, Other\nYear: First, Second – in column headings. Bad!\n\nCount: spread over two columns!"
+  },
+  {
+    "objectID": "workshops/data_wrangling_r.html#tidy-version",
+    "href": "workshops/data_wrangling_r.html#tidy-version",
+    "title": "",
+    "section": "Tidy Version",
+    "text": "Tidy Version\n\n\n\n\nProgram\nYear\nCount\n\n\n\nEvans School\nFirst\n10\n\n\nEvans School\nSecond\n6\n\n\nArts & Sciences\nFirst\n5\n\n\nArts & Sciences\nSecond\n6\n\n\nPublic Health\nFirst\n2\n\n\nPublic Health\nSecond\n3\n\n\nOther\nFirst\n5\n\n\nOther\nSecond\n1\n\n\n\n\n\nEach variable is a column.\nEach observation is a row.\nEach cell has a single value."
+  },
+  {
+    "objectID": "workshops/data_wrangling_r.html#billboard-is-just-ugly-messy",
+    "href": "workshops/data_wrangling_r.html#billboard-is-just-ugly-messy",
+    "title": "",
+    "section": "Billboard is Just Ugly-Messy",
+    "text": "Billboard is Just Ugly-Messy\n\n\n# A tibble: 10 × 81\n    year artist     track time  date.entered   wk1   wk2   wk3   wk4   wk5   wk6\n   &lt;int&gt; &lt;chr&gt;      &lt;chr&gt; &lt;tim&gt; &lt;date&gt;       &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;\n 1  2000 2 Pac      Baby… 04:22 2000-02-26      87    82    72    77    87    94\n 2  2000 2Ge+her    The … 03:15 2000-09-02      91    87    92    NA    NA    NA\n 3  2000 3 Doors D… Kryp… 03:53 2000-04-08      81    70    68    67    66    57\n 4  2000 3 Doors D… Loser 04:24 2000-10-21      76    76    72    69    67    65\n 5  2000 504 Boyz   Wobb… 03:35 2000-04-15      57    34    25    17    17    31\n 6  2000 98^0       Give… 03:24 2000-08-19      51    39    34    26    26    19\n 7  2000 A*Teens    Danc… 03:44 2000-07-08      97    97    96    95   100    NA\n 8  2000 Aaliyah    I Do… 04:15 2000-01-29      84    62    51    41    38    35\n 9  2000 Aaliyah    Try … 04:03 2000-03-18      59    53    38    28    21    18\n10  2000 Adams, Yo… Open… 05:30 2000-08-26      76    76    74    69    68    67\n# ℹ 70 more variables: wk7 &lt;int&gt;, wk8 &lt;int&gt;, wk9 &lt;int&gt;, wk10 &lt;int&gt;, wk11 &lt;int&gt;,\n#   wk12 &lt;int&gt;, wk13 &lt;int&gt;, wk14 &lt;int&gt;, wk15 &lt;int&gt;, wk16 &lt;int&gt;, wk17 &lt;int&gt;,\n#   wk18 &lt;int&gt;, wk19 &lt;int&gt;, wk20 &lt;int&gt;, wk21 &lt;int&gt;, wk22 &lt;int&gt;, wk23 &lt;int&gt;,\n#   wk24 &lt;int&gt;, wk25 &lt;int&gt;, wk26 &lt;int&gt;, wk27 &lt;int&gt;, wk28 &lt;int&gt;, wk29 &lt;int&gt;,\n#   wk30 &lt;int&gt;, wk31 &lt;int&gt;, wk32 &lt;int&gt;, wk33 &lt;int&gt;, wk34 &lt;int&gt;, wk35 &lt;int&gt;,\n#   wk36 &lt;int&gt;, wk37 &lt;int&gt;, wk38 &lt;int&gt;, wk39 &lt;int&gt;, wk40 &lt;int&gt;, wk41 &lt;int&gt;,\n#   wk42 &lt;int&gt;, wk43 &lt;int&gt;, wk44 &lt;int&gt;, wk45 &lt;int&gt;, wk46 &lt;int&gt;, wk47 &lt;int&gt;, …\n\n\n\n\nWeek columns continue up to wk76!"
+  },
+  {
+    "objectID": "workshops/data_wrangling_r.html#billboard",
+    "href": "workshops/data_wrangling_r.html#billboard",
+    "title": "",
+    "section": "Billboard",
+    "text": "Billboard\n\n\nWhat are the observations in the data?\n\nSong on the Billboard chart each week\n\n\nWhat are the variables in the data?\n\nYear, artist, track, song length, date entered Hot 100, week since first entered Hot 100 (spread over many columns), rank during week (spread over many columns)\n\n\nWhat are the values in the data?\n\ne.g. 2000; 3 Doors Down; Kryptonite; 3 minutes 53 seconds; April 8, 2000; Week 3 (stuck in column headings); rank 68 (spread over many columns)"
+  },
+  {
+    "objectID": "workshops/data_wrangling_r.html#tidyr",
+    "href": "workshops/data_wrangling_r.html#tidyr",
+    "title": "",
+    "section": "tidyr",
+    "text": "tidyr\nThe tidyr package provides functions to tidy up data.\n\nKey functions:\n\n\npivot_longer(): takes a set of columns and pivots them down (“longer”) to make two new columns (which you can name yourself):\n\nA name column that stores the original column names\nA value with the values in those original columns\n\n\n\n\n\n\n\npivot_wider(): inverts pivot_longer() by taking two columns and pivoting them up and across (“wider”) into multiple columns"
+  },
+  {
+    "objectID": "workshops/data_wrangling_r.html#pivot_longer",
+    "href": "workshops/data_wrangling_r.html#pivot_longer",
+    "title": "",
+    "section": "pivot_longer()",
+    "text": "pivot_longer()\nThis function usually takes three arguments:\n\n\n\ncols: The columns that need to be pivoted (are not variables)\n\nnames_to: Names the new variable that is stored in multiple columns\n\nvalues_to: Names the variable stored in the cell values"
+  },
+  {
+    "objectID": "workshops/data_wrangling_r.html#pivot_longer-1",
+    "href": "workshops/data_wrangling_r.html#pivot_longer-1",
+    "title": "",
+    "section": "pivot_longer()",
+    "text": "pivot_longer()\nThis function usually takes three arguments:\n\n\ncols: The columns that need to be pivoted (are not variables)\nnames_to: Names the new variable that is stored in multiple columns\n\nvalues_to: Names the variable stored in the cell values"
+  },
+  {
+    "objectID": "workshops/data_wrangling_r.html#pivot_longer-2",
+    "href": "workshops/data_wrangling_r.html#pivot_longer-2",
+    "title": "",
+    "section": "pivot_longer()",
+    "text": "pivot_longer()\nThis function usually takes three arguments:\n\n\ncols: The columns that need to be pivoted (are not variables)\n\nnames_to: Names the new variable that is stored in multiple columns\nvalues_to: Names the variable stored in the cell values"
+  },
+  {
+    "objectID": "workshops/data_wrangling_r.html#pivot_longer-3",
+    "href": "workshops/data_wrangling_r.html#pivot_longer-3",
+    "title": "",
+    "section": "pivot_longer()",
+    "text": "pivot_longer()\nThis function usually takes three arguments:\n\n\ncols: The columns that need to be pivoted (are not variables)\n\nnames_to: Names the new variable that is stored in multiple columns\n\nvalues_to: Names the variable stored in the cell values"
+  },
+  {
+    "objectID": "workshops/data_wrangling_r.html#pivot_longer-example",
+    "href": "workshops/data_wrangling_r.html#pivot_longer-example",
+    "title": "",
+    "section": "\npivot_longer() Example",
+    "text": "pivot_longer() Example\n\nbillboard_2000 &lt;- billboard_2000_raw |&gt; \n1  pivot_longer(cols = starts_with(\"wk\"),\n               names_to =\"week\",\n               values_to = \"rank\")\n\nbillboard_2000 |&gt; head(10)\n\n\n1\n\nstarts_with() is one of the helper functions from tidyselect that helps select certain common patterns. We could have also used cols = wk1:wk76.\n\n\n\n\n\n\n# A tibble: 10 × 7\n    year artist track                   time   date.entered week   rank\n   &lt;int&gt; &lt;chr&gt;  &lt;chr&gt;                   &lt;time&gt; &lt;date&gt;       &lt;chr&gt; &lt;int&gt;\n 1  2000 2 Pac  Baby Don't Cry (Keep... 04:22  2000-02-26   wk1      87\n 2  2000 2 Pac  Baby Don't Cry (Keep... 04:22  2000-02-26   wk2      82\n 3  2000 2 Pac  Baby Don't Cry (Keep... 04:22  2000-02-26   wk3      72\n 4  2000 2 Pac  Baby Don't Cry (Keep... 04:22  2000-02-26   wk4      77\n 5  2000 2 Pac  Baby Don't Cry (Keep... 04:22  2000-02-26   wk5      87\n 6  2000 2 Pac  Baby Don't Cry (Keep... 04:22  2000-02-26   wk6      94\n 7  2000 2 Pac  Baby Don't Cry (Keep... 04:22  2000-02-26   wk7      99\n 8  2000 2 Pac  Baby Don't Cry (Keep... 04:22  2000-02-26   wk8      NA\n 9  2000 2 Pac  Baby Don't Cry (Keep... 04:22  2000-02-26   wk9      NA\n10  2000 2 Pac  Baby Don't Cry (Keep... 04:22  2000-02-26   wk10     NA\n\n\n\nNow we have a single week column!"
+  },
+  {
+    "objectID": "workshops/data_wrangling_r.html#lots-of-missing-values",
+    "href": "workshops/data_wrangling_r.html#lots-of-missing-values",
+    "title": "",
+    "section": "Lots of Missing Values?!",
+    "text": "Lots of Missing Values?!\n\nglimpse(billboard_2000)\n\n\n\nRows: 24,092\nColumns: 7\n$ year         &lt;int&gt; 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 200…\n$ artist       &lt;chr&gt; \"2 Pac\", \"2 Pac\", \"2 Pac\", \"2 Pac\", \"2 Pac\", \"2 Pac\", \"2 …\n$ track        &lt;chr&gt; \"Baby Don't Cry (Keep...\", \"Baby Don't Cry (Keep...\", \"Ba…\n$ time         &lt;time&gt; 04:22:00, 04:22:00, 04:22:00, 04:22:00, 04:22:00, 04:22:…\n$ date.entered &lt;date&gt; 2000-02-26, 2000-02-26, 2000-02-26, 2000-02-26, 2000-02-…\n$ week         &lt;chr&gt; \"wk1\", \"wk2\", \"wk3\", \"wk4\", \"wk5\", \"wk6\", \"wk7\", \"wk8\", \"…\n$ rank         &lt;int&gt; 87, 82, 72, 77, 87, 94, 99, NA, NA, NA, NA, NA, NA, NA, N…\n\n\n\nIt looks like 2 Pac’s song “Baby Don’t Cry” was only on the Billboard Hot 100 for 7 weeks and then dropped off the charts.\n\n\n\nsummary(billboard_2000$rank)\n\n\n\n   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's \n   1.00   26.00   51.00   51.05   76.00  100.00   18785 \n\n\n\nWe don’t want to keep the 18785 rows with missing ranks."
+  },
+  {
+    "objectID": "workshops/data_wrangling_r.html#pivoting-better-values_drop_na",
+    "href": "workshops/data_wrangling_r.html#pivoting-better-values_drop_na",
+    "title": "",
+    "section": "Pivoting Better: values_drop_na\n",
+    "text": "Pivoting Better: values_drop_na\n\nAdding the argument values_drop_na = TRUE to pivot_longer() will remove rows with missing ranks. Since these NAs don’t really represent unknown observations (i.e. they were forced to exist by the structure of the dataset) this is an appropriate approach here.\n\nbillboard_2000 &lt;- billboard_2000_raw %&gt;%\n  pivot_longer(cols = wk1:wk76, \n               names_to = \"week\", \n               values_to = \"rank\", \n               values_drop_na = TRUE)\nsummary(billboard_2000$rank)\n\n\n\n   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. \n   1.00   26.00   51.00   51.05   76.00  100.00 \n\n\n\nNo more NA values!\n\ndim(billboard_2000)\n\n\n\n[1] 5307    7\n\n\n\n\nAnd way fewer rows!"
+  },
+  {
+    "objectID": "workshops/data_wrangling_r.html#parse_number",
+    "href": "workshops/data_wrangling_r.html#parse_number",
+    "title": "",
+    "section": "parse_number()",
+    "text": "parse_number()\nThe week column is of the type character, but it should be numeric.\n\nhead(billboard_2000$week)\n\n\n\n[1] \"wk1\" \"wk2\" \"wk3\" \"wk4\" \"wk5\" \"wk6\"\n\n\n\nparse_number() grabs just the numeric information from a character string:\n\nbillboard_2000 &lt;- billboard_2000 |&gt; \n2    mutate(week = parse_number(week))\nsummary(billboard_2000$week)\n\n\n2\n\nYou can use mutate() to overwrite existing columns.\n\n\n\n\n\n\n   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. \n   1.00    5.00   10.00   11.47   16.00   65.00 \n\n\n\n\nMore sophisticated tools for character strings will be covered later in this course!"
+  },
+  {
+    "objectID": "workshops/data_wrangling_r.html#use-pivot_longer-arguments",
+    "href": "workshops/data_wrangling_r.html#use-pivot_longer-arguments",
+    "title": "",
+    "section": "Use pivot_longer arguments",
+    "text": "Use pivot_longer arguments\nAlternatively (and more efficiently), there are a number of optional arguments for pivot_longer that are meant to help deal with naming issues.\n\n\nbillboard_2000 &lt;- billboard_2000_raw %&gt;%\n  pivot_longer(starts_with(\"wk\"), \n               names_to        = \"week\", \n               values_to       = \"rank\",\n               values_drop_na  = TRUE,\n3               names_prefix    = \"wk\",\n4               names_transform = list(week = as.integer))\n\nhead(billboard_2000, 5)\n\n\n3\n\nnames_prefix is used to remove “wk” from the values of week\n\n4\n\nnames_transform converts week into an integer number.\n\n\n\n\n\n\n# A tibble: 5 × 7\n   year artist track                   time   date.entered  week  rank\n  &lt;int&gt; &lt;chr&gt;  &lt;chr&gt;                   &lt;time&gt; &lt;date&gt;       &lt;int&gt; &lt;int&gt;\n1  2000 2 Pac  Baby Don't Cry (Keep... 04:22  2000-02-26       1    87\n2  2000 2 Pac  Baby Don't Cry (Keep... 04:22  2000-02-26       2    82\n3  2000 2 Pac  Baby Don't Cry (Keep... 04:22  2000-02-26       3    72\n4  2000 2 Pac  Baby Don't Cry (Keep... 04:22  2000-02-26       4    77\n5  2000 2 Pac  Baby Don't Cry (Keep... 04:22  2000-02-26       5    87"
+  },
+  {
+    "objectID": "workshops/data_wrangling_r.html#multiple-variables-in-column-names",
+    "href": "workshops/data_wrangling_r.html#multiple-variables-in-column-names",
+    "title": "",
+    "section": "Multiple Variables in Column Names",
+    "text": "Multiple Variables in Column Names\nA more challenging situation occurs when you have multiple pieces of information crammed into the column names, and you would like to store these in separate new variables.\n\nThis dataset contains tuberculosis diagnoses collected by the World Health Organization.\n\nwho2\n\n\n\n# A tibble: 7,240 × 58\n   country      year sp_m_014 sp_m_1524 sp_m_2534 sp_m_3544 sp_m_4554 sp_m_5564\n   &lt;chr&gt;       &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;\n 1 Afghanistan  1980       NA        NA        NA        NA        NA        NA\n 2 Afghanistan  1981       NA        NA        NA        NA        NA        NA\n 3 Afghanistan  1982       NA        NA        NA        NA        NA        NA\n 4 Afghanistan  1983       NA        NA        NA        NA        NA        NA\n 5 Afghanistan  1984       NA        NA        NA        NA        NA        NA\n 6 Afghanistan  1985       NA        NA        NA        NA        NA        NA\n 7 Afghanistan  1986       NA        NA        NA        NA        NA        NA\n 8 Afghanistan  1987       NA        NA        NA        NA        NA        NA\n 9 Afghanistan  1988       NA        NA        NA        NA        NA        NA\n10 Afghanistan  1989       NA        NA        NA        NA        NA        NA\n# ℹ 7,230 more rows\n# ℹ 50 more variables: sp_m_65 &lt;dbl&gt;, sp_f_014 &lt;dbl&gt;, sp_f_1524 &lt;dbl&gt;,\n#   sp_f_2534 &lt;dbl&gt;, sp_f_3544 &lt;dbl&gt;, sp_f_4554 &lt;dbl&gt;, sp_f_5564 &lt;dbl&gt;,\n#   sp_f_65 &lt;dbl&gt;, sn_m_014 &lt;dbl&gt;, sn_m_1524 &lt;dbl&gt;, sn_m_2534 &lt;dbl&gt;,\n#   sn_m_3544 &lt;dbl&gt;, sn_m_4554 &lt;dbl&gt;, sn_m_5564 &lt;dbl&gt;, sn_m_65 &lt;dbl&gt;,\n#   sn_f_014 &lt;dbl&gt;, sn_f_1524 &lt;dbl&gt;, sn_f_2534 &lt;dbl&gt;, sn_f_3544 &lt;dbl&gt;,\n#   sn_f_4554 &lt;dbl&gt;, sn_f_5564 &lt;dbl&gt;, sn_f_65 &lt;dbl&gt;, ep_m_014 &lt;dbl&gt;, …\n\n\n\n\nThe first two columns are self explanatory but what’s going on with the rest?"
+  },
+  {
+    "objectID": "workshops/data_wrangling_r.html#multiple-variables-in-column-names-1",
+    "href": "workshops/data_wrangling_r.html#multiple-variables-in-column-names-1",
+    "title": "",
+    "section": "Multiple Variables in Column Names",
+    "text": "Multiple Variables in Column Names\nData documentation and some minor investigation would lead you to figure out that the three elements in each of these column names are actually data!\n\nThe first piece, sp/sn/rel/ep, describes the method used for the diagnosis\nThe second piece, m/f is the gender (coded as a binary variable in this dataset)\nThe third piece, 014/1524/2534/3544/4554/5564/65 is the age range (014 represents 0-14, for example)\n\n\nTo organize the six pieces of information in this dataset into six separate columns, we use pivot_longer() with a vector of column names for names_to and instructors for splitting the original variable names into pieces for names_sep as well as a column name for values_to!"
+  },
+  {
+    "objectID": "workshops/data_wrangling_r.html#multiple-variables-in-column-names-2",
+    "href": "workshops/data_wrangling_r.html#multiple-variables-in-column-names-2",
+    "title": "",
+    "section": "Multiple Variables in Column Names",
+    "text": "Multiple Variables in Column Names\n\nwho2 |&gt; \n  pivot_longer(\n    cols = !(country:year),\n    names_to = c(\"diagnosis\", \"gender\", \"age\"), \n5    names_sep = \"_\",\n    values_to = \"count\"\n  )\n\n\n5\n\nYou can use names_pattern instead of names_sep to extract variables from more complicated naming scenarios once you’ve learned regular expressions in a few weeks.\n\n\n\n\n\n\n# A tibble: 405,440 × 6\n   country      year diagnosis gender age   count\n   &lt;chr&gt;       &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;  &lt;chr&gt; &lt;dbl&gt;\n 1 Afghanistan  1980 sp        m      014      NA\n 2 Afghanistan  1980 sp        m      1524     NA\n 3 Afghanistan  1980 sp        m      2534     NA\n 4 Afghanistan  1980 sp        m      3544     NA\n 5 Afghanistan  1980 sp        m      4554     NA\n 6 Afghanistan  1980 sp        m      5564     NA\n 7 Afghanistan  1980 sp        m      65       NA\n 8 Afghanistan  1980 sp        f      014      NA\n 9 Afghanistan  1980 sp        f      1524     NA\n10 Afghanistan  1980 sp        f      2534     NA\n# ℹ 405,430 more rows"
+  },
+  {
+    "objectID": "workshops/data_wrangling_r.html#variable-values-in-column-names",
+    "href": "workshops/data_wrangling_r.html#variable-values-in-column-names",
+    "title": "",
+    "section": "Variable & Values in Column Names",
+    "text": "Variable & Values in Column Names\nThis dataset contains data about five families, with the names and dates of birth of up to two children.\n\nhousehold\n\n\n\n# A tibble: 5 × 5\n  family dob_child1 dob_child2 name_child1 name_child2\n   &lt;int&gt; &lt;date&gt;     &lt;date&gt;     &lt;chr&gt;       &lt;chr&gt;      \n1      1 1998-11-26 2000-01-29 Susan       Jose       \n2      2 1996-06-22 NA         Mark        &lt;NA&gt;       \n3      3 2002-07-11 2004-04-05 Sam         Seth       \n4      4 2004-10-10 2009-08-27 Craig       Khai       \n5      5 2000-12-05 2005-02-28 Parker      Gracie     \n\n\n\nThe new challenge in this dataset is that the column names contain the names of two variables (dob, name) and the values of another (child, with values 1 or 2)."
+  },
+  {
+    "objectID": "workshops/data_wrangling_r.html#variable-values-in-column-names-1",
+    "href": "workshops/data_wrangling_r.html#variable-values-in-column-names-1",
+    "title": "",
+    "section": "Variable & Values in Column Names",
+    "text": "Variable & Values in Column Names\n\n\nhousehold |&gt; \n  pivot_longer(\n    cols = !family, \n6    names_to = c(\".value\", \"child\"),\n    names_sep = \"_\", \n7    values_drop_na = TRUE\n  )\n\n\n\n\n6\n\n.value isn’t the name of a variable but a unique value that tells pivot_longer to use the first component of the pivoted column name as a variable name in the output.\n\n7\n\nUsing values_drop_na = TRUE again since not every family has 2 children.\n\n\n\n\n# A tibble: 9 × 4\n  family child  dob        name  \n   &lt;int&gt; &lt;chr&gt;  &lt;date&gt;     &lt;chr&gt; \n1      1 child1 1998-11-26 Susan \n2      1 child2 2000-01-29 Jose  \n3      2 child1 1996-06-22 Mark  \n4      3 child1 2002-07-11 Sam   \n5      3 child2 2004-04-05 Seth  \n6      4 child1 2004-10-10 Craig \n7      4 child2 2009-08-27 Khai  \n8      5 child1 2000-12-05 Parker\n9      5 child2 2005-02-28 Gracie"
+  },
+  {
+    "objectID": "workshops/data_wrangling_r.html#pivot_wider",
+    "href": "workshops/data_wrangling_r.html#pivot_wider",
+    "title": "",
+    "section": "pivot_wider",
+    "text": "pivot_wider\npivot_wider() is the opposite of pivot_longer(), which you use if you have data for the same observation taking up multiple rows.\n\nHere’s an example of data that we probably want to pivot wider (unless we want to plot each statistic in its own facet):\n\n\n# A tibble: 6 × 3\n  Group Statistic Value\n  &lt;chr&gt; &lt;chr&gt;     &lt;dbl&gt;\n1 A     Mean       1.28\n2 A     Median     1   \n3 A     SD         0.72\n4 B     Mean       2.81\n5 B     Median     2   \n6 B     SD         1.33\n\n\n\n\nA common cue to use pivot_wider() is having measurements of different quantities in the same column."
+  },
+  {
+    "objectID": "workshops/data_wrangling_r.html#pivot_wider-example",
+    "href": "workshops/data_wrangling_r.html#pivot_wider-example",
+    "title": "",
+    "section": "\npivot_wider Example",
+    "text": "pivot_wider Example\n\nwide_stats &lt;- long_stats |&gt; \n8  pivot_wider(id_cols = Group,\n9              names_from = Statistic,\n10              values_from = Value)\nwide_stats\n\n\n8\n\nid_cols is the column that uniquely identifies each row in the new dataset. Default is everything not in names_from and values_from.\n\n9\n\nnames_from provides the names that will be used for the new columns\n\n10\n\nvalues_from provides the values that will be used to populate the cells of the new columns.\n\n\n\n\n\n\n# A tibble: 2 × 4\n  Group  Mean Median    SD\n  &lt;chr&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;\n1 A      1.28      1  0.72\n2 B      2.81      2  1.33\n\n\n\npivot_wider() also has a number of optional names_* and values_* arguments for more complicated transformations.\n\n\n\n\n\n Nested Data\n\n\nIf there are multiple rows in the input that correspond to one cell in the output you’ll get a list-column. This means that you 1) need to fix something in your code/data because it shouldn’t be nested in this way or 2) need to use unnest_wider() or unnest_longer() in order to access this column of data. More on this here."
+  },
+  {
+    "objectID": "workshops/data_wrangling_r.html#death-to-spreadsheets",
+    "href": "workshops/data_wrangling_r.html#death-to-spreadsheets",
+    "title": "",
+    "section": "Death to Spreadsheets",
+    "text": "Death to Spreadsheets\nTools like Excel or Google Sheets let you manipulate spreadsheets using functions.\n\n\nSpreadsheets are not reproducible: It’s hard to know how someone changed the raw data!\nIt’s hard to catch mistakes when you use spreadsheets1.\n\n\n\nToday, we’ll use R to manipulate data more transparently and reproducibly.\n\nDon’t be the next sad Research Assistant who makes headlines with an Excel error! (Reinhart & Rogoff, 2010)"
+  },
+  {
+    "objectID": "workshops/data_wrangling_r.html#data-types-in-r",
+    "href": "workshops/data_wrangling_r.html#data-types-in-r",
+    "title": "",
+    "section": "Data types in R\n",
+    "text": "Data types in R\n\nGoing back to our list of data types in R:\n\n\nFactors\nDate/Date-time\nLogical\nNumeric\nMissing Values\nStrings"
+  },
+  {
+    "objectID": "workshops/data_wrangling_r.html#data-types-in-r-1",
+    "href": "workshops/data_wrangling_r.html#data-types-in-r-1",
+    "title": "",
+    "section": "Data types in R\n",
+    "text": "Data types in R\n\nGoing back to our list of data types in R:\n\nFactors\nDate/Date-time\nLogical\nNumeric\nMissing Values\nStrings"
+  },
+  {
+    "objectID": "workshops/data_wrangling_r.html#booleans",
+    "href": "workshops/data_wrangling_r.html#booleans",
+    "title": "",
+    "section": "Booleans",
+    "text": "Booleans\nThe simplest data type is a boolean, or binary, variable: TRUE or FALSE1.\n\nMore often than not our data don’t actually have a variable with this data type, but they are definitely created and evalutated in the data manipulation and summarizing process.\n\n\nLogical operators refer to base functions which allow us to test if a condition is present between two objects.\n\n\nFor example, we may test\n\nIs A equal to B?\nIs A greater than B?\nIs A within B?\n\n\n\nNaturally, these types of expressions produce a binary outcome of T or F which enables us to transform our data in a variety of ways!\n\nor NA"
+  },
+  {
+    "objectID": "workshops/data_wrangling_r.html#logical-operators-in-r",
+    "href": "workshops/data_wrangling_r.html#logical-operators-in-r",
+    "title": "",
+    "section": "Logical Operators in R\n",
+    "text": "Logical Operators in R\n\nComparing objects\n\n\n\n\n\n==:\n\n!=:\n\n&gt;, &gt;=, &lt;, &lt;=:\n\n%in%:\n\n\n\n\n\nis equal to1\n\nnot equal to\nless than, less than or equal to, etc.\nused when checking if equal to one of several values\n\n\n\n\n\n\nCombining comparisons\n\n\n\n\n\n\n&:\n\n|:\n\n!:\n\nxor():\n\n\n\n\n\n\nboth conditions need to hold (AND)\n\n\nat least one condition needs to hold (OR)\n\n\ninverts a logical condition (TRUE becomes FALSE, vice versa)\n\n\nexclusive OR (i.e. x or y but NOT both)\n\n\n\n\n\n\nYou may also see && and || but they are what’s known as short-circuiting operators and are not to be used in dplyr functions (used for programming not data manipulation); they’ll only ever return a single TRUE or FALSE.\nNote: there are TWO equal signs here!"
+  },
+  {
+    "objectID": "workshops/data_wrangling_r.html#unexpected-behavior",
+    "href": "workshops/data_wrangling_r.html#unexpected-behavior",
+    "title": "",
+    "section": "Unexpected Behavior",
+    "text": "Unexpected Behavior\nBe careful using == with numbers:\n\n\nx &lt;- c(1 / 49 * 49, sqrt(2) ^ 2)\nx\n1x == c(1, 2)\n2print(x, digits = 16)\n\n\n1\n\nComputers store numbers with a fixed number of decimal places so there’s no way to precisely represent decimals.\n\n2\n\ndplyr::near() is a useful alternative which ignores small differences.\n\n\n\n\n[1] 1 2\n[1] FALSE FALSE\n[1] 0.9999999999999999 2.0000000000000004\n\n\n\n\nSimilarly mysterious, missing values (NA) represent the unknown. Almost anything conditional involving NAs will also be unknown:\n\nNA &gt; 5\n10 == NA\n3NA == NA\n\n\n3\n\nThe logic here: if you have one unknown and a second unknown, you don’t actually know if they equal one another!\n\n\n\n\n[1] NA\n[1] NA\n[1] NA\n\n\n\n\nThis is the reason we use is.na() to check for missingness.\n\nis.na(c(NA, 5))\n\n[1]  TRUE FALSE"
+  },
+  {
+    "objectID": "workshops/data_wrangling_r.html#examples-of-logical-operators",
+    "href": "workshops/data_wrangling_r.html#examples-of-logical-operators",
+    "title": "",
+    "section": "Examples of Logical Operators",
+    "text": "Examples of Logical Operators\nLet’s create two objects, A and B\n\nA &lt;- c(5, 10, 15)\nB &lt;- c(5, 15, 25)\n\n\nComparisons:\n\nA == B\nA &gt; B\n1A %in% B\n\n\n1\n\nWill return a vector the length of A that is TRUE whenever a value in A is anywhere in B. Note: You CAN use %in% to search for NAs.\n\n\n\n\n[1]  TRUE FALSE FALSE\n[1] FALSE FALSE FALSE\n[1]  TRUE FALSE  TRUE\n\n\n\n\nCombinations:\n\nA &gt; 5 & A &lt;= B \n2B &lt; 10 | B &gt; 20\n!(A == 10)\n\n\n2\n\nBe sure not to cut corners (i.e. writing B &lt; 10 | &gt; 20). The code won’t technically error but it won’t evaluate the way you expect it to. Read more about the confusing logic behind this here.\n\n\n\n\n[1] FALSE  TRUE  TRUE\n[1]  TRUE FALSE  TRUE\n[1]  TRUE FALSE  TRUE"
+  },
+  {
+    "objectID": "workshops/data_wrangling_r.html#logical-summaries",
+    "href": "workshops/data_wrangling_r.html#logical-summaries",
+    "title": "",
+    "section": "Logical Summaries",
+    "text": "Logical Summaries\n\n\n\n\n\nany():\n\nall():\n\n\n\n\n\nthe equivalent of |; it’ll return TRUE if there are any TRUE’s in x\nthe equivalent of &; it’ll return TRUE only if all values of x are TRUE’s\n\n\n\n\n\n\nC &lt;- c(5, 10, NA, 10, 20, NA)\n1any(C &lt;= 10)\nall(C &lt;= 20)\n2all(C &lt;= 20, na.rm = TRUE)\n3mean(C, na.rm = TRUE)\n\n\n1\n\nLike other summary functions, they’ll return NA if there are any missing values present and it’s FALSE.\n\n2\n\nUse na.rm = TRUE to remove NAs prior to evaluation.\n\n3\n\nWhen you evaluate a logical vector numerically, TRUE = 1 and FALSE = 0. This makes sum() and mean() useful when summarizing logical functions (sum gives number of TRUEs and mean gives the proportion).\n\n\n\n\n[1] TRUE\n[1] NA\n[1] TRUE\n[1] 11.25"
+  },
+  {
+    "objectID": "workshops/data_wrangling_r.html#conditional-transformations",
+    "href": "workshops/data_wrangling_r.html#conditional-transformations",
+    "title": "",
+    "section": "Conditional transformations",
+    "text": "Conditional transformations\n\nif_else()\n\nIf you want to use one value when a condition is TRUE and another value when it’s FALSE.\n\n\nif_else(condition = \"A logical vector\", \n        true = \"Output when condition is true\", \n        false = \"Output when condition is false\")\n\n\n\n\nx &lt;- c(-3:3, NA)\n1if_else(x &gt; 0, \"+ve\", \"-ve\", \"???\")\n\n\n1\n\nThere’s an optional fourth argument, missing which will be used if the input is NA.\n\n\n\n\n[1] \"-ve\" \"-ve\" \"-ve\" \"-ve\" \"+ve\" \"+ve\" \"+ve\" \"???\"\n\n\n\n\n\ncase_when()\n\nA very useful extension of if_else() for multiple conditions1.\n\n\n\ncase_when(\n  x == 0   ~ \"0\",\n  x &lt; 0    ~ \"-ve\", \n  x &gt; 0    ~ \"+ve\",\n2  is.na(x) ~ \"???\"\n3)\n\n\n2\n\nUse .default if you want to create a “default”/catch all value.\n\n3\n\nBoth functions require compatible types: i.e. numerical and logical, strings and factors, dates and datetimes, NA and everything.\n\n\n\n\n[1] \"-ve\" \"-ve\" \"-ve\" \"0\"   \"+ve\" \"+ve\" \"+ve\" \"???\"\n\n\n\nNote that if multiple conditions match in case_when(), only the first will be used."
+  },
+  {
+    "objectID": "workshops/data_wrangling_r.html#dplyr",
+    "href": "workshops/data_wrangling_r.html#dplyr",
+    "title": "",
+    "section": "dplyr",
+    "text": "dplyr\nToday, we’ll use tools from the dplyr package to manipulate data!\n\nLike ggplot2, dplyr is part of the Tidyverse, and included in the tidyverse package.\n\n\nlibrary(tidyverse)\n\n\nTo demonstrate data transformations we’re going to use the nycflights13 dataset, which you’ll need to download and load into R\n\n# Download and load data\n1# install.packages(\"nycflights13\")\n2library(nycflights13)\n\n\n1\n\nRun in console.\n\n2\n\nLoad into R session.\n\n\n\n\n\n\nnycflights13 includes five dataframes1, some of which contain missing data (NA):\n\n1data(flights)\n2data(airlines)\n3data(airports)\n4data(planes)\n5data(weather)\n\n\n1\n\nflights leaving JFK, LGA, or EWR in 2013\n\n2\n\nairline abbreviations\n\n3\n\nairport metadata\n\n4\n\nairplane metadata\n\n5\n\nhourly weather data for JFK, LGA, and EWR\n\n\n\n\n\nNote these are separate data frames, each needing to be loaded separately:"
+  },
+  {
+    "objectID": "workshops/data_wrangling_r.html#dplyr-basics",
+    "href": "workshops/data_wrangling_r.html#dplyr-basics",
+    "title": "",
+    "section": "\ndplyr Basics",
+    "text": "dplyr Basics\nAll dplyr functions have the following in common:\n\n\nThe first argument is always a data frame.\nThe subsequent arguments typically describe which columns to operate on, using the variable names (without quotes).\nThe output is always a new data frame.\n\n\n\nEach function operates either on rows, columns, groups, or entire tables.\n\n\nTo save the transformations you’ve made to a data frame you’ll need to save the output to a new object."
+  },
+  {
+    "objectID": "workshops/data_wrangling_r.html#subset-rows-filter",
+    "href": "workshops/data_wrangling_r.html#subset-rows-filter",
+    "title": "",
+    "section": "Subset Rows: filter()\n",
+    "text": "Subset Rows: filter()\n\nWe often get big datasets, and we only want some of the entries. We can subset rows using filter().\n\n\ndelay_2hr &lt;- flights |&gt; \n1  filter(dep_delay &gt; 120)\n2delay_2hr\n\n\n1\n\nHere’s where all your new knowledge about logical operators comes in handy! Make sure to use == not = to test the logical condition.\n\n2\n\nNow, delay_2hr is an object in our environment which contains rows corresponding to flights that experienced at least a 2 hour delay.\n\n\n\n\n# A tibble: 9,723 × 19\n    year month   day dep_time sched_dep_time dep_delay arr_time sched_arr_time\n   &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;          &lt;int&gt;\n 1  2013     1     1      848           1835       853     1001           1950\n 2  2013     1     1      957            733       144     1056            853\n 3  2013     1     1     1114            900       134     1447           1222\n 4  2013     1     1     1540           1338       122     2020           1825\n 5  2013     1     1     1815           1325       290     2120           1542\n 6  2013     1     1     1842           1422       260     1958           1535\n 7  2013     1     1     1856           1645       131     2212           2005\n 8  2013     1     1     1934           1725       129     2126           1855\n 9  2013     1     1     1938           1703       155     2109           1823\n10  2013     1     1     1942           1705       157     2124           1830\n# ℹ 9,713 more rows\n# ℹ 11 more variables: arr_delay &lt;dbl&gt;, carrier &lt;chr&gt;, flight &lt;int&gt;,\n#   tailnum &lt;chr&gt;, origin &lt;chr&gt;, dest &lt;chr&gt;, air_time &lt;dbl&gt;, distance &lt;dbl&gt;,\n#   hour &lt;dbl&gt;, minute &lt;dbl&gt;, time_hour &lt;dttm&gt;"
+  },
+  {
+    "objectID": "workshops/data_wrangling_r.html#subset-columns-select",
+    "href": "workshops/data_wrangling_r.html#subset-columns-select",
+    "title": "",
+    "section": "Subset Columns: select()\n",
+    "text": "Subset Columns: select()\n\nWhat if we want to keep every observation, but only use certain variables? Use select()!\n\nWe can select columns by name:\n\nflights |&gt; \n3  select(year, month, day)\n\n\n3\n\nYou can use a - before a variable name or a vector of variables to drop them from the data (i.e. select(-c(year, month, day))).\n\n\n\n\n# A tibble: 336,776 × 3\n    year month   day\n   &lt;int&gt; &lt;int&gt; &lt;int&gt;\n 1  2013     1     1\n 2  2013     1     1\n 3  2013     1     1\n 4  2013     1     1\n 5  2013     1     1\n 6  2013     1     1\n 7  2013     1     1\n 8  2013     1     1\n 9  2013     1     1\n10  2013     1     1\n# ℹ 336,766 more rows"
+  },
+  {
+    "objectID": "workshops/data_wrangling_r.html#subset-columns-select-1",
+    "href": "workshops/data_wrangling_r.html#subset-columns-select-1",
+    "title": "",
+    "section": "Subset Columns: select()\n",
+    "text": "Subset Columns: select()\n\nWhat if we want to keep every observation, but only use certain variables? Use select()!\nWe can select columns between variables (inclusive):\n\nflights |&gt; \n4  select(year:day)\n\n\n4\n\nAdd a ! before year and you’ll drop this group of variables from the data.\n\n\n\n\n# A tibble: 336,776 × 3\n    year month   day\n   &lt;int&gt; &lt;int&gt; &lt;int&gt;\n 1  2013     1     1\n 2  2013     1     1\n 3  2013     1     1\n 4  2013     1     1\n 5  2013     1     1\n 6  2013     1     1\n 7  2013     1     1\n 8  2013     1     1\n 9  2013     1     1\n10  2013     1     1\n# ℹ 336,766 more rows"
+  },
+  {
+    "objectID": "workshops/data_wrangling_r.html#subset-columns-select-2",
+    "href": "workshops/data_wrangling_r.html#subset-columns-select-2",
+    "title": "",
+    "section": "Subset Columns: select()\n",
+    "text": "Subset Columns: select()\n\nWhat if we want to keep every observation, but only use certain variables? Use select()!\nWe can select columns based on a condition:\n\nflights |&gt; \n5  select(where(is.character))\n\n\n5\n\nThere are a number of helper functions you can use with select() including starts_with(), ends_with(), contains() and num_range(). Read more about these and more here.\n\n\n\n\n# A tibble: 336,776 × 4\n   carrier tailnum origin dest \n   &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt;\n 1 UA      N14228  EWR    IAH  \n 2 UA      N24211  LGA    IAH  \n 3 AA      N619AA  JFK    MIA  \n 4 B6      N804JB  JFK    BQN  \n 5 DL      N668DN  LGA    ATL  \n 6 UA      N39463  EWR    ORD  \n 7 B6      N516JB  EWR    FLL  \n 8 EV      N829AS  LGA    IAD  \n 9 B6      N593JB  JFK    MCO  \n10 AA      N3ALAA  LGA    ORD  \n# ℹ 336,766 more rows"
+  },
+  {
+    "objectID": "workshops/data_wrangling_r.html#finding-unique-rows-distinct",
+    "href": "workshops/data_wrangling_r.html#finding-unique-rows-distinct",
+    "title": "",
+    "section": "Finding Unique Rows: distinct()\n",
+    "text": "Finding Unique Rows: distinct()\n\nYou may want to find the unique combinations of variables in a dataset. Use distinct()\n\n\nflights |&gt; \n6  distinct(origin, dest)\n\n\n6\n\nFind all unique origin and destination pairs.\n\n\n\n\n# A tibble: 224 × 2\n   origin dest \n   &lt;chr&gt;  &lt;chr&gt;\n 1 EWR    IAH  \n 2 LGA    IAH  \n 3 JFK    MIA  \n 4 JFK    BQN  \n 5 LGA    ATL  \n 6 EWR    ORD  \n 7 EWR    FLL  \n 8 LGA    IAD  \n 9 JFK    MCO  \n10 LGA    ORD  \n# ℹ 214 more rows"
+  },
+  {
+    "objectID": "workshops/data_wrangling_r.html#distinct-drops-variables",
+    "href": "workshops/data_wrangling_r.html#distinct-drops-variables",
+    "title": "",
+    "section": "\ndistinct() drops variables!",
+    "text": "distinct() drops variables!\nBy default, distinct() drops unused variables. If you don’t want to drop them, add the argument .keep_all = TRUE:\n\n\nflights |&gt; \n7  distinct(origin, dest, .keep_all = TRUE)\n\n\n7\n\nIt’s not a coincidence that all of these distinct flights are on January 1: distinct() will find the first occurrence of a unique row in the dataset and discard the rest. Use count() if you’re looking for the number of occurrences.\n\n\n\n\n# A tibble: 224 × 19\n    year month   day dep_time sched_dep_time dep_delay arr_time sched_arr_time\n   &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;          &lt;int&gt;\n 1  2013     1     1      517            515         2      830            819\n 2  2013     1     1      533            529         4      850            830\n 3  2013     1     1      542            540         2      923            850\n 4  2013     1     1      544            545        -1     1004           1022\n 5  2013     1     1      554            600        -6      812            837\n 6  2013     1     1      554            558        -4      740            728\n 7  2013     1     1      555            600        -5      913            854\n 8  2013     1     1      557            600        -3      709            723\n 9  2013     1     1      557            600        -3      838            846\n10  2013     1     1      558            600        -2      753            745\n# ℹ 214 more rows\n# ℹ 11 more variables: arr_delay &lt;dbl&gt;, carrier &lt;chr&gt;, flight &lt;int&gt;,\n#   tailnum &lt;chr&gt;, origin &lt;chr&gt;, dest &lt;chr&gt;, air_time &lt;dbl&gt;, distance &lt;dbl&gt;,\n#   hour &lt;dbl&gt;, minute &lt;dbl&gt;, time_hour &lt;dttm&gt;"
+  },
+  {
+    "objectID": "workshops/data_wrangling_r.html#count-unique-rows-count",
+    "href": "workshops/data_wrangling_r.html#count-unique-rows-count",
+    "title": "",
+    "section": "Count Unique Rows: count()\n",
+    "text": "Count Unique Rows: count()\n\n\n\nflights |&gt;\n8  count(origin, dest, sort = TRUE)\n\n\n8\n\nsort = TRUE arranges them in descending order of number of occurrences.\n\n\n\n\n# A tibble: 224 × 3\n   origin dest      n\n   &lt;chr&gt;  &lt;chr&gt; &lt;int&gt;\n 1 JFK    LAX   11262\n 2 LGA    ATL   10263\n 3 LGA    ORD    8857\n 4 JFK    SFO    8204\n 5 LGA    CLT    6168\n 6 EWR    ORD    6100\n 7 JFK    BOS    5898\n 8 LGA    MIA    5781\n 9 JFK    MCO    5464\n10 EWR    BOS    5327\n# ℹ 214 more rows"
+  },
+  {
+    "objectID": "workshops/data_wrangling_r.html#sorting-rata-by-rows-arrange",
+    "href": "workshops/data_wrangling_r.html#sorting-rata-by-rows-arrange",
+    "title": "",
+    "section": "Sorting Rata by Rows: arrange()\n",
+    "text": "Sorting Rata by Rows: arrange()\n\nSometimes it’s useful to sort rows in your data, in ascending (low to high) or descending (high to low) order. We do that with arrange().\n\n\nflights |&gt; \n1  arrange(year, month, day, dep_time)\n\n\n1\n\nIf you provide more than one column name, each additional column will be used to break ties in the values of preceding columns.\n\n\n\n\n# A tibble: 336,776 × 19\n    year month   day dep_time sched_dep_time dep_delay arr_time sched_arr_time\n   &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;          &lt;int&gt;\n 1  2013     1     1      517            515         2      830            819\n 2  2013     1     1      533            529         4      850            830\n 3  2013     1     1      542            540         2      923            850\n 4  2013     1     1      544            545        -1     1004           1022\n 5  2013     1     1      554            600        -6      812            837\n 6  2013     1     1      554            558        -4      740            728\n 7  2013     1     1      555            600        -5      913            854\n 8  2013     1     1      557            600        -3      709            723\n 9  2013     1     1      557            600        -3      838            846\n10  2013     1     1      558            600        -2      753            745\n# ℹ 336,766 more rows\n# ℹ 11 more variables: arr_delay &lt;dbl&gt;, carrier &lt;chr&gt;, flight &lt;int&gt;,\n#   tailnum &lt;chr&gt;, origin &lt;chr&gt;, dest &lt;chr&gt;, air_time &lt;dbl&gt;, distance &lt;dbl&gt;,\n#   hour &lt;dbl&gt;, minute &lt;dbl&gt;, time_hour &lt;dttm&gt;"
+  },
+  {
+    "objectID": "workshops/data_wrangling_r.html#sorting-data-by-rows-arrange",
+    "href": "workshops/data_wrangling_r.html#sorting-data-by-rows-arrange",
+    "title": "",
+    "section": "Sorting Data by Rows: arrange()\n",
+    "text": "Sorting Data by Rows: arrange()\n\nTo sort in descending order, using desc() within arrange()\n\n\nflights |&gt; \n  arrange(desc(dep_delay))\n\n# A tibble: 336,776 × 19\n    year month   day dep_time sched_dep_time dep_delay arr_time sched_arr_time\n   &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;          &lt;int&gt;\n 1  2013     1     9      641            900      1301     1242           1530\n 2  2013     6    15     1432           1935      1137     1607           2120\n 3  2013     1    10     1121           1635      1126     1239           1810\n 4  2013     9    20     1139           1845      1014     1457           2210\n 5  2013     7    22      845           1600      1005     1044           1815\n 6  2013     4    10     1100           1900       960     1342           2211\n 7  2013     3    17     2321            810       911      135           1020\n 8  2013     6    27      959           1900       899     1236           2226\n 9  2013     7    22     2257            759       898      121           1026\n10  2013    12     5      756           1700       896     1058           2020\n# ℹ 336,766 more rows\n# ℹ 11 more variables: arr_delay &lt;dbl&gt;, carrier &lt;chr&gt;, flight &lt;int&gt;,\n#   tailnum &lt;chr&gt;, origin &lt;chr&gt;, dest &lt;chr&gt;, air_time &lt;dbl&gt;, distance &lt;dbl&gt;,\n#   hour &lt;dbl&gt;, minute &lt;dbl&gt;, time_hour &lt;dttm&gt;"
+  },
+  {
+    "objectID": "workshops/data_wrangling_r.html#rename-variables-rename",
+    "href": "workshops/data_wrangling_r.html#rename-variables-rename",
+    "title": "",
+    "section": "Rename Variables: rename()\n",
+    "text": "Rename Variables: rename()\n\nYou may receive data with unintuitive variable names. Change them using rename().\n\n\nflights |&gt; \n2  rename(tail_num = tailnum)\n\n\n2\n\nrename(new_name = old_name) is the format. Reminder to use janitor::clean_names() if you want to automate this process for a lot of variables.\n\n\n\n\n# A tibble: 336,776 × 19\n    year month   day dep_time sched_dep_time dep_delay arr_time sched_arr_time\n   &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;          &lt;int&gt;\n 1  2013     1     1      517            515         2      830            819\n 2  2013     1     1      533            529         4      850            830\n 3  2013     1     1      542            540         2      923            850\n 4  2013     1     1      544            545        -1     1004           1022\n 5  2013     1     1      554            600        -6      812            837\n 6  2013     1     1      554            558        -4      740            728\n 7  2013     1     1      555            600        -5      913            854\n 8  2013     1     1      557            600        -3      709            723\n 9  2013     1     1      557            600        -3      838            846\n10  2013     1     1      558            600        -2      753            745\n# ℹ 336,766 more rows\n# ℹ 11 more variables: arr_delay &lt;dbl&gt;, carrier &lt;chr&gt;, flight &lt;int&gt;,\n#   tail_num &lt;chr&gt;, origin &lt;chr&gt;, dest &lt;chr&gt;, air_time &lt;dbl&gt;, distance &lt;dbl&gt;,\n#   hour &lt;dbl&gt;, minute &lt;dbl&gt;, time_hour &lt;dttm&gt;\n\n\n\n\n\n\n\n Variable Syntax\n\n\nI recommend against using spaces in a name! It makes things really hard sometimes!!"
+  },
+  {
+    "objectID": "workshops/data_wrangling_r.html#create-new-columns-mutate",
+    "href": "workshops/data_wrangling_r.html#create-new-columns-mutate",
+    "title": "",
+    "section": "Create New Columns: mutate()\n",
+    "text": "Create New Columns: mutate()\n\nYou can add new columns to a data frame using mutate().\n\n\nflights |&gt; \n  mutate(\n    gain = dep_delay - arr_delay,\n    speed = distance / air_time * 60,\n3    .before = 1\n  )\n\n\n3\n\nBy default, mutate() adds new columns on the right hand side of your dataset, which makes it difficult to see if anything happened. You can use the .before argument to specify which numeric index (or variable name) to move the newly created variable to. .after is an alternative argument for this.\n\n\n\n\n# A tibble: 336,776 × 21\n    gain speed  year month   day dep_time sched_dep_time dep_delay arr_time\n   &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;\n 1    -9  370.  2013     1     1      517            515         2      830\n 2   -16  374.  2013     1     1      533            529         4      850\n 3   -31  408.  2013     1     1      542            540         2      923\n 4    17  517.  2013     1     1      544            545        -1     1004\n 5    19  394.  2013     1     1      554            600        -6      812\n 6   -16  288.  2013     1     1      554            558        -4      740\n 7   -24  404.  2013     1     1      555            600        -5      913\n 8    11  259.  2013     1     1      557            600        -3      709\n 9     5  405.  2013     1     1      557            600        -3      838\n10   -10  319.  2013     1     1      558            600        -2      753\n# ℹ 336,766 more rows\n# ℹ 12 more variables: sched_arr_time &lt;int&gt;, arr_delay &lt;dbl&gt;, carrier &lt;chr&gt;,\n#   flight &lt;int&gt;, tailnum &lt;chr&gt;, origin &lt;chr&gt;, dest &lt;chr&gt;, air_time &lt;dbl&gt;,\n#   distance &lt;dbl&gt;, hour &lt;dbl&gt;, minute &lt;dbl&gt;, time_hour &lt;dttm&gt;"
+  },
+  {
+    "objectID": "workshops/data_wrangling_r.html#specifying-variables-to-keep-mutate",
+    "href": "workshops/data_wrangling_r.html#specifying-variables-to-keep-mutate",
+    "title": "",
+    "section": "Specifying Variables to Keep: mutate()\n",
+    "text": "Specifying Variables to Keep: mutate()\n\nYou can specify which columns to keep with the .keep argument:\n\nflights |&gt; \n  mutate(\n    gain = dep_delay - arr_delay,\n    hours = air_time / 60,\n    gain_per_hour = gain / hours,\n4    .keep = \"used\"\n  )\n\n\n4\n\n“used” retains only the variables used to create the new variables, which is useful for checking your work. Other options include: “all,” “unused,” and “none.”\n\n\n\n\n# A tibble: 336,776 × 6\n   dep_delay arr_delay air_time  gain hours gain_per_hour\n       &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;         &lt;dbl&gt;\n 1         2        11      227    -9 3.78          -2.38\n 2         4        20      227   -16 3.78          -4.23\n 3         2        33      160   -31 2.67         -11.6 \n 4        -1       -18      183    17 3.05           5.57\n 5        -6       -25      116    19 1.93           9.83\n 6        -4        12      150   -16 2.5           -6.4 \n 7        -5        19      158   -24 2.63          -9.11\n 8        -3       -14       53    11 0.883         12.5 \n 9        -3        -8      140     5 2.33           2.14\n10        -2         8      138   -10 2.3           -4.35\n# ℹ 336,766 more rows"
+  },
+  {
+    "objectID": "workshops/data_wrangling_r.html#move-variables-around-relocate",
+    "href": "workshops/data_wrangling_r.html#move-variables-around-relocate",
+    "title": "",
+    "section": "Move Variables Around: relocate()\n",
+    "text": "Move Variables Around: relocate()\n\nYou might want to collect related variables together or move important variables to the front. Use relocate()!\n\nflights |&gt; \n5  relocate(time_hour, air_time)\n\n\n5\n\nBy default relocate() moves variables to the front but you can also specify where to put them using the .before and .after arguments, just like in mutate().\n\n\n\n\n# A tibble: 336,776 × 19\n   time_hour           air_time  year month   day dep_time sched_dep_time\n   &lt;dttm&gt;                 &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;\n 1 2013-01-01 05:00:00      227  2013     1     1      517            515\n 2 2013-01-01 05:00:00      227  2013     1     1      533            529\n 3 2013-01-01 05:00:00      160  2013     1     1      542            540\n 4 2013-01-01 05:00:00      183  2013     1     1      544            545\n 5 2013-01-01 06:00:00      116  2013     1     1      554            600\n 6 2013-01-01 05:00:00      150  2013     1     1      554            558\n 7 2013-01-01 06:00:00      158  2013     1     1      555            600\n 8 2013-01-01 06:00:00       53  2013     1     1      557            600\n 9 2013-01-01 06:00:00      140  2013     1     1      557            600\n10 2013-01-01 06:00:00      138  2013     1     1      558            600\n# ℹ 336,766 more rows\n# ℹ 12 more variables: dep_delay &lt;dbl&gt;, arr_time &lt;int&gt;, sched_arr_time &lt;int&gt;,\n#   arr_delay &lt;dbl&gt;, carrier &lt;chr&gt;, flight &lt;int&gt;, tailnum &lt;chr&gt;, origin &lt;chr&gt;,\n#   dest &lt;chr&gt;, distance &lt;dbl&gt;, hour &lt;dbl&gt;, minute &lt;dbl&gt;"
+  },
+  {
+    "objectID": "workshops/data_wrangling_r.html#grouping-data-group_by",
+    "href": "workshops/data_wrangling_r.html#grouping-data-group_by",
+    "title": "",
+    "section": "Grouping Data: group_by()\n",
+    "text": "Grouping Data: group_by()\n\nIf you want to analyze your data by specific groupings, use group_by():\n\nflights |&gt; \n1  group_by(month)\n\n\n1\n\ngroup_by() doesn’t change the data but you’ll notice that the output indicates that it is “grouped by” month (Groups: month [12]). This means subsequent operations will now work “by month”.\n\n\n\n\n# A tibble: 336,776 × 19\n# Groups:   month [12]\n    year month   day dep_time sched_dep_time dep_delay arr_time sched_arr_time\n   &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;          &lt;int&gt;\n 1  2013     1     1      517            515         2      830            819\n 2  2013     1     1      533            529         4      850            830\n 3  2013     1     1      542            540         2      923            850\n 4  2013     1     1      544            545        -1     1004           1022\n 5  2013     1     1      554            600        -6      812            837\n 6  2013     1     1      554            558        -4      740            728\n 7  2013     1     1      555            600        -5      913            854\n 8  2013     1     1      557            600        -3      709            723\n 9  2013     1     1      557            600        -3      838            846\n10  2013     1     1      558            600        -2      753            745\n# ℹ 336,766 more rows\n# ℹ 11 more variables: arr_delay &lt;dbl&gt;, carrier &lt;chr&gt;, flight &lt;int&gt;,\n#   tailnum &lt;chr&gt;, origin &lt;chr&gt;, dest &lt;chr&gt;, air_time &lt;dbl&gt;, distance &lt;dbl&gt;,\n#   hour &lt;dbl&gt;, minute &lt;dbl&gt;, time_hour &lt;dttm&gt;"
+  },
+  {
+    "objectID": "workshops/data_wrangling_r.html#summarizing-data-summarize",
+    "href": "workshops/data_wrangling_r.html#summarizing-data-summarize",
+    "title": "",
+    "section": "Summarizing Data: summarize()\n",
+    "text": "Summarizing Data: summarize()\n\nsummarize() calculates summaries of variables in your data:\n\n\nCount the number of rows\nCalculate the mean\nCalculate the sum\nFind the minimum or maximum value\n\n\n\nYou can use any function inside summarize() that aggregates multiple values into a single value (like sd(), mean(), or max())."
+  },
+  {
+    "objectID": "workshops/data_wrangling_r.html#summarize-example",
+    "href": "workshops/data_wrangling_r.html#summarize-example",
+    "title": "",
+    "section": "\nsummarize() Example",
+    "text": "summarize() Example\nLet’s see what this looks like in our flights dataset:\n\n\nflights |&gt; \n  summarize(\n2    avg_delay = mean(dep_delay)\n  )\n\n\n2\n\nThe NA produced here is a result of calling mean on dep_delay. Any summarizing function will return NA if any of the values are NA. We can set na.rm = TRUE to change this behavior.\n\n\n\n\n# A tibble: 1 × 1\n  avg_delay\n      &lt;dbl&gt;\n1        NA"
+  },
+  {
+    "objectID": "workshops/data_wrangling_r.html#summarize-example-1",
+    "href": "workshops/data_wrangling_r.html#summarize-example-1",
+    "title": "",
+    "section": "\nsummarize() Example",
+    "text": "summarize() Example\nLet’s see what this looks like in our flights dataset:\n\nflights |&gt; \n  summarize(\n    avg_delay = mean(dep_delay, na.rm = TRUE) \n  )\n\n# A tibble: 1 × 1\n  avg_delay\n      &lt;dbl&gt;\n1      12.6"
+  },
+  {
+    "objectID": "workshops/data_wrangling_r.html#summarizing-data-by-groups",
+    "href": "workshops/data_wrangling_r.html#summarizing-data-by-groups",
+    "title": "",
+    "section": "Summarizing Data by Groups",
+    "text": "Summarizing Data by Groups\nWhat if we want to summarize data by our groups? Use group_by() and summarize()\n\n\nflights |&gt; \n  group_by(month) |&gt; \n  summarize(\n    delay = mean(dep_delay, na.rm = TRUE)\n  )\n\n# A tibble: 12 × 2\n   month delay\n   &lt;int&gt; &lt;dbl&gt;\n 1     1 10.0 \n 2     2 10.8 \n 3     3 13.2 \n 4     4 13.9 \n 5     5 13.0 \n 6     6 20.8 \n 7     7 21.7 \n 8     8 12.6 \n 9     9  6.72\n10    10  6.24\n11    11  5.44\n12    12 16.6 \n\n\n\n\nBecause we did group_by() with month, then used summarize(), we get one row per value of month!"
+  },
+  {
+    "objectID": "workshops/data_wrangling_r.html#summarizing-data-by-groups-1",
+    "href": "workshops/data_wrangling_r.html#summarizing-data-by-groups-1",
+    "title": "",
+    "section": "Summarizing Data by Groups",
+    "text": "Summarizing Data by Groups\nYou can create any number of summaries in a single call to summarize().\n\nflights |&gt; \n  group_by(month) |&gt; \n  summarize(\n    delay = mean(dep_delay, na.rm = TRUE), \n3    n = n()\n  )\n\n\n3\n\nn() returns the number of rows in each group.\n\n\n\n\n# A tibble: 12 × 3\n   month delay     n\n   &lt;int&gt; &lt;dbl&gt; &lt;int&gt;\n 1     1 10.0  27004\n 2     2 10.8  24951\n 3     3 13.2  28834\n 4     4 13.9  28330\n 5     5 13.0  28796\n 6     6 20.8  28243\n 7     7 21.7  29425\n 8     8 12.6  29327\n 9     9  6.72 27574\n10    10  6.24 28889\n11    11  5.44 27268\n12    12 16.6  28135"
+  },
+  {
+    "objectID": "workshops/data_wrangling_r.html#grouping-by-multiple-variables-fa-scroll",
+    "href": "workshops/data_wrangling_r.html#grouping-by-multiple-variables-fa-scroll",
+    "title": "",
+    "section": "Grouping by Multiple Variables \n",
+    "text": "Grouping by Multiple Variables \n\n\ndaily &lt;- flights |&gt; \n  group_by(year, month, day)  \ndaily\n\n# A tibble: 336,776 × 19\n# Groups:   year, month, day [365]\n    year month   day dep_time sched_dep_time dep_delay arr_time sched_arr_time\n   &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;          &lt;int&gt;\n 1  2013     1     1      517            515         2      830            819\n 2  2013     1     1      533            529         4      850            830\n 3  2013     1     1      542            540         2      923            850\n 4  2013     1     1      544            545        -1     1004           1022\n 5  2013     1     1      554            600        -6      812            837\n 6  2013     1     1      554            558        -4      740            728\n 7  2013     1     1      555            600        -5      913            854\n 8  2013     1     1      557            600        -3      709            723\n 9  2013     1     1      557            600        -3      838            846\n10  2013     1     1      558            600        -2      753            745\n# ℹ 336,766 more rows\n# ℹ 11 more variables: arr_delay &lt;dbl&gt;, carrier &lt;chr&gt;, flight &lt;int&gt;,\n#   tailnum &lt;chr&gt;, origin &lt;chr&gt;, dest &lt;chr&gt;, air_time &lt;dbl&gt;, distance &lt;dbl&gt;,\n#   hour &lt;dbl&gt;, minute &lt;dbl&gt;, time_hour &lt;dttm&gt;\n\n\n\n\n\n\n Summary & Grouping Behavior\n\n\nWhen you summarize a tibble grouped by more than one variable, each summary peels off the last group. You can change the default behavior by setting the .groups argument to a different value, e.g., “drop” to drop all grouping or “keep” to preserve the same groups. The default is “drop_last”."
+  },
+  {
+    "objectID": "workshops/data_wrangling_r.html#remove-grouping-ungroup",
+    "href": "workshops/data_wrangling_r.html#remove-grouping-ungroup",
+    "title": "",
+    "section": "Remove Grouping: ungroup()\n",
+    "text": "Remove Grouping: ungroup()\n\n\ndaily |&gt; \n  ungroup() \n\n# A tibble: 336,776 × 19\n    year month   day dep_time sched_dep_time dep_delay arr_time sched_arr_time\n   &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;          &lt;int&gt;\n 1  2013     1     1      517            515         2      830            819\n 2  2013     1     1      533            529         4      850            830\n 3  2013     1     1      542            540         2      923            850\n 4  2013     1     1      544            545        -1     1004           1022\n 5  2013     1     1      554            600        -6      812            837\n 6  2013     1     1      554            558        -4      740            728\n 7  2013     1     1      555            600        -5      913            854\n 8  2013     1     1      557            600        -3      709            723\n 9  2013     1     1      557            600        -3      838            846\n10  2013     1     1      558            600        -2      753            745\n# ℹ 336,766 more rows\n# ℹ 11 more variables: arr_delay &lt;dbl&gt;, carrier &lt;chr&gt;, flight &lt;int&gt;,\n#   tailnum &lt;chr&gt;, origin &lt;chr&gt;, dest &lt;chr&gt;, air_time &lt;dbl&gt;, distance &lt;dbl&gt;,\n#   hour &lt;dbl&gt;, minute &lt;dbl&gt;, time_hour &lt;dttm&gt;"
+  },
+  {
+    "objectID": "workshops/data_wrangling_r.html#new-alternative-for-grouping-.by",
+    "href": "workshops/data_wrangling_r.html#new-alternative-for-grouping-.by",
+    "title": "",
+    "section": "New Alternative for Grouping: .by\n",
+    "text": "New Alternative for Grouping: .by\n\n\nflights |&gt; \n  summarize(\n    delay = mean(dep_delay, na.rm = TRUE), \n    n = n(),\n4    .by = month\n  )\n\n\n4\n\n.by works with all verbs and has the advantage that you don’t need to use the .groups argument to suppress the grouping message or ungroup() when you’re done.\n\n\n\n\n# A tibble: 12 × 3\n   month delay     n\n   &lt;int&gt; &lt;dbl&gt; &lt;int&gt;\n 1     1 10.0  27004\n 2    10  6.24 28889\n 3    11  5.44 27268\n 4    12 16.6  28135\n 5     2 10.8  24951\n 6     3 13.2  28834\n 7     4 13.9  28330\n 8     5 13.0  28796\n 9     6 20.8  28243\n10     7 21.7  29425\n11     8 12.6  29327\n12     9  6.72 27574"
+  },
+  {
+    "objectID": "workshops/data_wrangling_r.html#select-specific-rows-per-group-slice_",
+    "href": "workshops/data_wrangling_r.html#select-specific-rows-per-group-slice_",
+    "title": "",
+    "section": "Select Specific Rows Per Group: slice_*\n",
+    "text": "Select Specific Rows Per Group: slice_*\n\nThere are five handy functions that allow you extract specific rows within each group:\n\n\n\ndf |&gt; slice_head(n = 1) takes the first row from each group.\n\ndf |&gt; slice_tail(n = 1) takes the last row in each group.\n\ndf |&gt; slice_min(x, n = 1) takes the row with the smallest value of column x.\n\ndf |&gt; slice_max(x, n = 1) takes the row with the largest value of column x.\n\ndf |&gt; slice_sample(n = 1) takes one random row.\n\n\n\nLet’s find the flights that are most delayed upon arrival at each destination."
+  },
+  {
+    "objectID": "workshops/data_wrangling_r.html#select-specific-rows-per-group-slice_-1",
+    "href": "workshops/data_wrangling_r.html#select-specific-rows-per-group-slice_-1",
+    "title": "",
+    "section": "Select Specific Rows Per Group: slice_*\n",
+    "text": "Select Specific Rows Per Group: slice_*\n\n\nflights |&gt; \n  group_by(dest) |&gt; \n5  slice_max(arr_delay, n = 1) |&gt;\n  relocate(dest) \n\n\n5\n\nYou can vary n to select more than one row, or instead of n =, you can use prop = 0.1 to select (e.g.) 10% of the rows in each group.\n\n\n\n\n# A tibble: 108 × 19\n# Groups:   dest [105]\n   dest   year month   day dep_time sched_dep_time dep_delay arr_time\n   &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;\n 1 ABQ    2013     7    22     2145           2007        98      132\n 2 ACK    2013     7    23     1139            800       219     1250\n 3 ALB    2013     1    25      123           2000       323      229\n 4 ANC    2013     8    17     1740           1625        75     2042\n 5 ATL    2013     7    22     2257            759       898      121\n 6 AUS    2013     7    10     2056           1505       351     2347\n 7 AVL    2013     8    13     1156            832       204     1417\n 8 BDL    2013     2    21     1728           1316       252     1839\n 9 BGR    2013    12     1     1504           1056       248     1628\n10 BHM    2013     4    10       25           1900       325      136\n# ℹ 98 more rows\n# ℹ 11 more variables: sched_arr_time &lt;int&gt;, arr_delay &lt;dbl&gt;, carrier &lt;chr&gt;,\n#   flight &lt;int&gt;, tailnum &lt;chr&gt;, origin &lt;chr&gt;, air_time &lt;dbl&gt;, distance &lt;dbl&gt;,\n#   hour &lt;dbl&gt;, minute &lt;dbl&gt;, time_hour &lt;dttm&gt;\n\n\n\n\n\n\nThere are 105 groups but 108 rows! Why? slice_min() and slice_max() keep tied values so n = 1 means “give us all rows with the highest value.” If you want exactly one row per group you can set with_ties = FALSE."
   }
 ]
