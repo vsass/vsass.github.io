@@ -20,7 +20,7 @@ website:
           - text: "Other courses"
             href: teaching.qmd
       - text: "CSSCR Workshops"
-        menu:
+        menu: 
           - text: "Introduction to R using R Studio"
             href: workshops/intro_r_rstudio.qmd
           - text: "Introduction to Quarto"

@@ -34,7 +34,7 @@ require(xml2)
 require(tidyverse)
 ```
 
-## {#title-slide data-menu-title="Introduction to R & RStudio" background-image="images/cherry_blossoms.png" background-size="1950px 1200px"}
+## {#title-slide data-menu-title="Introduction to R & RStudio" background-image="images/cherry_blossoms.png" background-size="cover"}
 
 [Introduction to R & RStudio]{.custom-title-shading}
 

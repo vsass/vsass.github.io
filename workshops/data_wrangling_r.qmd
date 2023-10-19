@@ -37,7 +37,7 @@ library(nycflights13)
 #options(width = 90)
 ```
 
-## {#title-slide data-menu-title="Data Wrangling in R" background-image="images/rainier.png" background-size="1950px 1200px" background-color="#4B2E83"}
+## {#title-slide data-menu-title="Data Wrangling in R" background-image="images/rainier.png" background-size="cover" background-color="#4B2E83"}
 
 [Data Wrangling in R]{.custom-title}
 
@@ -994,7 +994,7 @@ flights |>
 
 # Modifying data{.section-title background-color="#B7A57A"}
 
-## Sorting Rata by Rows: `arrange()`
+## Sorting Data by Rows: `arrange()`
 
 Sometimes it's useful to sort rows in your data, in ascending (low to high) or descending (high to low) order. We do that with `arrange()`.
 
@@ -1638,7 +1638,7 @@ We can find rows that are missing from airports by looking for flights that donâ
 ```{r}
 #| output-location: fragment
 airports |> 
-  semi_join(flights2, join_by(faa == origin))
+  anti_join(flights2, join_by(faa == origin))
 ```
 
 ::: aside
@@ -1792,8 +1792,8 @@ First things to check after loading new data:
 ![](images/tidy-1.png){fig-align="center"}
 
 ::: {.incremental}
-1. The values for a single observation are in their own row.
-2. The values for a single variable are in their own column.
+1. The values for a single variable are in their own column.
+2. The values for a single observation are in their own row.
 3. There is only one value per cell.
 :::
 
