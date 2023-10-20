@@ -2178,22 +2178,24 @@ wide_stats
 If there are multiple rows in the input that correspond to one cell in the output you'll get a list-column. This means that you 1) need to fix something in your code/data because it shouldn't be nested in this way or 2) need to use `unnest_wider()` or `unnest_longer()` in order to access this column of data. More on this [here](https://r4ds.hadley.nz/rectangling.html#unnesting). 
 :::
 
-# Thanks!{.section-title background-color="#4B2E83"}
-
-# {data-menu-title="R Knowledge Comic" .section-title background-image="images/r_knowledge.png"}
-
 ## Useful Resources
 
 . . . 
 
-#### Cheatsheets
+**Cheatsheets:**
 
 * [readr](https://rstudio.github.io/cheatsheets/data-import.pdf)
 * [dplyr](https://rstudio.github.io/cheatsheets/data-transformation.pdf)
 * [tidyr](https://rstudio.github.io/cheatsheets/tidyr.pdf)
 
-. . . 
 
-#### Introductory Book
+**Introductory Book:**
 
-[R for Data Science (2e)](https://r4ds.hadley.nz/) by Hadley Wickham
+[R for Data Science (2e)](https://r4ds.hadley.nz/) by Hadley Wickham, Mine Çetinkaya-Rundel, and Garrett Grolemund
+
+# {data-menu-title="R Knowledge Comic" .section-title background-image="images/r_knowledge.png"}
+
+# Thanks!{.section-title background-color="#4B2E83"}
+
+
+
