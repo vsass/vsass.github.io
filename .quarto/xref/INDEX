@@ -13,5 +13,8 @@
   },
   "workshops/data_wrangling_r.qmd": {
     "data_wrangling_r.html": "f129902d"
+  },
+  "teaching.qmd": {
+    "teaching.html": "c711b8cd"
   }
 }

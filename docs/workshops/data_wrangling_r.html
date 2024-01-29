@@ -398,18 +398,21 @@
 <section id="title-slide" class="slide level2 center" data-menu-title="Data Wrangling in R" data-background-image="images/rainier.png" data-background-size="cover" data-background-color="#4B2E83"><h2></h2>
 <p><span class="custom-title">Data Wrangling in R</span></p>
 <p><span class="custom-subtitle">CSSCR Workshop</span></p>
-<p><span class="custom-subtitle2">20 October 2023</span></p>
+<p><span class="custom-subtitle2">29 January 2024</span></p>
 <p><span class="custom-subtitle3">Victoria Sass</span></p>
 </section><section id="roadmap" class="slide level2"><h2>Roadmap</h2>
 <div>
 <ul>
-<li class="fragment">Importing and Exporting Data</li>
-<li class="fragment">Manipulating and Summarizing Data</li>
-<li class="fragment">Merging Data</li>
-<li class="fragment">Tidying and Reshaping Data</li>
+<li class="fragment">Importing and Exporting Data<sup>1</sup>
+</li>
+<li class="fragment">
+<span style="color:#b7a57a">Manipulating and Summarizing Data</span><br>
+</li>
+<li class="fragment"><span style="color:#b7a57a">Merging Data</span></li>
+<li class="fragment"><span style="color:#b7a57a">Tidying and Reshaping Data</span></li>
 </ul>
 </div>
-</section><section><section id="importing-and-exporting-data" class="title-slide slide level1 section-title center" data-background-color="#4B2E83"><h1>Importing and Exporting Data</h1>
+<aside><ol class="aside-footnotes"><li id="fn1"><p>Not covered today.</p></li></ol></aside></section><section><section id="importing-and-exporting-data" class="title-slide slide level1 section-title center" data-background-color="#4B2E83"><h1>Importing and Exporting Data</h1>
 
 </section><section id="data-packages" class="slide level2"><h2>Data Packages</h2>
 <p>R has a <em>big</em> user base. If you are working with a popular data source, it will often have a devoted R package on <em>CRAN</em> or <em>Github</em>.</p>
@@ -592,7 +595,7 @@ $ wk76         &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N
 <p><img data-src="images/data_global_env.png"></p>
 </div>
 </div>
-<aside><ol class="aside-footnotes"><li id="fn1"><p>Ideally you’ve saved it in your project folder!</p></li></ol></aside></section><section id="manual-data-import" class="slide level2"><h2>Manual Data Import</h2>
+<aside><ol class="aside-footnotes"><li id="fn2"><p>Ideally you’ve saved it in your project folder!</p></li></ol></aside></section><section id="manual-data-import" class="slide level2"><h2>Manual Data Import</h2>
 
 <img data-src="images/data_import_manual.png" class="r-stretch quarto-figure-center"></section><section id="specifying-nas" class="slide level2"><h2>Specifying <code>NA</code>s</h2>
 <p>Sometimes a particular dataset or file read from a different software will code <code>NA</code>s differently than <code>R</code>. If that’s the case, you can add additional specifications to <code>read_csv</code> for what to read in as <code>NA</code>.</p>
@@ -620,11 +623,11 @@ $ wk76         &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-8" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-lines="3" data-code-annotation="1" data-code-cell="annotated-cell-8">First few entries: “wk_1” “wk_2” “wk_3”</span>
+<span data-code-annotation="1" data-code-lines="3" data-code-cell="annotated-cell-8">First few entries: “wk_1” “wk_2” “wk_3”</span>
 </dd>
 <dt data-target-cell="annotated-cell-8" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-lines="5" data-code-annotation="2" data-code-cell="annotated-cell-8"><code>names</code> returns the column names.</span>
+<span data-code-annotation="2" data-code-lines="5" data-code-cell="annotated-cell-8"><code>names</code> returns the column names.</span>
 </dd>
 </dl>
 </div>
@@ -652,11 +655,11 @@ $ wk76         &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-10" data-target-annotation="3">3</dt>
 <dd>
-<span data-code-lines="2" data-code-annotation="3" data-code-cell="annotated-cell-10">Run in the console first.</span>
+<span data-code-annotation="3" data-code-lines="2" data-code-cell="annotated-cell-10">Run in the console first.</span>
 </dd>
 <dt data-target-cell="annotated-cell-10" data-target-annotation="4">4</dt>
 <dd>
-<span data-code-lines="6" data-code-annotation="4" data-code-cell="annotated-cell-10">You can call a function without loading its package by specifying its package name followed by <code>::</code> before it; <br> The <code>numerals</code> argument specifies if you additionally want to put a separator before a number.</span>
+<span data-code-annotation="4" data-code-lines="6" data-code-cell="annotated-cell-10">You can call a function without loading its package by specifying its package name followed by <code>::</code> before it; <br> The <code>numerals</code> argument specifies if you additionally want to put a separator before a number.</span>
 </dd>
 </dl>
 </div>
@@ -705,7 +708,7 @@ $ wk76         &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N
 
 <aside><div>
 <p>Note: For Excel files and Googlesheets You <strong>won’t</strong> keep text formatting, color, comments, or merged cells. See the <a href="https://ycphs.github.io/openxlsx/"><code>openxlsx</code></a> package for those capabilities. Also, <a href="https://github.com/nacnudus/tidyxl"><code>tidyxl</code></a> can help import non-tabular data from Excel.</p>
-</div><ol class="aside-footnotes"><li id="fn2"><p>Functions have additional arguments to read in specific sheets or a range of cells.</p></li></ol></aside></section><section id="other-packages-to-read-in-data-2" class="slide level2"><h2>Other Packages to Read in Data</h2>
+</div><ol class="aside-footnotes"><li id="fn3"><p>Functions have additional arguments to read in specific sheets or a range of cells.</p></li></ol></aside></section><section id="other-packages-to-read-in-data-2" class="slide level2"><h2>Other Packages to Read in Data</h2>
 <p>There are a range of other ways, besides delimited files, that data are stored.</p>
 <p>The following packages are part of the extended <code>tidyverse</code> and therefore operate with similar syntax and logic as <code>readr</code>.</p>
 <div class="columns">
@@ -723,7 +726,7 @@ $ wk76         &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N
 
 <aside><div>
 <p>Note: For Excel files and Googlesheets You <strong>won’t</strong> keep text formatting, color, comments, or merged cells. See the <a href="https://ycphs.github.io/openxlsx/"><code>openxlsx</code></a> package for those capabilities. Also, <a href="https://github.com/nacnudus/tidyxl"><code>tidyxl</code></a> can help import non-tabular data from Excel.</p>
-</div><ol class="aside-footnotes"><li id="fn3"><p>Functions have additional arguments to read in specific sheets or a range of cells.</p></li><li id="fn4"><p>Very similar to <code>readxl</code> with some slight variations you can read about <a href="https://r4ds.hadley.nz/spreadsheets.html#google-sheets">here</a>.</p></li></ol></aside></section><section id="other-packages-to-read-in-data-3" class="slide level2"><h2>Other Packages to Read in Data</h2>
+</div><ol class="aside-footnotes"><li id="fn4"><p>Functions have additional arguments to read in specific sheets or a range of cells.</p></li><li id="fn5"><p>Very similar to <code>readxl</code> with some slight variations you can read about <a href="https://r4ds.hadley.nz/spreadsheets.html#google-sheets">here</a>.</p></li></ol></aside></section><section id="other-packages-to-read-in-data-3" class="slide level2"><h2>Other Packages to Read in Data</h2>
 <p>There are a range of other ways, besides delimited files, that data are stored.</p>
 <p>The following packages are part of the extended <code>tidyverse</code> and therefore operate with similar syntax and logic as <code>readr</code>.</p>
 <div class="columns">
@@ -743,7 +746,7 @@ $ wk76         &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N
 
 <aside><div>
 <p>Note: For Excel files and Googlesheets You <strong>won’t</strong> keep text formatting, color, comments, or merged cells. See the <a href="https://ycphs.github.io/openxlsx/"><code>openxlsx</code></a> package for those capabilities. Also, <a href="https://github.com/nacnudus/tidyxl"><code>tidyxl</code></a> can help import non-tabular data from Excel.</p>
-</div><ol class="aside-footnotes"><li id="fn5"><p>Functions have additional arguments to read in specific sheets or a range of cells.</p></li><li id="fn6"><p>Very similar to <code>readxl</code> with some slight variations you can read about <a href="https://r4ds.hadley.nz/spreadsheets.html#google-sheets">here</a>.</p></li><li id="fn7"><p>SAS, SPSS, and Stata have so-called “labelled” vectors for which <code>haven</code> provides a <a href="https://haven.tidyverse.org/reference/index.html#labelled-vectors">class</a> to represent in <code>R</code>. Alternatively, you can get rid of them with <a href="https://haven.tidyverse.org/reference/index.html#remove-attributes">these functions</a>.</p></li></ol></aside></section><section id="how-does-readr-parse-different-data-types" class="slide level2"><h2>How does <code>readr</code> parse different data types?</h2>
+</div><ol class="aside-footnotes"><li id="fn6"><p>Functions have additional arguments to read in specific sheets or a range of cells.</p></li><li id="fn7"><p>Very similar to <code>readxl</code> with some slight variations you can read about <a href="https://r4ds.hadley.nz/spreadsheets.html#google-sheets">here</a>.</p></li><li id="fn8"><p>SAS, SPSS, and Stata have so-called “labelled” vectors for which <code>haven</code> provides a <a href="https://haven.tidyverse.org/reference/index.html#labelled-vectors">class</a> to represent in <code>R</code>. Alternatively, you can get rid of them with <a href="https://haven.tidyverse.org/reference/index.html#remove-attributes">these functions</a>.</p></li></ol></aside></section><section id="how-does-readr-parse-different-data-types" class="slide level2"><h2>How does <code>readr</code> parse different data types?</h2>
 <p>For each column in a data frame, <code>readr</code> functions pull the first 1000 rows and checks:</p>
 <div class="cell" data-reveal="true" data-fig-width="11" data-fig-height="5.5" data-layout-align="center">
 <div class="cell-output-display">
@@ -990,11 +993,11 @@ $ wk76         &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-1" data-target-annotation="5">5</dt>
 <dd>
-<span data-code-lines="2" data-code-annotation="5" data-code-cell="annotated-cell-1"><code>class</code> returns the data type of its first argument.</span>
+<span data-code-annotation="5" data-code-lines="2" data-code-cell="annotated-cell-1"><code>class</code> returns the data type of its first argument.</span>
 </dd>
 <dt data-target-cell="annotated-cell-1" data-target-annotation="6">6</dt>
 <dd>
-<span data-code-lines="3" data-code-annotation="6" data-code-cell="annotated-cell-1"><code>as.Date</code> turns a character string of dates into an official date class in Base <code>R</code>. If we had an accompanying time stamp we would need to use <code>as.POSIXct</code> which turns a character string of dates and times into an official date-time class in Base <code>R</code>.</span>
+<span data-code-annotation="6" data-code-lines="3" data-code-cell="annotated-cell-1"><code>as.Date</code> turns a character string of dates into an official date class in Base <code>R</code>. If we had an accompanying time stamp we would need to use <code>as.POSIXct</code> which turns a character string of dates and times into an official date-time class in Base <code>R</code>.</span>
 </dd>
 </dl>
 </div>
@@ -1026,7 +1029,7 @@ $ wk76         &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-12" data-target-annotation="7">7</dt>
 <dd>
-<span data-code-lines="2" data-code-annotation="7" data-code-cell="annotated-cell-12">You can short-code column types with <code>i</code> = integer, <code>c</code> = character, <code>t</code> = time, <code>D</code> = date. <br> The <code>collapse</code> argument collapses the first two arguments into one complete character string.</span>
+<span data-code-annotation="7" data-code-lines="2" data-code-cell="annotated-cell-12">You can short-code column types with <code>i</code> = integer, <code>c</code> = character, <code>t</code> = time, <code>D</code> = date. <br> The <code>collapse</code> argument collapses the first two arguments into one complete character string.</span>
 </dd>
 </dl>
 </div>
@@ -1047,7 +1050,7 @@ $ wk76         &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-13" data-target-annotation="8">8</dt>
 <dd>
-<span data-code-lines="3" data-code-annotation="8" data-code-cell="annotated-cell-13">See all column types and short codes <a href="https://readr.tidyverse.org/reference/cols.html">here</a>.</span>
+<span data-code-annotation="8" data-code-lines="3" data-code-cell="annotated-cell-13">See all column types and short codes <a href="https://readr.tidyverse.org/reference/cols.html">here</a>.</span>
 </dd>
 </dl>
 </div>
@@ -1180,7 +1183,7 @@ $ wk76         &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N
 <div class="fragment">
 <p>We want to know how to use <code>R</code> to manipulate data more <em>transparently</em> and <em>reproducibly</em>.</p>
 </div>
-<aside><ol class="aside-footnotes"><li id="fn8"><p>Don’t be the next sad Research Assistant who makes headlines with an Excel error! (<a href="http://www.bloomberg.com/news/articles/2013-04-18/faq-reinhart-rogoff-and-the-excel-error-that-changed-history">Reinhart &amp; Rogoff, 2010</a>)</p></li></ol></aside></section></section><section><section id="logical-operators" class="title-slide slide level1 section-title center" data-background-color="#B7A57A"><h1>Logical Operators</h1>
+<aside><ol class="aside-footnotes"><li id="fn9"><p>Don’t be the next sad Research Assistant who makes headlines with an Excel error! (<a href="http://www.bloomberg.com/news/articles/2013-04-18/faq-reinhart-rogoff-and-the-excel-error-that-changed-history">Reinhart &amp; Rogoff, 2010</a>)</p></li></ol></aside></section></section><section><section id="logical-operators" class="title-slide slide level1 section-title center" data-background-color="#B7A57A"><h1>Logical Operators</h1>
 
 </section><section id="data-types-in-r" class="slide level2"><h2>Data types in <code>R</code>
 </h2>
@@ -1273,7 +1276,7 @@ $ wk76         &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N
 
 <aside><div>
 <p>You may also see <code>&amp;&amp;</code> and <code>||</code> but they are what’s known as short-circuiting operators and are not to be used in <code>dplyr</code> functions (used for programming not data manipulation); they’ll only ever return a single <code>TRUE</code> or <code>FALSE</code>.</p>
-</div><ol class="aside-footnotes"><li id="fn9"><p>Note: there are TWO equal signs here!</p></li></ol></aside></section><section id="logical-summaries" class="slide level2"><h2>Logical Summaries</h2>
+</div><ol class="aside-footnotes"><li id="fn10"><p>Note: there are TWO equal signs here!</p></li></ol></aside></section><section id="logical-summaries" class="slide level2"><h2>Logical Summaries</h2>
 <div class="columns">
 <div class="column" style="width:19%;">
 <div class="fragment">
@@ -1304,15 +1307,15 @@ $ wk76         &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-17" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-lines="2" data-code-annotation="1" data-code-cell="annotated-cell-17">Like other summary functions, they’ll return <code>NA</code> if there are any missing values present and it’s <code>FALSE</code>.</span>
+<span data-code-annotation="1" data-code-lines="2" data-code-cell="annotated-cell-17">Like other summary functions, they’ll return <code>NA</code> if there are any missing values present and it’s <code>FALSE</code>.</span>
 </dd>
 <dt data-target-cell="annotated-cell-17" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-lines="4" data-code-annotation="2" data-code-cell="annotated-cell-17">Use <code>na.rm = TRUE</code> to remove <code>NA</code>s prior to evaluation.</span>
+<span data-code-annotation="2" data-code-lines="4" data-code-cell="annotated-cell-17">Use <code>na.rm = TRUE</code> to remove <code>NA</code>s prior to evaluation.</span>
 </dd>
 <dt data-target-cell="annotated-cell-17" data-target-annotation="3">3</dt>
 <dd>
-<span data-code-lines="5" data-code-annotation="3" data-code-cell="annotated-cell-17">When you evaluate a logical vector numerically, <code>TRUE</code> = 1 and <code>FALSE</code> = 0. This makes <code><a href="https://rdrr.io/r/base/sum.html">sum()</a></code> and <code><a href="https://rdrr.io/r/base/mean.html">mean()</a></code> useful when summarizing logical functions (sum gives number of <code>TRUE</code>s and mean gives the proportion).</span>
+<span data-code-annotation="3" data-code-lines="5" data-code-cell="annotated-cell-17">When you evaluate a logical vector numerically, <code>TRUE</code> = 1 and <code>FALSE</code> = 0. This makes <code><a href="https://rdrr.io/r/base/sum.html">sum()</a></code> and <code><a href="https://rdrr.io/r/base/mean.html">mean()</a></code> useful when summarizing logical functions (sum gives number of <code>TRUE</code>s and mean gives the proportion).</span>
 </dd>
 </dl>
 </div>
@@ -1344,7 +1347,7 @@ $ wk76         &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-19" data-target-annotation="4">4</dt>
 <dd>
-<span data-code-lines="2" data-code-annotation="4" data-code-cell="annotated-cell-19">There’s an optional fourth argument, <code>missing</code> which will be used if the input is <code>NA</code>.</span>
+<span data-code-annotation="4" data-code-lines="2" data-code-cell="annotated-cell-19">There’s an optional fourth argument, <code>missing</code> which will be used if the input is <code>NA</code>.</span>
 </dd>
 </dl>
 </div>
@@ -1371,11 +1374,11 @@ $ wk76         &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-20" data-target-annotation="5">5</dt>
 <dd>
-<span data-code-lines="5" data-code-annotation="5" data-code-cell="annotated-cell-20">Use <code>.default</code> if you want to create a “default”/catch all value.</span>
+<span data-code-annotation="5" data-code-lines="5" data-code-cell="annotated-cell-20">Use <code>.default</code> if you want to create a “default”/catch all value.</span>
 </dd>
 <dt data-target-cell="annotated-cell-20" data-target-annotation="6">6</dt>
 <dd>
-<span data-code-lines="6" data-code-annotation="6" data-code-cell="annotated-cell-20">Both functions require compatible types: i.e.&nbsp;numerical and logical, strings and factors, dates and datetimes, <code>NA</code> and everything.</span>
+<span data-code-annotation="6" data-code-lines="6" data-code-cell="annotated-cell-20">Both functions require compatible types: i.e.&nbsp;numerical and logical, strings and factors, dates and datetimes, <code>NA</code> and everything.</span>
 </dd>
 </dl>
 </div>
@@ -1384,12 +1387,13 @@ $ wk76         &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N
 </div>
 </div>
 </div>
-<aside><ol class="aside-footnotes"><li id="fn10"><p>Note that if multiple conditions match in <code>case_when()</code>, only the first will be used. </p></li></ol></aside></section></section><section><section id="section-1" class="title-slide slide level1 section-title center" data-menu-title="`dplyr`" data-background-image="images/dplyr.png" data-background-size="contain" data-background-position="center" data-background-color="#B7A57A"><h1></h1>
+<aside><ol class="aside-footnotes"><li id="fn11"><p>Note that if multiple conditions match in <code>case_when()</code>, only the first will be used. </p></li></ol></aside></section></section><section><section id="section-1" class="title-slide slide level1 section-title center" data-menu-title="`dplyr`" data-background-image="images/dplyr.png" data-background-size="contain" data-background-position="center" data-background-color="#B7A57A"><h1></h1>
 
 </section><section id="dplyr" class="slide level2"><h2><code>dplyr</code></h2>
 <p>Today, we’ll use tools from the <code>dplyr</code> package to manipulate data!</p>
 <ul>
-<li>Like <code>ggplot2</code>, <code>dplyr</code> is part of the <em>Tidyverse</em>, and included in the <code>tidyverse</code> package.</li>
+<li>
+<code>dplyr</code> is part of the <em>Tidyverse</em>, and included in the <code>tidyverse</code> package.</li>
 </ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1404,11 +1408,11 @@ $ wk76         &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-22" data-target-annotation="7">7</dt>
 <dd>
-<span data-code-lines="2" data-code-annotation="7" data-code-cell="annotated-cell-22">Run in console.</span>
+<span data-code-annotation="7" data-code-lines="2" data-code-cell="annotated-cell-22">Run in console.</span>
 </dd>
 <dt data-target-cell="annotated-cell-22" data-target-annotation="8">8</dt>
 <dd>
-<span data-code-lines="3" data-code-annotation="8" data-code-cell="annotated-cell-22">Load into <code>R</code> session.</span>
+<span data-code-annotation="8" data-code-lines="3" data-code-cell="annotated-cell-22">Load into <code>R</code> session.</span>
 </dd>
 </dl>
 </div>
@@ -1426,29 +1430,29 @@ $ wk76         &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-23" data-target-annotation="9">9</dt>
 <dd>
-<span data-code-lines="1" data-code-annotation="9" data-code-cell="annotated-cell-23">flights leaving JFK, LGA, or EWR in 2013</span>
+<span data-code-annotation="9" data-code-lines="1" data-code-cell="annotated-cell-23">flights leaving JFK, LGA, or EWR in 2013</span>
 </dd>
 <dt data-target-cell="annotated-cell-23" data-target-annotation="10">10</dt>
 <dd>
-<span data-code-lines="2" data-code-annotation="10" data-code-cell="annotated-cell-23">airline abbreviations</span>
+<span data-code-annotation="10" data-code-lines="2" data-code-cell="annotated-cell-23">airline abbreviations</span>
 </dd>
 <dt data-target-cell="annotated-cell-23" data-target-annotation="11">11</dt>
 <dd>
-<span data-code-lines="3" data-code-annotation="11" data-code-cell="annotated-cell-23">airport metadata</span>
+<span data-code-annotation="11" data-code-lines="3" data-code-cell="annotated-cell-23">airport metadata</span>
 </dd>
 <dt data-target-cell="annotated-cell-23" data-target-annotation="12">12</dt>
 <dd>
-<span data-code-lines="4" data-code-annotation="12" data-code-cell="annotated-cell-23">airplane metadata</span>
+<span data-code-annotation="12" data-code-lines="4" data-code-cell="annotated-cell-23">airplane metadata</span>
 </dd>
 <dt data-target-cell="annotated-cell-23" data-target-annotation="13">13</dt>
 <dd>
-<span data-code-lines="5" data-code-annotation="13" data-code-cell="annotated-cell-23">hourly weather data for JFK, LGA, and EWR</span>
+<span data-code-annotation="13" data-code-lines="5" data-code-cell="annotated-cell-23">hourly weather data for JFK, LGA, and EWR</span>
 </dd>
 </dl>
 </div>
 </div>
 </div>
-<aside><ol class="aside-footnotes"><li id="fn11"><p>Note these are separate data frames, each needing to be loaded separately:</p></li></ol></aside></section><section id="dplyr-basics" class="slide level2"><h2>
+<aside><ol class="aside-footnotes"><li id="fn12"><p>Note these are separate data frames, each needing to be loaded separately:</p></li></ol></aside></section><section id="dplyr-basics" class="slide level2"><h2>
 <code>dplyr</code> Basics</h2>
 <p>All <code>dplyr</code> functions have the following in common:</p>
 <div>
@@ -1478,11 +1482,11 @@ $ wk76         &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-24" data-target-annotation="14">14</dt>
 <dd>
-<span data-code-lines="2" data-code-annotation="14" data-code-cell="annotated-cell-24">Here’s where we’ll use a lot of logical operators. Make sure to use <code>==</code> not <code>=</code> to test the logical condition.</span>
+<span data-code-annotation="14" data-code-lines="2" data-code-cell="annotated-cell-24">Here’s where we’ll use a lot of logical operators. Make sure to use <code>==</code> not <code>=</code> to test the logical condition.</span>
 </dd>
 <dt data-target-cell="annotated-cell-24" data-target-annotation="15">15</dt>
 <dd>
-<span data-code-lines="3" data-code-annotation="15" data-code-cell="annotated-cell-24">Now, <code>delay_2hr</code> is an object in our environment which contains rows corresponding to flights that experienced at least a 2 hour delay.</span>
+<span data-code-annotation="15" data-code-lines="3" data-code-cell="annotated-cell-24">Now, <code>delay_2hr</code> is an object in our environment which contains rows corresponding to flights that experienced at least a 2 hour delay.</span>
 </dd>
 </dl>
 </div>
@@ -1519,7 +1523,7 @@ $ wk76         &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-25" data-target-annotation="16">16</dt>
 <dd>
-<span data-code-lines="2" data-code-annotation="16" data-code-cell="annotated-cell-25">You can use a <code>-</code> before a variable name or a vector of variables to drop them from the data (i.e.&nbsp;<br><code>select(-c(year, month, day))</code>).</span>
+<span data-code-annotation="16" data-code-lines="2" data-code-cell="annotated-cell-25">You can use a <code>-</code> before a variable name or a vector of variables to drop them from the data (i.e.&nbsp;<br><code>select(-c(year, month, day))</code>).</span>
 </dd>
 </dl>
 </div>
@@ -1552,7 +1556,7 @@ $ wk76         &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-26" data-target-annotation="17">17</dt>
 <dd>
-<span data-code-lines="2" data-code-annotation="17" data-code-cell="annotated-cell-26">Add a <code>!</code> before <code>year</code> and you’ll drop this group of variables from the data.</span>
+<span data-code-annotation="17" data-code-lines="2" data-code-cell="annotated-cell-26">Add a <code>!</code> before <code>year</code> and you’ll drop this group of variables from the data.</span>
 </dd>
 </dl>
 </div>
@@ -1584,7 +1588,7 @@ $ wk76         &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-27" data-target-annotation="18">18</dt>
 <dd>
-<span data-code-lines="2" data-code-annotation="18" data-code-cell="annotated-cell-27">There are a number of helper functions you can use with <code>select()</code> including <code>starts_with()</code>, <code>ends_with()</code>, <code>contains()</code> and <code>num_range()</code>. Read more about these and more <a href="https://tidyselect.r-lib.org/reference/index.html">here</a>.</span>
+<span data-code-annotation="18" data-code-lines="2" data-code-cell="annotated-cell-27">There are a number of helper functions you can use with <code>select()</code> including <code>starts_with()</code>, <code>ends_with()</code>, <code>contains()</code> and <code>num_range()</code>. Read more about these and more <a href="https://tidyselect.r-lib.org/reference/index.html">here</a>.</span>
 </dd>
 </dl>
 </div>
@@ -1616,7 +1620,7 @@ $ wk76         &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-28" data-target-annotation="19">19</dt>
 <dd>
-<span data-code-lines="2" data-code-annotation="19" data-code-cell="annotated-cell-28">Find all unique origin and destination pairs.</span>
+<span data-code-annotation="19" data-code-lines="2" data-code-cell="annotated-cell-28">Find all unique origin and destination pairs.</span>
 </dd>
 </dl>
 </div>
@@ -1649,7 +1653,7 @@ $ wk76         &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-29" data-target-annotation="20">20</dt>
 <dd>
-<span data-code-lines="2" data-code-annotation="20" data-code-cell="annotated-cell-29">It’s not a coincidence that all of these distinct flights are on January 1: <code>distinct()</code> will find the first occurrence of a unique row in the dataset and discard the rest. Use <code>count()</code> if you’re looking for the number of occurrences.</span>
+<span data-code-annotation="20" data-code-lines="2" data-code-cell="annotated-cell-29">It’s not a coincidence that all of these distinct flights are on January 1: <code>distinct()</code> will find the first occurrence of a unique row in the dataset and discard the rest. Use <code>count()</code> if you’re looking for the number of occurrences.</span>
 </dd>
 </dl>
 </div>
@@ -1684,7 +1688,7 @@ $ wk76         &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-30" data-target-annotation="21">21</dt>
 <dd>
-<span data-code-lines="2" data-code-annotation="21" data-code-cell="annotated-cell-30"><code>sort = TRUE</code> arranges them in descending order of number of occurrences.</span>
+<span data-code-annotation="21" data-code-lines="2" data-code-cell="annotated-cell-30"><code>sort = TRUE</code> arranges them in descending order of number of occurrences.</span>
 </dd>
 </dl>
 </div>
@@ -1719,7 +1723,7 @@ $ wk76         &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-31" data-target-annotation="22">22</dt>
 <dd>
-<span data-code-lines="2" data-code-annotation="22" data-code-cell="annotated-cell-31">If you provide more than one column name, each additional column will be used to break ties in the values of preceding columns.</span>
+<span data-code-annotation="22" data-code-lines="2" data-code-cell="annotated-cell-31">If you provide more than one column name, each additional column will be used to break ties in the values of preceding columns.</span>
 </dd>
 </dl>
 </div>
@@ -1783,7 +1787,7 @@ $ wk76         &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-33" data-target-annotation="23">23</dt>
 <dd>
-<span data-code-lines="2" data-code-annotation="23" data-code-cell="annotated-cell-33"><code>rename(new_name = old_name)</code> is the format. Reminder to use <code><a href="https://sfirke.github.io/janitor/reference/clean_names.html">janitor::clean_names()</a></code> if you want to automate this process for a lot of variables.</span>
+<span data-code-annotation="23" data-code-lines="2" data-code-cell="annotated-cell-33"><code>rename(new_name = old_name)</code> is the format. You can use <code><a href="https://sfirke.github.io/janitor/reference/clean_names.html">janitor::clean_names()</a></code> if you want to automate this process for a lot of variables.</span>
 </dd>
 </dl>
 </div>
@@ -1835,7 +1839,7 @@ $ wk76         &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-34" data-target-annotation="24">24</dt>
 <dd>
-<span data-code-lines="5" data-code-annotation="24" data-code-cell="annotated-cell-34">By default, <code>mutate()</code> adds new columns on the right hand side of your dataset, which makes it difficult to see if anything happened. You can use the <code>.before</code> argument to specify which numeric index (or variable name) to move the newly created variable to. <code>.after</code> is an alternative argument for this.</span>
+<span data-code-annotation="24" data-code-lines="5" data-code-cell="annotated-cell-34">By default, <code>mutate()</code> adds new columns on the right hand side of your dataset, which makes it difficult to see if anything happened. You can use the <code>.before</code> argument to specify which numeric index (or variable name) to move the newly created variable to. <code>.after</code> is an alternative argument for this.</span>
 </dd>
 </dl>
 </div>
@@ -1875,7 +1879,7 @@ $ wk76         &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-35" data-target-annotation="25">25</dt>
 <dd>
-<span data-code-lines="6" data-code-annotation="25" data-code-cell="annotated-cell-35">“used” retains only the variables used to create the new variables, which is useful for checking your work. Other options include: “all,” “unused,” and “none.”</span>
+<span data-code-annotation="25" data-code-lines="6" data-code-cell="annotated-cell-35">“used” retains only the variables used to create the new variables, which is useful for checking your work. Other options include: “all,” “unused,” and “none.”</span>
 </dd>
 </dl>
 </div>
@@ -1906,7 +1910,7 @@ $ wk76         &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-36" data-target-annotation="26">26</dt>
 <dd>
-<span data-code-lines="2" data-code-annotation="26" data-code-cell="annotated-cell-36">By default <code>relocate()</code> moves variables to the front but you can also specify where to put them using the <code>.before</code> and <code>.after</code> arguments, just like in <code>mutate()</code>.</span>
+<span data-code-annotation="26" data-code-lines="2" data-code-cell="annotated-cell-36">By default <code>relocate()</code> moves variables to the front but you can also specify where to put them using the <code>.before</code> and <code>.after</code> arguments, just like in <code>mutate()</code>.</span>
 </dd>
 </dl>
 </div>
@@ -1942,7 +1946,7 @@ $ wk76         &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-37" data-target-annotation="27">27</dt>
 <dd>
-<span data-code-lines="2" data-code-annotation="27" data-code-cell="annotated-cell-37"><code>group_by()</code> doesn’t change the data but you’ll notice that the output indicates that it is “grouped by” month <code>(Groups: month [12])</code>. This means subsequent operations will now work “by month”.</span>
+<span data-code-annotation="27" data-code-lines="2" data-code-cell="annotated-cell-37"><code>group_by()</code> doesn’t change the data but you’ll notice that the output indicates that it is “grouped by” month <code>(Groups: month [12])</code>. This means subsequent operations will now work “by month”.</span>
 </dd>
 </dl>
 </div>
@@ -1994,7 +1998,7 @@ $ wk76         &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-38" data-target-annotation="28">28</dt>
 <dd>
-<span data-code-lines="3" data-code-annotation="28" data-code-cell="annotated-cell-38">The <code>NA</code> produced here is a result of calling <code>mean</code> on <code>dep_delay</code>. Any summarizing function will return <code>NA</code> if <strong>any</strong> of the values are <code>NA</code>. We can set <code>na.rm = TRUE</code> to change this behavior.</span>
+<span data-code-annotation="28" data-code-lines="3" data-code-cell="annotated-cell-38">The <code>NA</code> produced here is a result of calling <code>mean</code> on <code>dep_delay</code>. Any summarizing function will return <code>NA</code> if <strong>any</strong> of the values are <code>NA</code>. We can set <code>na.rm = TRUE</code> to change this behavior.</span>
 </dd>
 </dl>
 </div>
@@ -2065,7 +2069,7 @@ $ wk76         &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-41" data-target-annotation="29">29</dt>
 <dd>
-<span data-code-lines="5" data-code-annotation="29" data-code-cell="annotated-cell-41"><code>n()</code> returns the number of rows in each group.</span>
+<span data-code-annotation="29" data-code-lines="5" data-code-cell="annotated-cell-41"><code>n()</code> returns the number of rows in each group.</span>
 </dd>
 </dl>
 </div>
@@ -2164,7 +2168,7 @@ $ wk76         &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-44" data-target-annotation="30">30</dt>
 <dd>
-<span data-code-lines="5" data-code-annotation="30" data-code-cell="annotated-cell-44"><code>.by</code> works with all verbs and has the advantage that you don’t need to use the <code>.groups</code> argument to suppress the grouping message or <code>ungroup()</code> when you’re done.</span>
+<span data-code-annotation="30" data-code-lines="5" data-code-cell="annotated-cell-44"><code>.by</code> works with all verbs and has the advantage that you don’t need to use the <code>.groups</code> argument to suppress the grouping message or <code>ungroup()</code> when you’re done.</span>
 </dd>
 </dl>
 </div>
@@ -2217,7 +2221,7 @@ $ wk76         &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-45" data-target-annotation="31">31</dt>
 <dd>
-<span data-code-lines="3" data-code-annotation="31" data-code-cell="annotated-cell-45">You can vary <code>n</code> to select more than one row, or instead of <code>n =</code>, you can use <code>prop = 0.1</code> to select (e.g.) 10% of the rows in each group.</span>
+<span data-code-annotation="31" data-code-lines="3" data-code-cell="annotated-cell-45">You can vary <code>n</code> to select more than one row, or instead of <code>n =</code>, you can use <code>prop = 0.1</code> to select (e.g.) 10% of the rows in each group.</span>
 </dd>
 </dl>
 </div>
@@ -2474,7 +2478,7 @@ $ wk76         &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-46" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-lines="2,3" data-code-annotation="1" data-code-cell="annotated-cell-46">If your primary keys uniquely identify each observation you’ll get an empty tibble in return.</span>
+<span data-code-annotation="1" data-code-lines="2,3" data-code-cell="annotated-cell-46">If your primary keys uniquely identify each observation you’ll get an empty tibble in return.</span>
 </dd>
 </dl>
 </div>
@@ -2494,7 +2498,7 @@ $ wk76         &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-47" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-lines="2" data-code-annotation="2" data-code-cell="annotated-cell-47">If none of your primary keys are missing you’ll get an empty tibble in return here too.</span>
+<span data-code-annotation="2" data-code-lines="2" data-code-cell="annotated-cell-47">If none of your primary keys are missing you’ll get an empty tibble in return here too.</span>
 </dd>
 </dl>
 </div>
@@ -2505,7 +2509,7 @@ $ wk76         &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N
 </div>
 </div>
 </div>
-<aside><ol class="aside-footnotes"><li id="fn12"><p>With the exception of <code>year</code>: it means year of departure in <code>flights</code> and year of manufacture in <code>planes</code>. </p></li><li id="fn13"><p>We’ll cover how to handle this shortly.</p></li></ol></aside></section><section id="surrogate-keys" class="slide level2"><h2>Surrogate Keys</h2>
+<aside><ol class="aside-footnotes"><li id="fn13"><p>With the exception of <code>year</code>: it means year of departure in <code>flights</code> and year of manufacture in <code>planes</code>. </p></li><li id="fn14"><p>We’ll cover how to handle this shortly.</p></li></ol></aside></section><section id="surrogate-keys" class="slide level2"><h2>Surrogate Keys</h2>
 <p>Sometimes you’ll want to create an index of your observations to serve as a surrogate key because the compound primary key is not particlarly easy to reference.</p>
 <div class="fragment">
 <p>For example, our <code>flights</code> dataset has three variables that uniquely identify each observation: <code>time_hour</code>, <code>carrier</code>, <code>flight</code>.</p>
@@ -2519,7 +2523,7 @@ $ wk76         &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-48" data-target-annotation="3">3</dt>
 <dd>
-<span data-code-lines="2" data-code-annotation="3" data-code-cell="annotated-cell-48"><code>row_number()</code> simply specifies the row number of the dataframe.</span>
+<span data-code-annotation="3" data-code-lines="2" data-code-cell="annotated-cell-48"><code>row_number()</code> simply specifies the row number of the dataframe.</span>
 </dd>
 </dl>
 </div>
@@ -2719,7 +2723,7 @@ $ wk76         &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-53" data-target-annotation="4">4</dt>
 <dd>
-<span data-code-lines="2" data-code-annotation="4" data-code-cell="annotated-cell-53"><code>join_by(tailnum)</code> is short for <code>join_by(tailnum == tailnum)</code> making these types of basic joins equi joins.</span>
+<span data-code-annotation="4" data-code-lines="2" data-code-cell="annotated-cell-53"><code>join_by(tailnum)</code> is short for <code>join_by(tailnum == tailnum)</code> making these types of basic joins equi joins.</span>
 </dd>
 </dl>
 </div>
@@ -2757,7 +2761,7 @@ $ wk76         &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-54" data-target-annotation="5">5</dt>
 <dd>
-<span data-code-lines="2" data-code-annotation="5" data-code-cell="annotated-cell-54"><code>by = c("dest" = "faa")</code> was the former syntax for this and you still might see that in older code.</span>
+<span data-code-annotation="5" data-code-lines="2" data-code-cell="annotated-cell-54"><code>by = c("dest" = "faa")</code> was the former syntax for this and you still might see that in older code.</span>
 </dd>
 </dl>
 </div>
@@ -2911,6 +2915,13 @@ $ wk76         &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N
 <span id="cb81-5"><a href="#cb81-5"></a>  <span class="fu">inner_join</span>(df2, <span class="fu">join_by</span>(key))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell fragment">
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in inner_join(df1, df2, join_by(key)): Detected an unexpected many-to-many relationship between `x` and `y`.
+ℹ Row 2 of `x` matches multiple rows in `y`.
+ℹ Row 2 of `y` matches multiple rows in `x`.
+ℹ If a many-to-many relationship is expected, set `relationship =
+  "many-to-many"` to silence this warning.</code></pre>
+</div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 5 × 3
     key val_x val_y
@@ -2923,7 +2934,7 @@ $ wk76         &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N
 </div>
 </div>
 <div class="fragment">
-<p>If you are doing this deliberately, you can set relationship = “many-to-many”, as the warning suggests.</p>
+<p>If you’re doing this deliberately, set relationship = “many-to-many”, as the warning suggests.</p>
 
 </div>
 <aside><div>
@@ -2971,7 +2982,7 @@ $ wk76         &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N
 
 <aside><div>
 <p>Inequality joins can be used to restrict the cross join so that instead of generating all permutations, we generate all combinations.</p>
-</div><ol class="aside-footnotes"><li id="fn14"><p>Overlap joins provide three helpers that use inequality joins to make it easier to work with intervals: <code>between()</code>, <code><a href="https://rdrr.io/r/base/with.html">within()</a></code>, <code>overlaps()</code>. Read more about their functionality and specifications <a href="https://dplyr.tidyverse.org/reference/join_by.html?q=within#overlap-joins">here</a>.</p></li></ol></aside></section><section id="non-equi-joins-2" class="slide level2"><h2>Non-Equi Joins</h2>
+</div><ol class="aside-footnotes"><li id="fn15"><p>Overlap joins provide three helpers that use inequality joins to make it easier to work with intervals: <code>between()</code>, <code><a href="https://rdrr.io/r/base/with.html">within()</a></code>, <code>overlaps()</code>. Read more about their functionality and specifications <a href="https://dplyr.tidyverse.org/reference/join_by.html?q=within#overlap-joins">here</a>.</p></li></ol></aside></section><section id="non-equi-joins-2" class="slide level2"><h2>Non-Equi Joins</h2>
 <p>The joins we’ve discussed thus far have all been equi-joins, where the rows match if the x key equals the y key. But you can also specify other types of relationships.</p>
 <p><code>dplyr</code> has four different types of non-equi joins:</p>
 <div class="columns">
@@ -3048,7 +3059,7 @@ $ wk76         &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N
 <li class="fragment">There is only one value per cell.</li>
 </ol>
 </div>
-<aside><ol class="aside-footnotes"><li id="fn15"><p>Read the original article <a href="https://www.jstatsoft.org/article/view/v059i10">here</a>.</p></li></ol></aside></section><section id="why-do-we-want-tidy-data" class="slide level2"><h2>Why do we Want Tidy Data?</h2>
+<aside><ol class="aside-footnotes"><li id="fn16"><p>Read the original article <a href="https://www.jstatsoft.org/article/view/v059i10">here</a>.</p></li></ol></aside></section><section id="why-do-we-want-tidy-data" class="slide level2"><h2>Why do we Want Tidy Data?</h2>
 <div>
 <ul>
 <li class="fragment">
@@ -3064,7 +3075,7 @@ $ wk76         &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N
 <div class="fragment">
 <p>Most real-world data is not tidy because data are often organized for goals other than analysis (i.e.&nbsp;data entry) and most people aren’t familiar with the principles of tidy data.</p>
 </div>
-<aside><ol class="aside-footnotes"><li id="fn16"><p>Placing variables in columns also leverages <code>R</code>’s vectorized nature, i.e.&nbsp;most built-in <code>R</code> functions work with values of vectors.</p></li><li id="fn17"><p>In fact, all tidyverse functions are designed to work with tidy data.</p></li></ol></aside></section><section id="slightly-messy-data" class="slide level2"><h2>Slightly “Messy” Data</h2>
+<aside><ol class="aside-footnotes"><li id="fn17"><p>Placing variables in columns also leverages <code>R</code>’s vectorized nature, i.e.&nbsp;most built-in <code>R</code> functions work with values of vectors.</p></li><li id="fn18"><p>In fact, all tidyverse functions are designed to work with tidy data.</p></li></ol></aside></section><section id="slightly-messy-data" class="slide level2"><h2>Slightly “Messy” Data</h2>
 <div class="columns">
 <div class="column" style="width:60%;">
 <table>
@@ -3180,35 +3191,102 @@ $ wk76         &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N
 </ul>
 </div>
 </div>
-</section><section id="billboard-is-just-ugly-messy" class="slide level2"><h2>Billboard is Just Ugly-Messy</h2>
+</section><section id="billboard-data" class="slide level2"><h2>Billboard Data</h2>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 10 × 81
-    year artist     track time  date.entered   wk1   wk2   wk3   wk4   wk5   wk6
-   &lt;int&gt; &lt;chr&gt;      &lt;chr&gt; &lt;tim&gt; &lt;date&gt;       &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;
- 1  2000 2 Pac      Baby… 04:22 2000-02-26      87    82    72    77    87    94
- 2  2000 2Ge+her    The … 03:15 2000-09-02      91    87    92    NA    NA    NA
- 3  2000 3 Doors D… Kryp… 03:53 2000-04-08      81    70    68    67    66    57
- 4  2000 3 Doors D… Loser 04:24 2000-10-21      76    76    72    69    67    65
- 5  2000 504 Boyz   Wobb… 03:35 2000-04-15      57    34    25    17    17    31
- 6  2000 98^0       Give… 03:24 2000-08-19      51    39    34    26    26    19
- 7  2000 A*Teens    Danc… 03:44 2000-07-08      97    97    96    95   100    NA
- 8  2000 Aaliyah    I Do… 04:15 2000-01-29      84    62    51    41    38    35
- 9  2000 Aaliyah    Try … 04:03 2000-03-18      59    53    38    28    21    18
-10  2000 Adams, Yo… Open… 05:30 2000-08-26      76    76    74    69    68    67
-# ℹ 70 more variables: wk7 &lt;int&gt;, wk8 &lt;int&gt;, wk9 &lt;int&gt;, wk10 &lt;int&gt;, wk11 &lt;int&gt;,
-#   wk12 &lt;int&gt;, wk13 &lt;int&gt;, wk14 &lt;int&gt;, wk15 &lt;int&gt;, wk16 &lt;int&gt;, wk17 &lt;int&gt;,
-#   wk18 &lt;int&gt;, wk19 &lt;int&gt;, wk20 &lt;int&gt;, wk21 &lt;int&gt;, wk22 &lt;int&gt;, wk23 &lt;int&gt;,
-#   wk24 &lt;int&gt;, wk25 &lt;int&gt;, wk26 &lt;int&gt;, wk27 &lt;int&gt;, wk28 &lt;int&gt;, wk29 &lt;int&gt;,
-#   wk30 &lt;int&gt;, wk31 &lt;int&gt;, wk32 &lt;int&gt;, wk33 &lt;int&gt;, wk34 &lt;int&gt;, wk35 &lt;int&gt;,
-#   wk36 &lt;int&gt;, wk37 &lt;int&gt;, wk38 &lt;int&gt;, wk39 &lt;int&gt;, wk40 &lt;int&gt;, wk41 &lt;int&gt;,
-#   wk42 &lt;int&gt;, wk43 &lt;int&gt;, wk44 &lt;int&gt;, wk45 &lt;int&gt;, wk46 &lt;int&gt;, wk47 &lt;int&gt;, …</code></pre>
+<pre><code>Rows: 317
+Columns: 81
+$ year         &lt;int&gt; 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 200…
+$ artist       &lt;chr&gt; "2 Pac", "2Ge+her", "3 Doors Down", "3 Doors Down", "504 …
+$ track        &lt;chr&gt; "Baby Don't Cry (Keep...", "The Hardest Part Of ...", "Kr…
+$ time         &lt;time&gt; 04:22:00, 03:15:00, 03:53:00, 04:24:00, 03:35:00, 03:24:…
+$ date.entered &lt;date&gt; 2000-02-26, 2000-09-02, 2000-04-08, 2000-10-21, 2000-04-…
+$ wk1          &lt;int&gt; 87, 91, 81, 76, 57, 51, 97, 84, 59, 76, 84, 57, 50, 71, 7…
+$ wk2          &lt;int&gt; 82, 87, 70, 76, 34, 39, 97, 62, 53, 76, 84, 47, 39, 51, 6…
+$ wk3          &lt;int&gt; 72, 92, 68, 72, 25, 34, 96, 51, 38, 74, 75, 45, 30, 28, 5…
+$ wk4          &lt;int&gt; 77, NA, 67, 69, 17, 26, 95, 41, 28, 69, 73, 29, 28, 18, 4…
+$ wk5          &lt;int&gt; 87, NA, 66, 67, 17, 26, 100, 38, 21, 68, 73, 23, 21, 13, …
+$ wk6          &lt;int&gt; 94, NA, 57, 65, 31, 19, NA, 35, 18, 67, 69, 18, 19, 13, 3…
+$ wk7          &lt;int&gt; 99, NA, 54, 55, 36, 2, NA, 35, 16, 61, 68, 11, 20, 11, 34…
+$ wk8          &lt;int&gt; NA, NA, 53, 59, 49, 2, NA, 38, 14, 58, 65, 9, 17, 1, 29, …
+$ wk9          &lt;int&gt; NA, NA, 51, 62, 53, 3, NA, 38, 12, 57, 73, 9, 17, 1, 27, …
+$ wk10         &lt;int&gt; NA, NA, 51, 61, 57, 6, NA, 36, 10, 59, 83, 11, 17, 2, 30,…
+$ wk11         &lt;int&gt; NA, NA, 51, 61, 64, 7, NA, 37, 9, 66, 92, 1, 17, 2, 36, N…
+$ wk12         &lt;int&gt; NA, NA, 51, 59, 70, 22, NA, 37, 8, 68, NA, 1, 3, 3, 37, N…
+$ wk13         &lt;int&gt; NA, NA, 47, 61, 75, 29, NA, 38, 6, 61, NA, 1, 3, 3, 39, N…
+$ wk14         &lt;int&gt; NA, NA, 44, 66, 76, 36, NA, 49, 1, 67, NA, 1, 7, 4, 49, N…
+$ wk15         &lt;int&gt; NA, NA, 38, 72, 78, 47, NA, 61, 2, 59, NA, 4, 10, 12, 57,…
+$ wk16         &lt;int&gt; NA, NA, 28, 76, 85, 67, NA, 63, 2, 63, NA, 8, 17, 11, 63,…
+$ wk17         &lt;int&gt; NA, NA, 22, 75, 92, 66, NA, 62, 2, 67, NA, 12, 25, 13, 65…
+$ wk18         &lt;int&gt; NA, NA, 18, 67, 96, 84, NA, 67, 2, 71, NA, 22, 29, 15, 68…
+$ wk19         &lt;int&gt; NA, NA, 18, 73, NA, 93, NA, 83, 3, 79, NA, 23, 29, 18, 79…
+$ wk20         &lt;int&gt; NA, NA, 14, 70, NA, 94, NA, 86, 4, 89, NA, 43, 40, 20, 86…
+$ wk21         &lt;int&gt; NA, NA, 12, NA, NA, NA, NA, NA, 5, NA, NA, 44, 43, 30, NA…
+$ wk22         &lt;int&gt; NA, NA, 7, NA, NA, NA, NA, NA, 5, NA, NA, NA, 50, 40, NA,…
+$ wk23         &lt;int&gt; NA, NA, 6, NA, NA, NA, NA, NA, 6, NA, NA, NA, NA, 39, NA,…
+$ wk24         &lt;int&gt; NA, NA, 6, NA, NA, NA, NA, NA, 9, NA, NA, NA, NA, 44, NA,…
+$ wk25         &lt;int&gt; NA, NA, 6, NA, NA, NA, NA, NA, 13, NA, NA, NA, NA, NA, NA…
+$ wk26         &lt;int&gt; NA, NA, 5, NA, NA, NA, NA, NA, 14, NA, NA, NA, NA, NA, NA…
+$ wk27         &lt;int&gt; NA, NA, 5, NA, NA, NA, NA, NA, 16, NA, NA, NA, NA, NA, NA…
+$ wk28         &lt;int&gt; NA, NA, 4, NA, NA, NA, NA, NA, 23, NA, NA, NA, NA, NA, NA…
+$ wk29         &lt;int&gt; NA, NA, 4, NA, NA, NA, NA, NA, 22, NA, NA, NA, NA, NA, NA…
+$ wk30         &lt;int&gt; NA, NA, 4, NA, NA, NA, NA, NA, 33, NA, NA, NA, NA, NA, NA…
+$ wk31         &lt;int&gt; NA, NA, 4, NA, NA, NA, NA, NA, 36, NA, NA, NA, NA, NA, NA…
+$ wk32         &lt;int&gt; NA, NA, 3, NA, NA, NA, NA, NA, 43, NA, NA, NA, NA, NA, NA…
+$ wk33         &lt;int&gt; NA, NA, 3, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+$ wk34         &lt;int&gt; NA, NA, 3, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+$ wk35         &lt;int&gt; NA, NA, 4, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+$ wk36         &lt;int&gt; NA, NA, 5, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+$ wk37         &lt;int&gt; NA, NA, 5, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+$ wk38         &lt;int&gt; NA, NA, 9, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+$ wk39         &lt;int&gt; NA, NA, 9, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+$ wk40         &lt;int&gt; NA, NA, 15, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…
+$ wk41         &lt;int&gt; NA, NA, 14, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…
+$ wk42         &lt;int&gt; NA, NA, 13, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…
+$ wk43         &lt;int&gt; NA, NA, 14, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…
+$ wk44         &lt;int&gt; NA, NA, 16, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…
+$ wk45         &lt;int&gt; NA, NA, 17, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…
+$ wk46         &lt;int&gt; NA, NA, 21, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…
+$ wk47         &lt;int&gt; NA, NA, 22, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…
+$ wk48         &lt;int&gt; NA, NA, 24, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…
+$ wk49         &lt;int&gt; NA, NA, 28, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…
+$ wk50         &lt;int&gt; NA, NA, 33, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…
+$ wk51         &lt;int&gt; NA, NA, 42, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…
+$ wk52         &lt;int&gt; NA, NA, 42, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…
+$ wk53         &lt;int&gt; NA, NA, 49, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…
+$ wk54         &lt;int&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…
+$ wk55         &lt;int&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…
+$ wk56         &lt;int&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…
+$ wk57         &lt;int&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…
+$ wk58         &lt;int&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…
+$ wk59         &lt;int&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…
+$ wk60         &lt;int&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…
+$ wk61         &lt;int&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…
+$ wk62         &lt;int&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…
+$ wk63         &lt;int&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…
+$ wk64         &lt;int&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…
+$ wk65         &lt;int&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…
+$ wk66         &lt;int&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…
+$ wk67         &lt;int&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…
+$ wk68         &lt;int&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…
+$ wk69         &lt;int&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…
+$ wk70         &lt;int&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…
+$ wk71         &lt;int&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…
+$ wk72         &lt;int&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…
+$ wk73         &lt;int&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…
+$ wk74         &lt;int&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…
+$ wk75         &lt;int&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…
+$ wk76         &lt;int&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…</code></pre>
 </div>
 </div>
+<div class="fragment">
+<p><br></p>
+<p>This data is just ugly-messy!</p>
 
+</div>
 <aside><div>
 <p>Week columns continue up to <code>wk76</code>!</p>
-</div></aside></section><section id="billboard" class="slide level2"><h2>Billboard</h2>
+</div></aside></section><section id="how-is-billboard-currently-organized" class="slide level2"><h2>How is Billboard currently organized?</h2>
 <div>
 <ul>
 <li class="fragment">What are the <strong>observations</strong> in the data?
@@ -3304,7 +3382,7 @@ $ wk76         &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-59" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-lines="2" data-code-annotation="1" data-code-cell="annotated-cell-59"><code>starts_with()</code> is one of the helper functions from <a href="https://tidyselect.r-lib.org/index.html"><code>tidyselect</code></a> that helps select certain common patterns. We could have also used <code>cols = wk1:wk76</code>.</span>
+<span data-code-annotation="1" data-code-lines="2" data-code-cell="annotated-cell-59"><code>starts_with()</code> is one of the helper functions from <a href="https://tidyselect.r-lib.org/index.html"><code>tidyselect</code></a> that helps select certain common patterns. We could have also used <code>cols = wk1:wk76</code>.</span>
 </dd>
 </dl>
 </div>
@@ -3331,7 +3409,7 @@ $ wk76         &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N
 </div>
 </section><section id="lots-of-missing-values" class="slide level2"><h2>Lots of Missing Values?!</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb85"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb85-1"><a href="#cb85-1"></a><span class="fu">glimpse</span>(billboard_2000)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb86"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb86-1"><a href="#cb86-1"></a><span class="fu">glimpse</span>(billboard_2000)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell fragment">
 <div class="cell-output cell-output-stdout">
@@ -3351,7 +3429,7 @@ $ rank         &lt;int&gt; 87, 82, 72, 77, 87, 94, 99, NA, NA, NA, NA, NA, NA, N
 </div>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb87"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb87-1"><a href="#cb87-1"></a><span class="fu">summary</span>(billboard_2000<span class="sc">$</span>rank)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb88"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb88-1"><a href="#cb88-1"></a><span class="fu">summary</span>(billboard_2000<span class="sc">$</span>rank)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell fragment">
 <div class="cell-output cell-output-stdout">
@@ -3367,12 +3445,12 @@ $ rank         &lt;int&gt; 87, 82, 72, 77, 87, 94, 99, NA, NA, NA, NA, NA, NA, N
 </h2>
 <p>Adding the argument <code>values_drop_na = TRUE</code> to <code>pivot_longer()</code> will remove rows with missing ranks. Since these <code>NA</code>s don’t really represent unknown observations (i.e.&nbsp;they were forced to exist by the structure of the dataset) this is an appropriate approach here.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb89" data-code-line-numbers="|5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb89-1"><a href="#cb89-1"></a>billboard_2000 <span class="ot">&lt;-</span> billboard_2000_raw <span class="sc">%&gt;%</span></span>
-<span id="cb89-2"><a href="#cb89-2"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> wk1<span class="sc">:</span>wk76, </span>
-<span id="cb89-3"><a href="#cb89-3"></a>               <span class="at">names_to =</span> <span class="st">"week"</span>, </span>
-<span id="cb89-4"><a href="#cb89-4"></a>               <span class="at">values_to =</span> <span class="st">"rank"</span>, </span>
-<span id="cb89-5"><a href="#cb89-5"></a>               <span class="at">values_drop_na =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb89-6"><a href="#cb89-6"></a><span class="fu">summary</span>(billboard_2000<span class="sc">$</span>rank)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb90" data-code-line-numbers="|5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb90-1"><a href="#cb90-1"></a>billboard_2000 <span class="ot">&lt;-</span> billboard_2000_raw <span class="sc">%&gt;%</span></span>
+<span id="cb90-2"><a href="#cb90-2"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> wk1<span class="sc">:</span>wk76, </span>
+<span id="cb90-3"><a href="#cb90-3"></a>               <span class="at">names_to =</span> <span class="st">"week"</span>, </span>
+<span id="cb90-4"><a href="#cb90-4"></a>               <span class="at">values_to =</span> <span class="st">"rank"</span>, </span>
+<span id="cb90-5"><a href="#cb90-5"></a>               <span class="at">values_drop_na =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb90-6"><a href="#cb90-6"></a><span class="fu">summary</span>(billboard_2000<span class="sc">$</span>rank)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell fragment">
 <div class="cell-output cell-output-stdout">
@@ -3383,7 +3461,7 @@ $ rank         &lt;int&gt; 87, 82, 72, 77, 87, 94, 99, NA, NA, NA, NA, NA, NA, N
 <div class="fragment">
 <p>No more <code>NA</code> values!</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb91"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb91-1"><a href="#cb91-1"></a><span class="fu">dim</span>(billboard_2000)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb92"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb92-1"><a href="#cb92-1"></a><span class="fu">dim</span>(billboard_2000)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell fragment">
 <div class="cell-output cell-output-stdout">
@@ -3397,7 +3475,7 @@ $ rank         &lt;int&gt; 87, 82, 72, 77, 87, 94, 99, NA, NA, NA, NA, NA, NA, N
 </section><section id="parse_number" class="slide level2"><h2><code>parse_number()</code></h2>
 <p>The week column is of the type <code>character</code>, but it should be <code>numeric.</code></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb93"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb93-1"><a href="#cb93-1"></a><span class="fu">head</span>(billboard_2000<span class="sc">$</span>week)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb94"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb94-1"><a href="#cb94-1"></a><span class="fu">head</span>(billboard_2000<span class="sc">$</span>week)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell fragment">
 <div class="cell-output cell-output-stdout">
@@ -3414,7 +3492,7 @@ $ rank         &lt;int&gt; 87, 82, 72, 77, 87, 94, 99, NA, NA, NA, NA, NA, NA, N
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-65" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-lines="2" data-code-annotation="2" data-code-cell="annotated-cell-65">You can use <code>mutate()</code> to overwrite existing columns.</span>
+<span data-code-annotation="2" data-code-lines="2" data-code-cell="annotated-cell-65">You can use <code>mutate()</code> to overwrite existing columns.</span>
 </dd>
 </dl>
 </div>
@@ -3443,11 +3521,11 @@ $ rank         &lt;int&gt; 87, 82, 72, 77, 87, 94, 99, NA, NA, NA, NA, NA, NA, N
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-66" data-target-annotation="3">3</dt>
 <dd>
-<span data-code-lines="6" data-code-annotation="3" data-code-cell="annotated-cell-66"><code>names_prefix</code> is used to remove “wk” from the values of <code>week</code></span>
+<span data-code-annotation="3" data-code-lines="6" data-code-cell="annotated-cell-66"><code>names_prefix</code> is used to remove “wk” from the values of <code>week</code></span>
 </dd>
 <dt data-target-cell="annotated-cell-66" data-target-annotation="4">4</dt>
 <dd>
-<span data-code-lines="7" data-code-annotation="4" data-code-cell="annotated-cell-66"><code>names_transform</code> converts <code>week</code> into an integer number.</span>
+<span data-code-annotation="4" data-code-lines="7" data-code-cell="annotated-cell-66"><code>names_transform</code> converts <code>week</code> into an integer number.</span>
 </dd>
 </dl>
 </div>
@@ -3470,7 +3548,7 @@ $ rank         &lt;int&gt; 87, 82, 72, 77, 87, 94, 99, NA, NA, NA, NA, NA, NA, N
 <div class="fragment">
 <p>This dataset contains tuberculosis diagnoses collected by the World Health Organization.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb97"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb97-1"><a href="#cb97-1"></a>who2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb98"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb98-1"><a href="#cb98-1"></a>who2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell fragment">
 <div class="cell-output cell-output-stdout">
@@ -3523,7 +3601,7 @@ $ rank         &lt;int&gt; 87, 82, 72, 77, 87, 94, 99, NA, NA, NA, NA, NA, NA, N
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-68" data-target-annotation="5">5</dt>
 <dd>
-<span data-code-lines="5" data-code-annotation="5" data-code-cell="annotated-cell-68">You can use <code>names_pattern</code> instead of <code>names_sep</code> to extract variables from more complicated naming scenarios once you’ve learned regular expressions in a few weeks.</span>
+<span data-code-annotation="5" data-code-lines="5" data-code-cell="annotated-cell-68">You can use <code>names_pattern</code> instead of <code>names_sep</code> to extract variables from more complicated naming scenarios if you are familiar with regular expressions.</span>
 </dd>
 </dl>
 </div>
@@ -3549,7 +3627,7 @@ $ rank         &lt;int&gt; 87, 82, 72, 77, 87, 94, 99, NA, NA, NA, NA, NA, NA, N
 </section><section id="variable-values-in-column-names" class="slide level2"><h2>Variable &amp; Values in Column Names</h2>
 <p>This dataset contains data about five families, with the names and dates of birth of up to two children.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb100"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb100-1"><a href="#cb100-1"></a>household</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb101"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb101-1"><a href="#cb101-1"></a>household</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell fragment">
 <div class="cell-output cell-output-stdout">
@@ -3582,11 +3660,11 @@ $ rank         &lt;int&gt; 87, 82, 72, 77, 87, 94, 99, NA, NA, NA, NA, NA, NA, N
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-70" data-target-annotation="6">6</dt>
 <dd>
-<span data-code-lines="4" data-code-annotation="6" data-code-cell="annotated-cell-70"><code>.value</code> isn’t the name of a variable but a unique value that tells <code>pivot_longer</code> to use the first component of the pivoted column name as a variable name in the output.</span>
+<span data-code-annotation="6" data-code-lines="4" data-code-cell="annotated-cell-70"><code>.value</code> isn’t the name of a variable but a unique value that tells <code>pivot_longer</code> to use the first component of the pivoted column name as a variable name in the output.</span>
 </dd>
 <dt data-target-cell="annotated-cell-70" data-target-annotation="7">7</dt>
 <dd>
-<span data-code-lines="6" data-code-annotation="7" data-code-cell="annotated-cell-70">Using <code>values_drop_na = TRUE</code> again since not every family has 2 children.</span>
+<span data-code-annotation="7" data-code-lines="6" data-code-cell="annotated-cell-70">Using <code>values_drop_na = TRUE</code> again since not every family has 2 children.</span>
 </dd>
 </dl>
 </div>
@@ -3645,15 +3723,15 @@ $ rank         &lt;int&gt; 87, 82, 72, 77, 87, 94, 99, NA, NA, NA, NA, NA, NA, N
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-71" data-target-annotation="8">8</dt>
 <dd>
-<span data-code-lines="2" data-code-annotation="8" data-code-cell="annotated-cell-71"><code>id_cols</code> is the column that uniquely identifies each row in the new dataset. Default is everything not in <code>names_from</code> and <code>values_from</code>.</span>
+<span data-code-annotation="8" data-code-lines="2" data-code-cell="annotated-cell-71"><code>id_cols</code> is the column that uniquely identifies each row in the new dataset. Default is everything not in <code>names_from</code> and <code>values_from</code>.</span>
 </dd>
 <dt data-target-cell="annotated-cell-71" data-target-annotation="9">9</dt>
 <dd>
-<span data-code-lines="3" data-code-annotation="9" data-code-cell="annotated-cell-71"><code>names_from</code> provides the names that will be used for the new columns</span>
+<span data-code-annotation="9" data-code-lines="3" data-code-cell="annotated-cell-71"><code>names_from</code> provides the names that will be used for the new columns</span>
 </dd>
 <dt data-target-cell="annotated-cell-71" data-target-annotation="10">10</dt>
 <dd>
-<span data-code-lines="4" data-code-annotation="10" data-code-cell="annotated-cell-71"><code>values_from</code> provides the values that will be used to populate the cells of the new columns.</span>
+<span data-code-annotation="10" data-code-lines="4" data-code-cell="annotated-cell-71"><code>values_from</code> provides the values that will be used to populate the cells of the new columns.</span>
 </dd>
 </dl>
 </div>

@@ -50,10 +50,10 @@ library(nycflights13)
 ## Roadmap
 
 ::: {.incremental}
-* Importing and Exporting Data
-* Manipulating and Summarizing Data
-* Merging Data
-* Tidying and Reshaping Data
+* Importing and Exporting Data^[Not covered today.]
+* <span style="color:#b7a57a">Manipulating and Summarizing Data</span>  
+* <span style="color:#b7a57a">Merging Data</span> 
+* <span style="color:#b7a57a">Tidying and Reshaping Data</span>
 :::
 
 # Importing and Exporting Data{.section-title background-color="#4B2E83"}
@@ -785,7 +785,6 @@ all(C <= 20, na.rm = TRUE) # <2>
 mean(C, na.rm = TRUE) # <3> 
 
 ```
-
 1. Like other summary functions, they'll return `NA` if there are any missing values present and it's `FALSE`. 
 2. Use `na.rm = TRUE` to remove `NA`s prior to evaluation. 
 3. When you evaluate a logical vector numerically, `TRUE` = 1 and `FALSE` = 0. This makes `sum()` and `mean()` useful when summarizing logical functions (sum gives number of `TRUE`s and mean gives the proportion). 
@@ -840,7 +839,7 @@ case_when(
 
 Today, we'll use tools from the `dplyr` package to manipulate data! 
 
-* Like `ggplot2`, `dplyr` is part of the *Tidyverse*, and included in the `tidyverse` package. 
+* `dplyr` is part of the *Tidyverse*, and included in the `tidyverse` package. 
 
 ```{r}
 library(tidyverse)
@@ -1029,7 +1028,7 @@ flights |>
   rename(tail_num = tailnum) # <23>
 ```
 
-23. `rename(new_name = old_name)` is the format. Reminder to use `janitor::clean_names()` if you want to automate this process for a lot of variables. 
+23. `rename(new_name = old_name)` is the format. You can use `janitor::clean_names()` if you want to automate this process for a lot of variables. 
 
 . . . 
 
@@ -1667,7 +1666,7 @@ What happens if we match on more than one row?
 
 ```{r}
 #| output-location: fragment
-#| message: true
+#| warning: true
 df1 <- tibble(key = c(1, 2, 2), val_x = c("x1", "x2", "x3"))
 df2 <- tibble(key = c(1, 2, 2), val_y = c("y1", "y2", "y3"))
 
@@ -1678,7 +1677,7 @@ df1 |>
 
 . . . 
 
-If you are doing this deliberately, you can set relationship = "many-to-many", as the warning suggests.
+If you're doing this deliberately, set relationship = "many-to-many", as the warning suggests.
 
 ::: aside
 Given their nature, filtering joins never duplicate rows like mutating joins do. They will only ever return a subset of the datasets.
@@ -1866,19 +1865,24 @@ Most real-world data is not tidy because data are often organized for goals othe
 :::
 ::::
 
-## Billboard is Just Ugly-Messy
+## Billboard Data
 
 ```{r}
 #| echo: false
-billboard_2000_raw %>% 
-  head(10)
+glimpse(billboard_2000_raw)
 ```
+
+. . . 
+
+\
+
+This data is just ugly-messy!
 
 ::: aside
 Week columns continue up to `wk76`!
 :::
 
-## Billboard
+## How is Billboard currently organized?
 
 ::: {.incremental}
 * What are the **observations** in the data?
@@ -2097,7 +2101,7 @@ who2 |>
   )
 ```
 
-5. You can use `names_pattern` instead of `names_sep` to extract variables from more complicated naming scenarios once you've learned regular expressions in a few weeks. 
+5. You can use `names_pattern` instead of `names_sep` to extract variables from more complicated naming scenarios if you are familiar with regular expressions. 
 
 ## Variable & Values in Column Names
 
