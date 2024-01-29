@@ -1,7 +1,7 @@
 {
-  "hash": "e5fce88ee3cd93386cfc6642c645e747",
+  "hash": "97c28da8f4f5d576e3cd9df2a930de51",
   "result": {
-    "markdown": "---\nexecute: \n  echo: true\n  message: false\n  warning: false\n  fig-format: \"svg\"\nformat: \n  revealjs:\n    highlight-style: a11y-dark\n    reference-location: margin\n    theme: csscr_styles2.scss\n    slide-number: true\n    code-link: true\n    chalkboard: true\n    incremental: false \n    smaller: true\n    preview-links: true\n    code-line-numbers: true\n    history: false\n    progress: true\n    link-external-icon: true\n    code-annotations: hover\n    pointer:\n      color: \"#b18eb1\"\nrevealjs-plugins:\n  - pointer\n---\n\n::: {.cell}\n\n:::\n\n\n## {#title-slide data-menu-title=\"Introduction to Quarto\" background-image=\"images/rainier_night.jpeg\" background-size=\"cover\"}\n\n[Introduction to Quarto]{.custom-title}\n\n[CSSCR Workshop]{.custom-subtitle}\n\n[Winter 2024]{.custom-subtitle2}\n\n[Victoria Sass]{.custom-subtitle3}\n",
+    "markdown": "---\nexecute: \n  echo: true\n  message: false\n  warning: false\n  fig-format: \"svg\"\nformat: \n  revealjs:\n    highlight-style: a11y-dark\n    reference-location: margin\n    theme: csscr_styles2.scss\n    slide-number: true\n    code-link: true\n    chalkboard: true\n    incremental: false \n    smaller: true\n    preview-links: true\n    code-line-numbers: true\n    history: false\n    progress: true\n    link-external-icon: true\n    code-annotations: hover\n    pointer:\n      color: \"#b18eb1\"\nrevealjs-plugins:\n  - pointer\n---\n\n::: {.cell}\n\n:::\n\n\n## {#title-slide data-menu-title=\"Introduction to Quarto\" background-image=\"images/rainier_night.jpeg\" background-size=\"cover\"}\n\n[Introduction to Quarto]{.custom-title}\n\n[CSSCR Workshop]{.custom-subtitle}\n\n[Victoria Sass]{.custom-subtitle3}\n",
     "supporting": [],
     "filters": [
       "rmarkdown/pagebreak.lua"

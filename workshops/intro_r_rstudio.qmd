@@ -44,6 +44,4 @@ require(tidyverse)
 
 [CSSCR Workshop]{.custom-subtitle}
 
-[Spring 2024]{.custom-subtitle2}
-
 [Victoria Sass]{.custom-subtitle3}
