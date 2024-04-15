@@ -50,10 +50,10 @@ library(nycflights13)
 ## Roadmap
 
 ::: {.incremental}
-* Importing and Exporting Data^[Not covered today.]
-* <span style="color:#b7a57a">Manipulating and Summarizing Data</span>  
-* <span style="color:#b7a57a">Merging Data</span> 
-* <span style="color:#b7a57a">Tidying and Reshaping Data</span>
+* Importing and Exporting Data
+* Manipulating and Summarizing Data 
+* Merging Data
+* Tidying and Reshaping Data
 :::
 
 # Importing and Exporting Data{.section-title background-color="#4B2E83"}
@@ -216,14 +216,12 @@ billboard_2000_raw <- read_csv(file = "data/billboard.csv",
 It takes a character vector to be used as column names (in their order of appearance). 
 
 ```{r}
-#| eval: false
-billboard_2000_raw <- read_csv(file = "data/billboard.csv", 
-                               col_names = c("year", "artist", "track", "time", "date_entered", 
-                                             paste("wk", 1:76, sep = "_"))) # <1>
+billboard_renamed <- read_csv(file = "data/billboard.csv",
+                              col_names = c("year", "artist", "track", "time", "date_entered", 
+                                            paste("wk", 1:76, sep = "_"))) # <1>
 
 billboard_renamed |>  names() |> head(10) # <2>
 ```
-
 1. First few entries: "wk_1"  "wk_2"  "wk_3"
 2. `names` returns the column names.
 
@@ -469,7 +467,7 @@ flowchart LR
 
 ## Most Common Issue with Reading in Data
 
-The most common problem that occurs when reading in data is having mixed data. Most often, given the heuristic provided in the last slide, will parse a variable as a character string to preserve whatever it contains. 
+The most common problem that occurs when reading in data is having mixed data. Most often, given the heuristic provided in the last slide, `R` will parse a variable as a character string to preserve whatever it contains. 
 
 . . . 
 
@@ -533,9 +531,8 @@ bb_types
 ```{r}
 # re-read in data with column types specified
 billboard_2000_raw <- read_csv(file = "data/billboard.csv", 
-                               col_types = bb_types) # <8> 
+                               col_types = bb_types) # <8>
 ```
-
 8. See all column types and short codes [here](https://readr.tidyverse.org/reference/cols.html).
 
 ## Column types
@@ -564,7 +561,7 @@ billboard_2000_raw <- read_csv(file = "data/billboard.csv",
 
 <br>
 
-In summary, the `col-types` argument gives you greater control over how your data are read in and can save you recoding time down the road and/or point out where your data are behaving differently than you expect. 
+In summary, the `col_types` argument gives you greater control over how your data are read in and can save you recoding time down the road and/or point out where your data are behaving differently than you expect. 
 
 ## Writing Delimited Files
 
@@ -779,8 +776,8 @@ You may also see `&&` and `||` but they are what's known as short-circuiting ope
 
 ```{r}
 C <- c(5, 10, NA, 10, 20, NA)
-any(C <= 10) # <1> 
-all(C <= 20)
+any(C <= 10) 
+all(C <= 20) # <1> 
 all(C <= 20, na.rm = TRUE) # <2>
 mean(C, na.rm = TRUE) # <3> 
 
@@ -1336,7 +1333,7 @@ weather
 ### `flights`
 
 ::: {.smaller-font}
-`flights` actually contains **foreign keys** that correspond to the primary keys of the other datasets.
+`flights` has three variables (`time_hour`, `flight`, `carrier`) that uniquely identify an observation. More significantly, however, it contains **foreign keys** that correspond to the primary keys of the other datasets.
 :::
 
 ```{r}
@@ -1766,24 +1763,6 @@ Rolling joins are a special type of inequality join where instead of getting eve
 
 # {data-menu-title="`tidyr`" background-image="images/tidyr.png" background-size="contain" background-position="center" .section-title background-color="#B7A57A"}
 
-## Initial Spot Checks
-
-First things to check after loading new data:
-
-::: {.incremental}
-* Did all the rows/columns from the original file make it in?
-    + Check using `dim()` or `str()`
-* Are the column names in good shape?
-    + Use `names()` to check; fix with `rename()`
-* Are there "decorative" blank rows or columns to remove?
-    + `filter()` or `select()` out those rows/columns
-* How are missing values represented: `NA`, `" "` (blank), `.` (period), `999`?
-    + Read in the data again specifying `NA`s with the `na` argument
-* Are there character data (e.g. ZIP codes with leading zeroes) being incorrectly represented as numeric or vice versa?
-    + Read in the data again specifying desired `col_types`
-
-:::
-
 ## What is Tidy Data
 
 **Tidy data^[Read the original article [here](https://www.jstatsoft.org/article/view/v059i10).]** (aka "long data") are such that:
@@ -2199,7 +2178,41 @@ If there are multiple rows in the input that correspond to one cell in the outpu
 
 # {data-menu-title="R Knowledge Comic" .section-title background-image="images/r_knowledge.png"}
 
+## CSSCR Consulting Services
+
+CSSCR is a resource center for the social science departments^[Constituent member departments include The College of Education, The Department of Anthropology, The Department of Communication, The Department of Economics, The Department of Geography, The Department of Political Science, The Department of Psychology, The Department of Sociology, The Jackson School of International Studies, and The School of Social Work] at the University of Washington.
+
+. . . 
+
+As you continue to learn `R` feel free to drop by with any/all of your `R` coding questions. Below are our hours for the quarter: 
+
+```{r}
+#| echo: false
+library(gt)
+hours <- tibble(day = c("Monday", "Tuesday", "Wednesday", "Thursday", "Friday"), 
+                drop_in = c(rep("8am - 6pm", 4), "8am - 5pm"), 
+                evening = c(rep("6 - 9pm", 4), ""))
+
+hours |> 
+  gt(rowname_col = "day") |> 
+  tab_header(title = "The Center for Social Science Computation and Research", 
+             subtitle = "Consulting Hours for Spring 2024")  |> 
+  cols_label(drop_in = "In-Person", 
+             evening = "Virtual") |> 
+  tab_footnote(footnote = "Drop-in @ Savery 119", 
+               locations = cells_column_labels(columns = drop_in), 
+               placement = "right") |> 
+  tab_footnote(footnote = "Online Via Zoom", 
+               locations = cells_column_labels(columns = evening), 
+               placement = "right") |> 
+  tab_options(footnotes.multiline = FALSE) |> 
+  data_color(columns = drop_in, 
+             palette = c("LightGoldenrodYellow", "PaleGoldenrod")) |> 
+  data_color(columns = evening, 
+             palette = "Purples")
+
+```
+
+
 # Thanks!{.section-title background-color="#4B2E83"}
-
-
 
