@@ -8,9 +8,9 @@ ___
 
 #### <span style="color:#5B0B15">Instructor</span>
 
+- **Sociology 221** [<span style="color:#5B0B15">Statistical Concepts and Methods for the Social Sciences</span>](https://vsass.github.io/SOC221) - Summer 2021; Summer 2024
 - **CS&SS 508** [<span style="color:#5B0B15">Introduction to R for Social Scientists</span>](https://vsass.github.io/CSSS508) *(Graduate Course)* - Autumn 2023; Spring 2024
 - **Sociology 316** <span style="color:#5B0B15">Sociological Theory</span> - Summer 2023
-- **Sociology 221** <span style="color:#5B0B15">Statistical Concepts and Methods for the Social Sciences</span> - Summer 2021
 - **Sociology 404** <span style="color:#5B0B15">Sociology in Practice: Community/Civic Internship Program</span> - Spring 2018
 - **Sociology 404** <span style="color:#5B0B15">Sociology in Practice: Community/Civic Internship Program</span> - Winter 2018
 - **Sociology 321** <span style="color:#5B0B15">Case-Based Social Statistics I</span> *(Honors Course)* - Autumn 2017
