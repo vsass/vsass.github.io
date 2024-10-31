@@ -78,7 +78,7 @@ If you have an actual data file, you'll have to import it yourself...
 
 ## Delimited Text Files
 
-Besides a package, it's easiest when data is stored in a text file. The most commonly encountered delimitd file is a **.csv**.
+Besides a package, it's easiest when data is stored in a text file. The most commonly encountered delimited file is a **.csv**.
 
 . . . 
 
@@ -242,7 +242,7 @@ If you simply want to change your variables to snake case (all lower case; words
 
 ```{r}
 #| output-location: fragment
-# Download pacakge first
+# Download package first
 # install.packages("janitor") # <3> 
 
 # Create new object for renamed data
@@ -586,7 +586,7 @@ To save `R` objects and all associated metadata you have two options:
 
 ### `.Rds` format:
 
-* Used for single objects, doesn't save original the object name
+* Used for single objects, doesn't save the original object name
 * Save: `write_rds(old_object_name, "path.Rds")`
 * Load: `new_object_name <- read_rds("path.Rds")`
 
@@ -2196,7 +2196,7 @@ hours <- tibble(day = c("Monday", "Tuesday", "Wednesday", "Thursday", "Friday"),
 hours |> 
   gt(rowname_col = "day") |> 
   tab_header(title = "The Center for Social Science Computation and Research", 
-             subtitle = "Consulting Hours for Spring 2024")  |> 
+             subtitle = "Consulting Hours for Fall 2024")  |> 
   cols_label(drop_in = "In-Person", 
              evening = "Virtual") |> 
   tab_footnote(footnote = "Drop-in @ Savery 119", 
