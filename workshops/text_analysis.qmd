@@ -1680,7 +1680,7 @@ Back into the matrix...
 :::
 
 ---
-
+::: {.fragment}
 ```{r}
 #| output-location: fragment
 sections_dtm <- word_counts |> 
@@ -1688,17 +1688,20 @@ sections_dtm <- word_counts |>
 
 sections_dtm
 ```
+:::
 
+::: {.fragment}
 ```{r}
 #| eval: false
 sections_lda <- LDA(sections_dtm, k = 4, control = list(seed = 01302025))
 
 sections_lda
 ```
+:::
 
+::: {.fragment}
 ```{r}
 #| echo: false
-#| output-location: fragment
 # sections_lda <- LDA(sections_dtm, k = 4, control = list(seed = 01302025))
 
 # write_rds(sections_lda, "workshops/data/sections_lda.rds")
@@ -1706,6 +1709,7 @@ sections_lda <- read_rds("data/sections_lda.rds")
 
 sections_lda
 ```
+:::
 
 ## Visualize Top Terms
 
