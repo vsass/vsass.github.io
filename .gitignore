@@ -5,6 +5,6 @@
 
 
 /.quarto/
-/data
+workshops/data/
 *.csv
 *.rds

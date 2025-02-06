@@ -1,7 +1,4 @@
 ---
-knitr: 
-  opts_chunk:
-    comment: "#>" 
 execute: 
   echo: true
   message: false
