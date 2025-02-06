@@ -23,8 +23,6 @@ website:
             href: teaching.qmd
       - text: "CSSCR Workshops"
         menu: 
-          - text: "Introduction to R using R Studio"
-            href: workshops/intro_r_rstudio.qmd
           - text: "Text Analysis in R"
             href: workshops/text_analysis.qmd
           - text: "Data Wrangling in R"

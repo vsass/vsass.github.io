@@ -269,7 +269,6 @@ show_clean |> select(raw_text)
 
 ```{r}
 #| eval: false
-#| output-location: fragment
 clean_bob |> 
   select(cleaned_text) |> 
   slice_sample(n = 5) 
@@ -826,8 +825,8 @@ ggplot(season_words, aes(x = n/total, y = season, fill = as_factor(season))) +
 ```{r}
 #| echo: false
 #| fig-align: center
-#| fig-width: 10.5
-#| fig-height: 7
+#| fig-width: 11
+#| fig-height: 8
 library(colorspace)
 library(ggridges) 
 season_words <- left_join(season_words, total_words) 
@@ -904,8 +903,8 @@ season_tf_idf |>
 ```{r}
 #| echo: false
 #| fig-align: center
-#| fig-height: 9
-#| fig-width: 18
+#| fig-height: 8
+#| fig-width: 16
 season_tf_idf |> 
   group_by(season) |> 
   slice_max(tf_idf, n = 10) |> 
@@ -914,7 +913,7 @@ season_tf_idf |>
   geom_col(show.legend = FALSE) +
   scale_fill_manual(values = c(observable, observable_light)[order(rep(seq_along(observable), 2))][1:14]) +
   scale_x_continuous(n.breaks = 3) +
-  facet_wrap(~ season, ncol = 5, scales = "free") +
+  facet_wrap(~ season, ncol = 5, scales = "free_y") +
   labs(x = "tf-idf", y = NULL) + 
   theme_minimal(base_size = 18)
 ```
@@ -1107,7 +1106,6 @@ tl;dr, `tidy_pmi` quantifies how often we find each word near each other word.
 
 ```{r}
 #| eval: false
-#| output-location: fragment
 tidy_word_vectors <- tidy_pmi  |> 
   widely_svd( # <24> 
     item1, item2, pmi, # <25>
@@ -1125,6 +1123,7 @@ tidy_word_vectors
 
 ```{r}
 #| echo: false
+#| output-location: fragment
 # tidy_word_vectors <- tidy_pmi  |> 
 #   widely_svd(
 #     item1, item2, pmi,
@@ -1137,13 +1136,13 @@ tidy_word_vectors <- read_csv("data/tidy_word_vectors.csv")
 tidy_word_vectors
 ```
 
-## {background-image="https://www.russellmoore.com/wp-content/uploads/2018/03/mister_rogers_feature_2_1050x700.jpg" background-size="cover" auto-animate=true}
+## {background-image="images/mister_rogers.jpg" background-size="cover" auto-animate=true}
 
 ::: {style="position: absolute; bottom:50px; left:5px; font-size: 0em; color:#fcdd60"}
 Won't You Be My Neighbor?
 :::
 
-## {background-image="https://www.russellmoore.com/wp-content/uploads/2018/03/mister_rogers_feature_2_1050x700.jpg" background-size="cover" auto-animate=true}
+## {background-image="images/mister_rogers.jpg" background-size="cover" auto-animate=true}
 
 
 ::: {style="position: absolute; bottom:50px; left:5px; font-size: 2.5em; color:#fcdd60"}
@@ -1254,8 +1253,8 @@ tidy_word_vectors |>
 ```{r}
 #| echo: false
 #| fig-align: center
-#| fig-height: 7
-#| fig-width: 10.5
+#| fig-height: 8
+#| fig-width: 16
 tidy_word_vectors |>
   filter(dimension <= 9) |>
   mutate(sign = if_else(value > 0, "positive", "negative")) |> 
@@ -1377,8 +1376,8 @@ tidy_glove |>
 ```{r}
 #| echo: false
 #| fig-align: center
-#| fig-height: 7
-#| fig-width: 10.5
+#| fig-height: 8
+#| fig-width: 16
 tidy_glove |> 
   filter(dimension <= 9)  |> 
   mutate(sign = if_else(value > 0, "positive", "negative")) |> 
@@ -1746,8 +1745,8 @@ top_terms |>
 ```{r}
 #| echo: false
 #| fig-align: center
-#| fig-height: 7
-#| fig-width: 10.5
+#| fig-height: 8
+#| fig-width: 11
 top_terms <- sections_topics |> 
   group_by(topic) |> 
   slice_max(beta, n = 5) |> 
@@ -1799,8 +1798,8 @@ sections_gamma |>
 ```{r}
 #| echo: false
 #| fig-align: center
-#| fig-height: 7
-#| fig-width: 10.5
+#| fig-height: 8
+#| fig-width: 11
 sections_gamma <- sections_gamma |> 
   separate(document, c("title", "section"), sep = "_", convert = TRUE)
 
@@ -1906,8 +1905,8 @@ assignments |>
 ```{r}
 #| echo: false
 #| fig-align: center
-#| fig-height: 7
-#| fig-width: 10.5
+#| fig-height: 8
+#| fig-width: 11
 library(scales)
 
 assignments |> 
@@ -1943,8 +1942,8 @@ sections_topics <- tidy(sections_lda, matrix = "beta")
 ```{r}
 #| echo: false
 #| fig-align: center
-#| fig-height: 7
-#| fig-width: 10.5
+#| fig-height: 8
+#| fig-width: 11
 top_terms <- sections_topics |> 
   group_by(topic) |> 
   slice_max(beta, n = 5) |> 
@@ -1966,8 +1965,8 @@ top_terms |>
 ```{r}
 #| echo: false
 #| fig-align: center
-#| fig-height: 7
-#| fig-width: 10.5
+#| fig-height: 8
+#| fig-width: 11
 sections_gamma <- tidy(sections_lda, matrix = "gamma")
 sections_gamma <- sections_gamma |> 
   separate(document, c("title", "section"), sep = "_", convert = TRUE)
@@ -1987,8 +1986,8 @@ sections_gamma |>
 ```{r}
 #| echo: false
 #| fig-align: center
-#| fig-height: 7
-#| fig-width: 10.5
+#| fig-height: 8
+#| fig-width: 11
 assignments <- broom::augment(sections_lda, data = sections_dtm)
 
 section_classifications <- sections_gamma |> 
