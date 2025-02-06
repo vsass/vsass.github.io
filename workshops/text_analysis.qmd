@@ -4,15 +4,15 @@ execute:
   message: false
   warning: false
   fig-format: "svg"
-  cache: refresh
 format: 
   revealjs:
     highlight-style: a11y-dark
     reference-location: margin
+    embed-resources: true
     theme: csscr_styles2.scss
     slide-number: true
     code-link: false
-    chalkboard: true
+    chalkboard: false
     incremental: false 
     code-line-numbers: false
     code-overflow: scroll
