@@ -1,0 +1,2056 @@
+---
+knitr: 
+  opts_chunk:
+    comment: "#>" 
+execute: 
+  echo: true
+  message: false
+  warning: false
+  fig-format: "svg"
+  cache: refresh
+format: 
+  revealjs:
+    highlight-style: a11y-dark
+    reference-location: margin
+    theme: csscr_styles2.scss
+    slide-number: true
+    code-link: false
+    chalkboard: true
+    incremental: false 
+    code-line-numbers: false
+    code-overflow: scroll
+    history: false
+    progress: true
+    link-external-icon: true
+    code-annotations: hover
+---
+
+```{r}
+#| echo: false
+#| cache: false
+
+#pak::pak("poncest/bobsburgersR")
+require(tidyverse)
+require(bobsburgersR)
+```
+
+## {#title-slide data-menu-title="Introduction to Text Analysis in R" background-image="images/rainier_night.jpeg" background-size="cover"}
+
+[Introduction to <br> Text Analysis in R]{.custom-title}
+
+[CSSCR Workshop]{.custom-subtitle}
+
+[30 January 2025]{.custom-subtitle2}
+
+[Victoria Sass]{.custom-subtitle3}
+
+## Roadmap 
+
+::: {.incremental}
+
+* Text as Tidy Data
+* Sentiment Analysis
+* tf-idf
+* Word Embeddings
+* Topic Modeling 
+* Further Learning & Resources
+
+:::
+
+# Source Material {background-color="#c5b4e3"}
+
+## {background-iframe="https://www.tidytextmining.com/"}
+
+[Go to book site](https://www.tidytextmining.com/){style="border: 2px solid #4B2E83; color: #2ad2c9; border-radius: 15px; padding: 5px 5px 5px 5px; position: absolute; top: 300px; right: -50px; text-align: center;"}
+
+
+## {background-iframe="https://smltar.com/"}
+
+[Go to book site](https://smltar.com/){style="border: 2px solid #4B2E83; color: #e93cac; padding: 5px 5px 5px 5px; border-radius: 15px; position: absolute; top: 300px; right: -50px; text-align: center"}
+
+# Text as Tidy Data {background-color="#c5b4e3"}
+
+## The `tidyverse`
+
+<br>
+
+The `tidyverse` refers to two things: 
+
+::: {.incremental}
+
+1. a specific package in `R` that loads several core packages within the `tidyverse`.  
+2. a specific design philosophy, grammar, and focus on "tidy" data structures developed by Hadley Wickham ^[You can read the official manifesto [here](https://tidyverse.tidyverse.org/articles/manifesto.html).] and the team at [Posit](https://posit.co/) (formerly known as R Studio). 
+
+:::
+
+## The `tidyverse` package
+
+:::: {.columns}
+::: {.column width="50%"}
+The core packages within the `tidyverse` include:
+
+::: {.incremental}
+
+* `ggplot2` (visualizations)
+* `dplyr` (data manipulation)
+* `tidyr` (data reshaping)
+* `readr` (data import/export)
+* `purrr` (iteration)
+* `tibble` (modern dataframe)
+* `stringr` (text data)
+* `forcats` (factors)
+
+:::
+
+:::
+::: {.column width="50%"}
+
+<br>
+
+![](images/tidyverse.png)
+:::
+::::
+
+## The `tidyverse` philosophy
+
+:::: {.columns}
+::: {.column width="50%"}
+The principles underlying the tidyverse are: 
+
+:::{.incremental}
+1. Reuse existing data structures.
+2. Compose simple functions with the pipe.
+3. Embrace functional programming.
+4. Design for humans.
+:::
+
+:::
+::: {.column width="50%"}
+![](images/extended_tidyverse.jpeg)
+:::
+::::
+
+## {background-image="https://r4ds.hadley.nz/diagrams/data-science/whole-game.png" background-size="contain"}
+
+## What is Tidy Data?
+
+![](images/tidy_data1.jpg){width="90%"} ^[Illustrations from the [Openscapes](https://openscapes.org/) blog [Tidy Data for reproducibility, efficiency, and collaboration](https://www.openscapes.org/blog/2020/10/12/tidy-data/) by Julia Lowndes and Allison Horst]
+
+
+
+## Why do we Want Tidy Data?
+
+::: {.incremental .small1}
+* **Easier to understand** many rows than many columns^[Placing variables in columns also leverages `R`'s vectorized nature, i.e. most built-in `R` functions work with values of vectors.]
+* Required for **plotting** in `ggplot2`^[In fact, all `tidyverse` functions are designed to work with tidy data.]
+* Required for many types of **statistical procedures** (e.g. hierarchical or mixed effects models)
+* Fewer issues with **missing values and "imbalanced"** repeated measures data
+* Having a consistent method for storing data means it's easier to learn the tools to work with it since there's an underlying uniformity.
+
+:::
+
+. . . 
+
+::: {.small1}
+Most real-world data is not tidy because data are often organized for goals other than analysis (i.e. data entry; not intentionally created as data...) and most people aren't familiar with the principles of tidy data. 
+:::
+
+## Why do we Want Tidy Data?
+
+![](images/tidy_data3.jpg){width="90%"} ^[Illustrations from the [Openscapes](https://openscapes.org/) blog [Tidy Data for reproducibility, efficiency, and collaboration](https://www.openscapes.org/blog/2020/10/12/tidy-data/) by Julia Lowndes and Allison Horst]
+
+## {background-color="#fcdd60" background-image="https://www.bubbleblabber.com/wp-content/uploads/2015/06/bobs-burgers-title.jpg" background-size="75%"}
+
+## Data from [`bobsburgersR`](https://github.com/poncest/bobsburgersR)
+
+::: {.fragment}
+
+```{r}
+#| eval: false
+
+install.packages("pak") # <1>
+pak("poncest/bobsburgersR") # <1>
+```
+
+1. Run these two lines of code in your [console]{style="color:#e93cac"}. 
+
+:::
+
+::: {.fragment .small1}
+
+The `pak` package is an alternative to using `install.packages()` and, for our purposes here, allows us to download our data directly from Github. 
+
+:::
+
+::: {.fragment}
+
+```{r}
+#| eval: false
+library(tidyverse)
+library(bobsburgersR)
+head(transcript_data, n = 10)
+```
+
+
+```{r}
+#| echo: false
+set.seed(01302025)
+head(transcript_data, n = 10)
+```
+
+:::
+
+## First steps
+
+. . . 
+
+```{r}
+library(tidytext) 
+library(textclean) # <2> 
+
+clean_text <- function(text) { # <3>
+  text |> 
+    replace_html() |> # <4> 
+    replace_non_ascii() |> # <5> 
+    replace_contraction() |> # <6> 
+    replace_white() |> # <7> 
+    tolower() |> # <8> 
+    str_remove_all(pattern = "[:punct:]|[:symbol:]") # <9> 
+}
+```
+
+2. You can optionally run `check_text()` on your raw text variable to receive a print-out of possible functions you may want to use to clean your raw text data.
+3. Creating our own helper function to clean our raw text variable
+4. Removes any HTML tags
+5. Removes non_ASCII characters
+6. Expands contractions to avoid repetition 
+7. Collapses multiple spaces
+8. Normalizes all lower case
+9. Removes all punctuation/symbols
+
+## Cleaning the data
+
+```{r}
+clean_bob <- transcript_data |> 
+  drop_na() |> # <10>
+  mutate(cleaned_text = raw_text |> clean_text()) 
+```
+
+10. Drops any rows in a dataframe that have `NAs` in them 
+
+<br> 
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+::: {.fragment fragment-index=1}
+
+```{r}
+#| eval: false
+clean_bob |> 
+  select(raw_text) |> 
+  slice_sample(n = 5) 
+```
+
+:::
+
+::: {.fragment fragment-index=2}
+```{r}
+#| echo: false
+show_clean <- clean_bob |>  select(raw_text, cleaned_text) |>  slice_sample(n = 5) 
+show_clean |> select(raw_text)
+```
+
+:::
+
+:::
+
+::: {.column width="50%"}
+
+::: {.fragment fragment-index=1}
+
+```{r}
+#| eval: false
+#| output-location: fragment
+clean_bob |> 
+  select(cleaned_text) |> 
+  slice_sample(n = 5) 
+```
+
+:::
+
+::: {.fragment fragment-index=2}
+
+```{r}
+#| echo: false
+show_clean |> select(cleaned_text)
+```
+
+:::
+
+:::
+
+::::
+
+
+
+## Tokenization
+
+::: {.incremental .small1}
+- In order to create a tidy dataset from lots of text, we need to define a feature that we want to use as our unit of analysis. 
+- This could be many different things (i.e. a sentence, a paragraph, an n-gram, etc.) but the most common token is a word. 
+:::
+
+. . . 
+
+![](images/tokenization-black-box.png){fig-align="center" width=50%}
+
+
+## Tidying the data
+
+```{r}
+#| output-location: fragment
+tidy_bob <- clean_bob |> 
+  left_join(transcript_data |>
+              select(season, episode) |> 
+              distinct() |> 
+              mutate(episode_seq = row_number())) |> # <11>
+  select(-c(dialogue, raw_text)) |> # <12> 
+  unnest_tokens(output = word, input = cleaned_text) # <13>
+
+tidy_bob
+```
+
+11. This entire `left_join` dataset simply creates an episode number that isn't broken up by season
+12. Removes the `dialogue` and `raw_text` columns
+13. This function tokenizes our data into a tidy format 
+
+## Stop Words
+
+As you might imagine, most words that appear in a corpus of text are going to be fairly boring and (depending on the analysis) not very insightful. These are what's known as stop words. 
+
+:::: {.columns}
+
+::: {.column width="50%"}
+::: {.fragment}
+```{r}
+#| output-location: fragment
+data(stop_words)
+stop_words
+```
+:::
+:::
+
+::: {.column width="50%"}
+::: {.fragment}
+```{r}
+#| output-location: fragment
+stop_words |> count(lexicon)
+```
+:::
+:::
+
+::::
+
+## Removing Stop Words
+
+. . . 
+
+```{r}
+#| output-location: fragment
+tidy_bob <- tidy_bob |> 
+  anti_join(stop_words)
+
+tidy_bob
+```
+
+::: aside
+For our purposes today we'll be removing stop words but know that stop words are not (always) just filler. They contain (low-level) information and depending upon the goal of your research, they may help inform your subsequent analyses. 
+:::
+
+## Term Frequency
+
+The most basic statistic we can derive after these preliminary steps is calculating which words are used most often in our data. 
+
+. . . 
+
+```{r}
+#| output-location: fragment
+tidy_bob |> 
+  count(word, sort = TRUE) # <14> 
+```
+
+14. This is the same as `group_by(word) |> summarise(n = n()) |> arrange(desc(n))`
+
+## Term Frequency Visualization
+
+::: {.panel-tabset}
+
+### Code
+
+```{r}
+#| eval: false
+#| output-location: fragment
+observable <- c("#1f77b4","#ff7f0e","#2ca02c","#d62728","#9467bd",
+                "#8c564b","#e377c2","#7f7f7f","#bcbd22","#17becf") # <15>
+
+tidy_bob |> 
+  group_by(season) |> 
+  count(word, sort = TRUE) |>
+  slice_max(order_by = n, n = 7) |> # <16> 
+  ungroup() |> 
+  mutate(word_color = fct_reorder(word, n), # <17> 
+         word = reorder_within(word, n, season)) |> # <18> 
+  ggplot(aes(x = n, y = word, fill = word_color)) +
+  geom_col(show.legend = FALSE) +
+  labs(y = NULL) + 
+  scale_y_reordered() + # <19>
+  scale_fill_manual(values = observable) + # <20>
+  facet_wrap( ~ season, scales = "free_y") + # <21> 
+  theme_minimal(base_size = 18)
+```
+
+15. Create an inclusive color palette (i.e. visually distinct colors for those with colorblindness)
+16. Only get the top 7 words per season (which returns the top 10 words overall for these data)
+17. Since `reorder_within` is a bit of a workaround, to apply our own color scheme we need to create a version of our variable explicitly for the `fill` argument (see [this issue](https://github.com/juliasilge/juliasilge.com/issues/10) for reference)
+18. Reorder the words by their count per season
+19. This argument pairs with `reorder_within` to properly label the final plots
+20. Applies our color palette to the 10 most common words in the data
+21. Creates small multiples of the top 7 most common words by each season
+
+### Plot
+
+```{r}
+#| echo: false
+#| fig-align: center
+#| fig-width: 16
+#| fig-height: 8
+observable <- c("#1f77b4","#ff7f0e","#2ca02c","#d62728","#9467bd", "#8c564b","#e377c2","#7f7f7f","#bcbd22","#17becf") 
+
+tidy_bob |> 
+  group_by(season) |> 
+  count(word, sort = TRUE) |>
+  slice_max(order_by = n, n = 7) |> 
+  ungroup() |> 
+  mutate(word_color = word, 
+         word = reorder_within(word, n, season)) |> 
+  ggplot(aes(x = n, y = word, fill = word_color)) +
+  geom_col(show.legend = FALSE) +
+  labs(y = NULL) +
+  scale_fill_manual(values = observable) + 
+  scale_y_reordered() + 
+  facet_wrap( ~ season, scales = "free_y") + 
+  theme_minimal(base_size = 18)
+```
+
+:::
+
+
+# Sentiment Analysis {background-color="#c5b4e3"}
+
+## {background-size="contain" background-image="https://www.tidytextmining.com/images/tmwr_0201.png"}
+
+## Sentiment Analysis and Tidy Data
+
+::: {.incremental}
+
+* Sentiment analysis (aka opinion mining) can be used to get a sense of a source's attitudes or emotions in a section of writing
+* We can use pre-existing sentiment dictionaries, create our own, or do a combination of the two
+* Words can be categorized in a number of ways: 
+  * As a simple binary of negative or positive
+  * Along a numeric/likert scale from most negative to most positive
+  * According to a set of particular emotions/attitudes they represent
+* These measures can then be summarized to represent the overall sentiment or the sentiment within some subset of text (pages, chapters, books, authors, etc.).
+
+:::
+
+## `sentiments` datasets
+
+```{r}
+library(textdata) # <1>
+```
+
+1. Required to download the AFINN and bing datasets
+
+::: {.fragment}
+::: {.panel-tabset}
+
+### AFINN
+
+```{r}
+get_sentiments("afinn") # <2>
+```
+
+2. Scale from -5 to 5 delineating most negative to most positive 
+
+### bing
+
+```{r}
+get_sentiments("bing") # <3>
+```
+
+3. Binary categorization of positive/negative
+
+### nrc
+
+```{r}
+get_sentiments("nrc") # <4>
+```
+
+4. [Categorizations of positive, negative, anger, anticipation, disgust, fear, joy, sadness, surprise, and trust]{.small1}
+
+
+:::
+:::
+
+## Compare Lexicons
+
+```{r}
+#| output-location: fragment
+afinn <- tidy_bob |> 
+  inner_join(get_sentiments("afinn")) |> # <5>
+  group_by(episode_seq) |> # <6> 
+  summarise(sentiment = sum(value)) |> # <7>
+  mutate(method = "AFINN") # <8>
+
+bing_and_nrc <- bind_rows(
+  
+  tidy_bob |> 
+    inner_join(get_sentiments("bing"))  |> 
+    mutate(method = "Bing et al."),
+  
+  tidy_bob |> 
+    inner_join(get_sentiments("nrc") |>  
+                 filter(sentiment %in% c("positive", "negative")), # <9> 
+               relationship = "many-to-many" # <10> 
+    )  |> 
+    mutate(method = "NRC"))  |> 
+  
+  count(method, episode_seq, sentiment)  |> # <11>
+  pivot_wider(names_from = sentiment, # <12>
+              values_from = n, # <13>
+              values_fill = 0) |> # <14>
+  mutate(sentiment = positive - negative) # <15>
+```
+
+5. Attach lexicon values to tidy data
+6. Group the data by episode
+7. Sum the sentiment values for each token (word) for each episode
+8. Add a column to differentiate the different methods
+9. Keeping only the rows with "positive" or "negative" sentiments
+10. Repeated words will match many times with this sentiment so it's a many-to-many merge
+11. Count the number of positive and negative sentiments by sentiment lexicon and episode number
+12. This function takes the `sentiment` column and turns its values (`positive`, `negative`) into new columns
+13. Values from `n` should fill the two new `positive` and `negative` sentiment columns
+14. Implicit `NA`s (that are created by the new data structure) should be given a value of 0
+15. Calculate overall sentiment by subtracting `negative` from `positive` counts
+
+## Visualize Lexicon Differences
+
+::: {.panel-tabset}
+
+### [Code]{style="color:#2ad2c9"} 
+
+```{r}
+#| output-location: fragment
+#| eval: false
+bind_rows(afinn, bing_and_nrc) |> 
+  mutate(sign = ifelse(sentiment > 0, "positive", "negative")) |> # <16> 
+  ggplot(aes(episode_seq, sentiment, fill = method, alpha = sign)) + # <17> 
+  geom_col(show.legend = FALSE) + # <18> 
+  scale_alpha_manual(values = c(0.5, 1)) + # <19>
+  scale_fill_manual(values = observable[1:3]) + # <20>
+  facet_wrap(~ method, ncol = 1, scales = "free_y") + # <21>
+  theme_minimal(base_size = 18) # <22>
+```
+
+16. Create a variable to distinguish positive/negative explicitly
+17. Create a plot with episode number on the x-axis, sentiment on the y-axis, color the plot by method using `fill`, and create differences in transparency (`alpha`) by sign
+18. Use columns to represent the data
+19. Change alpha transparency to 50% for negative and keep at 100% (no transparency) for positive
+20. Manually change the `fill` colors to our pre-defined `observable` palette
+21. Create small multiples by the lexicon method and allow the y-axis to vary based on their respective data ranges
+22. Apply `ggplot2`'s minimal theme and increase the base font size
+
+### [Histogram]{style="color:#2ad2c9"} 
+
+```{r}
+#| echo: false
+#| fig-align: center
+#| fig-width: 16
+#| fig-height: 8
+observable <- c("#1f77b4","#ff7f0e","#2ca02c","#d62728","#9467bd","#8c564b","#e377c2","#7f7f7f","#bcbd22","#17becf")
+
+
+bind_rows(afinn, bing_and_nrc) |> 
+  mutate(sign = ifelse(sentiment > 0, "positive", "negative")) |> 
+  ggplot(aes(episode_seq, sentiment, fill = method, alpha = sign)) +
+  geom_col(show.legend = FALSE) +
+  scale_alpha_manual(values = c(0.5, 1)) + 
+  scale_fill_manual(values = observable[1:3]) + 
+  facet_wrap(~ method, ncol = 1, scales = "free_y") + 
+  theme_minimal(base_size = 18)
+```
+
+### [Code]{style="color:#e93cac"} 
+
+```{r}
+#| output-location: fragment
+#| eval: false
+
+bind_rows(afinn, bing_and_nrc) |> 
+  ggplot(aes(episode_seq, sentiment, color = method)) + # <23>
+  geom_smooth(se = FALSE, span = 0.4) + # <24>
+  scale_color_manual(values = observable[1:3]) + 
+  theme_minimal(base_size = 18) +
+  theme(legend.position = "bottom") 
+```
+
+23. Use `color` here instead of `fill` since we're mapping a line instead of a column
+24. Creates a moving average of sentiments (averaging window defined by `span`; `se` controls whether to show confidence intervals)
+
+### [Loess Curve]{style="color:#e93cac"} 
+
+```{r}
+#| echo: false
+#| fig-align: center
+#| fig-width: 16
+#| fig-height: 8
+
+bind_rows(afinn, bing_and_nrc) |>
+  ggplot(aes(episode_seq, sentiment, color = method)) +
+  stat_smooth(alpha = 0, span = 0.40) +
+  scale_color_manual(values = observable[1:3]) + 
+  theme_minimal(base_size = 18) +
+  theme(legend.position = "bottom") 
+```
+
+:::
+
+## Putting it all together
+
+What if we want to see the top words broken down by sentiment and lexicon?
+
+. . . 
+
+```{r}
+afinn <- tidy_bob |> 
+  inner_join(get_sentiments("afinn")) |> 
+  mutate(sentiment = if_else(value > 0, "positive", "negative")) |> # <26>
+  count(word, sentiment, sort = TRUE) |>
+  mutate(method = "AFINN")
+
+bing <- tidy_bob |> 
+  inner_join(get_sentiments("bing")) |> 
+  count(word, sentiment, sort = TRUE) |> 
+  mutate(method = "Bing et al.")
+
+
+nrc <- tidy_bob |> 
+  inner_join(get_sentiments("nrc") |> 
+               filter(sentiment %in% c("positive", "negative"))) |> 
+  count(word, sentiment, sort = TRUE) |> 
+  mutate(method = "NRC")
+```
+
+26. Recoding this sentiment to `negative` if `value` < 0 and `positive` if `value` > 0
+
+## Top Words by Sentiment & Lexicon 
+
+```{r}
+#| eval: false
+library(wordcloud) 
+library(reshape2) # <27>
+```
+
+27. Needed to restructure dataset for wordclouds
+
+::: {.panel-tabset}
+
+### [Code]{style="color:#aadb1e"}
+
+```{r}
+#| eval: false
+afinn |> 
+  arrange(desc(n)) |>
+  acast(word ~ sentiment, value.var = "n", fill = 0) |> 
+  comparison.cloud(colors = observable[c(4, 1)], 
+                   title.size = 2, 
+                   scale=c(4, 1),
+                   max.words = 100)
+```
+
+
+### [AFINN]{style="color:#aadb1e"} 
+
+```{r}
+#| echo: false
+#| fig-align: center
+#| fig-width: 10
+#| fig-height: 5
+library(wordcloud)
+library(reshape2)
+
+afinn |> 
+  arrange(desc(n)) |>
+  acast(word ~ sentiment, value.var = "n", fill = 0) |> 
+  comparison.cloud(colors = observable[c(4, 1)], 
+                   scale=c(4, 1),
+                   title.size = 2)
+```
+
+### [Code]{style="color:#e93cac"} 
+
+```{r}
+#| eval: false
+bing |> 
+  arrange(desc(n)) |>
+  acast(word ~ sentiment, value.var = "n", fill = 0) |> 
+  comparison.cloud(colors = observable[c(4, 1)], 
+                   scale=c(4, 1),
+                   title.size = 2)
+```
+
+### [bing]{style="color:#e93cac"} 
+
+```{r}
+#| echo: false
+#| fig-align: center
+#| fig-width: 10
+#| fig-height: 5
+bing |> 
+  arrange(desc(n)) |>
+  acast(word ~ sentiment, value.var = "n", fill = 0) |> 
+  comparison.cloud(colors = observable[c(4, 1)], 
+                   scale=c(4, 1),
+                   title.size = 2)
+```
+
+### [Code]{style="color:#2ad2c9"} 
+
+```{r}
+#| eval: false
+nrc |> 
+  arrange(desc(n)) |>
+  acast(word ~ sentiment, value.var = "n", fill = 0) |> 
+  comparison.cloud(colors = observable[c(4, 1)], 
+                   title.size = 2)
+```
+
+### [nrc]{style="color:#2ad2c9"} 
+
+```{r}
+#| echo: false
+#| fig-align: center
+#| fig-width: 10
+#| fig-height: 5
+nrc |> 
+  arrange(desc(n)) |>
+  acast(word ~ sentiment, value.var = "n", fill = 0) |> 
+  comparison.cloud(colors = observable[c(4, 1)], 
+                   scale=c(4, 1),
+                   title.size = 2)
+```
+
+:::
+
+# tf-idf {background-color="#c5b4e3"}
+
+## Word Frequency
+
+::: {.small1}
+
+Most documents will have a lot of some words and not very many of much fewer words
+
+:::
+
+. . . 
+
+:::: {.columns}
+
+::: {.column width="50%"}
+```{r}
+#| output-location: fragment
+season_words <- clean_bob |> # <1>
+  select(season, cleaned_text) |> # <1>
+  unnest_tokens(word, cleaned_text) |> # <1>
+  count(season, word, sort = TRUE) # <1>
+
+season_words
+```
+
+1. Gets the count of each word by season
+:::
+
+::: {.column width="50%"}
+```{r}
+#| output-location: fragment
+total_words <- season_words |> # <2>
+  group_by(season) |> # <2>
+  summarize(total = sum(n)) # <2>
+
+total_words
+```
+
+2. Creates a count of total words by season
+:::
+
+::::
+
+## Word Frequency by Season
+
+::: {.panel-tabset}
+
+### Code
+
+```{r}
+#| eval: false
+library(colorspace)
+library(ggridges) 
+season_words <- left_join(season_words, total_words) # <3>
+
+observable_light <- lighten(observable, 0.5) # <4>
+
+ggplot(season_words, aes(x = n/total, y = season, fill = as_factor(season))) +
+  geom_density_ridges(show.legend = FALSE) + # <5>
+  xlim(NA, 0.0009) +
+  scale_fill_manual(values = c(observable, observable_light)[order(rep(seq_along(observable), 2))][1:14]) + # <6>
+  theme_minimal(base_size = 18)
+```
+
+3. Combines both datasets by season
+4. Create version of observable color palette that is 50% lighter
+5. A fun geom from the `ggridges` package that allows you to visualize many density curves at once
+6. Switching between `observable` and `observable_light` to utilize a larger (14) color palette
+
+### Visualization
+
+```{r}
+#| echo: false
+#| fig-align: center
+#| fig-width: 10.5
+#| fig-height: 7
+library(colorspace)
+library(ggridges) 
+season_words <- left_join(season_words, total_words) 
+
+observable_light <- lighten(observable, 0.5) 
+
+ggplot(season_words, aes(x = n/total, y = season, fill = as_factor(season))) +
+  geom_density_ridges(show.legend = FALSE) + 
+  xlim(NA, 0.0009) +
+  scale_fill_manual(values = c(observable, observable_light)[order(rep(seq_along(observable), 2))][1:14]) + 
+  theme_minimal(base_size = 18)
+```
+
+:::
+
+## tf versus tf-idf
+
+:::: {.columns}
+
+::: {.column width="35%"}
+::: {.incremental .small1}
+* So far we've been looking at term frequency (tf)
+* Another approach is to look at a term’s inverse document frequency (idf), which decreases the weight for commonly used words and increases the weight for words that are not used very much in a collection of documents
+* This can be combined with term frequency to calculate a term’s tf-idf (the two quantities multiplied together), which is the frequency of a term adjusted for how rarely it is used
+:::
+:::
+
+::: {.column width="65%"}
+::: {.fragment} 
+```{r}
+#| output-location: fragment
+library(topicmodels)
+
+season_tf_idf <- season_words |> 
+  bind_tf_idf(word, season, n)
+
+season_tf_idf
+```
+:::
+:::
+
+::::
+
+## Highest tf-idf by Season
+
+::: {.panel-tabset}
+
+### Ranked Data
+
+```{r}
+season_tf_idf |> 
+  select(-total) |> 
+  arrange(desc(tf_idf))
+```
+
+### [Code]{style="color:#c5b4e3"}
+
+```{r}
+#| eval: false
+season_tf_idf |> 
+  group_by(season) |> 
+  slice_max(tf_idf, n = 10) |> 
+  ungroup() |> 
+  ggplot(aes(tf_idf, fct_reorder(word, tf_idf), fill = as_factor(season))) +
+  geom_col(show.legend = FALSE) +
+  scale_fill_manual(values = c(observable, observable_light)[order(rep(seq_along(observable), 2))][1:14]) +
+  facet_wrap(~ season, ncol = 5, scales = "free") +
+  labs(x = "tf-idf", y = NULL) + 
+  theme_minimal(base_size = 18)
+```
+
+### [Bar Chart]{style="color:#c5b4e3"}
+
+```{r}
+#| echo: false
+#| fig-align: center
+#| fig-height: 9
+#| fig-width: 18
+season_tf_idf |> 
+  group_by(season) |> 
+  slice_max(tf_idf, n = 10) |> 
+  ungroup() |> 
+  ggplot(aes(tf_idf, fct_reorder(word, tf_idf), fill = as_factor(season))) +
+  geom_col(show.legend = FALSE) +
+  scale_fill_manual(values = c(observable, observable_light)[order(rep(seq_along(observable), 2))][1:14]) +
+  scale_x_continuous(n.breaks = 3) +
+  facet_wrap(~ season, ncol = 5, scales = "free") +
+  labs(x = "tf-idf", y = NULL) + 
+  theme_minimal(base_size = 18)
+```
+
+:::
+
+# Word Embeddings {background-color="#c5b4e3"}
+
+---
+
+<br>
+<br>
+  
+::: {.r-fit-text}
+
+> "You shall know a word <br>
+  by the company it keeps." <br> 
+> [&emsp; &emsp; &emsp; \- John Rupert Firth (British linguist)]{style="font-size: .5em; font-style: italic;"}
+:::
+  
+## {background-size="70%" background-image="https://miro.medium.com/v2/resize:fit:4800/format:webp/1*sAJdxEsDjsPMioHyzlN3_A.png" }
+
+## Two Approaches
+
+[![](images/cbow-skipgram.png){fig-align="center"}](https://community.alteryx.com/t5/Data-Science/Word2vec-for-the-Alteryx-Community/ba-p/305285)
+
+::: {.aside .small1}
+CBOW (Continuous Bag of Words) takes the surrounding words to predict the target word. In contrast, the Skip-gram approach predicts context words based on the given target word. 
+
+:::
+
+## Restructuring our Data
+  
+:::: {.columns}
+
+::: {.column width="50%"}
+
+```{r}
+#| output-location: fragment
+nested_eps <- tidy_bob |> 
+  add_count(word) |> # <1>
+  filter(n >= 50) |> # <2>
+  select(episode_seq, word) |>
+  nest(words = c(word)) # <3> 
+
+nested_eps 
+```
+
+1. Adds the count, `n`, for each word; equivalent to `group_by(word) |> mutate(n = n())`
+2. Keep only words that occur at least 50 times
+3. `nest` creates a list-column; in this case, a dataframe of all words that occurred by each episode
+
+:::
+
+::: {.column width="50%"}
+::: {.fragment .small1}
+What do these nested tibbles look like? Let's look at `words` from episode 1:
+:::
+
+::: {.fragment}
+```{r}
+#| output-location: fragment
+
+nested_eps[1, 2][[1]]
+```
+
+:::
+:::
+
+::::  
+
+## Creating a Window Function
+
+```{r}
+library(slider)
+
+slide_windows <- function(tbl, window_size) { # <4>
+  
+  skipgrams <- slider::slide( # <5> 
+    tbl, # <6> 
+    ~.x, # <7> 
+    .after = window_size - 1, # <8> 
+    .step = 1, # <9> 
+    .complete = TRUE # <10> 
+  ) # <11> 
+  
+  safe_mutate <- safely(mutate) # <12>
+  
+  out <- map2(skipgrams, # <13>
+              1:length(skipgrams), # <13>
+              ~ safe_mutate(.x, window_id = .y)) # <14>
+
+  out |>
+    list_transpose() |> # <15>
+    pluck("result") |> # <16>
+    compact() |> # <17>
+    bind_rows() # <18>
+}
+```
+
+4. This function identifies skip-gram windows in order to calculate the skip-gram probabilities
+5. Read more about the `slide` function [here](https://slider.r-lib.org/reference/slide.html)
+6. Takes in a tibble (of words, in this case)
+7. Applies a function to the window; here we're simply returning the words as-is
+8. Defines how many elements after the current one should be included in the window
+9. How many elements to shift by when computing the window
+10. If `TRUE`, it only evaluates complete windows (i.e. entire window size is available from the current element)
+11. `skipgrams` is a list-column containing a skipgram window for each word, for each episode
+12. Creates a version of `mutate` that won't break the function, rather it'll capture `result`s and `error`s in a list object for each skipgram
+13. `map2` mutates over each of these skipgrams to append a `window_id` column (which is the index of the skipgram for that epidose) so we can identify them when we unpack this extremely nested `words` list later
+14. The function that `map2` is iterating through our skipgrams and their index numbers with is `safe_mutate`, which will create a list of 2 for each skipgram it iterates through, putting successfully mutated skipgram results into `result` and unsuccessfully mutated skipgram results into `error`
+15. Turns each episode's `words` list from a list of skipgrams (each with a list of `result` and `error` per our `safe_mutate` function) into its transposed version, in this case two lists (`result` and `error`), each composed of the full list of skipgrams for that episode
+16. `pluck` pulls out the `result` list for each episode's `words` column so now each episode's list is composed of a list of tibbles for each skipgram widow with their corresponding window_id
+17. Removes empty skipgrams (i.e. where window was incomplete)
+18. Combines all skipgram `word`s and `window_id`s into one complete tibble in `words` column corresponding to each episode
+
+## Let's Have a Look Around 👀
+
+```{r}
+#| eval: false
+library(widyr)
+library(furrr)
+
+plan(multisession) # <19>
+
+tidy_pmi <- nested_eps |> 
+  mutate(words = future_map(words, \(x) slide_windows(x, 4L))) |> # <20> 
+  unnest(words) |> # <21>
+  unite(window_id, episode_seq, window_id) |> # <22>
+  pairwise_pmi(word, window_id) # <23>
+```
+
+19. Allows this process to be run computationally in parallel (huge time-saver 🙏) since each episode can be run independently of the others
+20. Takes the `words` column and applies our `slide_windows()` function to each episode's list with a skip-gram window of 4 words
+21. Unnests the `words` column so it is no longer an embedded list per episode but instead we have a tibble with columns for `episode_seq`, `word`, and `window_id`. Instead of 272 rows (1 row for each episode) we now have 925,280 rows (1 row for each word in a skip-gram window for all 272 episodes)
+22. Overwrites the `window_id` column to be a combination of `episode_seq` and `window_id`, separated by `_`
+23. Uses each instance of a `word` and its associated `window_id` to calculate the logarithm of probability of finding two words together, normalized by the probability of finding each of the words alone. 
+
+## 
+
+<br>
+
+```{r}
+#| eval: false
+tidy_pmi
+```
+
+```{r}
+#| echo: false
+library(widyr)
+library(furrr)
+
+# plan(multisession)  
+
+# tidy_pmi <- nested_eps |> 
+#    mutate(words = future_map(words, \(x) slide_windows(x, 4L))) |> # <19> 
+#    unnest(words) |> # <20>
+#    unite(window_id, episode_seq, window_id) |> # <21>
+#    pairwise_pmi(word, window_id) # <22>
+ 
+# tidy_pmi # <23>
+# write_csv(tidy_pmi, "workshops/data/tidy_pmi.csv") 
+
+tidy_pmi <- read_csv("data/tidy_pmi.csv")
+tidy_pmi
+```
+
+::: {.aside .small2}
+
+Our (`slide_windows`) function enables us to define a fixed-size moving window around each word. Within those windows we are able to see if two given words are seen together and calculate probabilities based on those occurrences, or lack of occurrences.
+
+tl;dr, `tidy_pmi` quantifies how often we find each word near each other word.
+
+:::
+
+## Singular Value Decomposition (SVD)
+
+
+::: {.incremental}
+
+* We can next determine the word vectors from the PMI values using singular value decomposition (SVD)
+  * This is a data reduction technique akin to PCA (Principle Component Analysis), i.e. it works by taking our data and decomposing it onto special orthogonal axes. 
+      * The first axis is chosen to capture as much of the variance as possible
+      * Keeping that first axis fixed, the remaining orthogonal axes are rotated to maximize the variance in the second axis
+      * This is then repeated for all the remaining axes
+
+:::
+
+##
+
+```{r}
+#| eval: false
+#| output-location: fragment
+tidy_word_vectors <- tidy_pmi  |> 
+  widely_svd( # <24> 
+    item1, item2, pmi, # <25>
+    nv = 100, # <26>
+    maxit = 1000 # <27>
+  )
+
+tidy_word_vectors
+```
+
+24. Takes our `tidy_pmi` table, turns it into a wide matrix, and performs dimensionality reduction on it, and returns it in tidy format
+25. `item1` serves as the item we want to perform dimensionality reduction on, `item2` is the feature that links items to one another, and `pmi` is the value we're reducing
+26. Number of principle components to estimate
+27. Optional argument specifying the maximum number of iterations
+
+```{r}
+#| echo: false
+# tidy_word_vectors <- tidy_pmi  |> 
+#   widely_svd(
+#     item1, item2, pmi,
+#     nv = 100, maxit = 1000
+#   )
+
+# write_csv(tidy_word_vectors, file = "workshops/data/tidy_word_vectors.csv")
+
+tidy_word_vectors <- read_csv("data/tidy_word_vectors.csv")
+tidy_word_vectors
+```
+
+## {background-image="https://www.russellmoore.com/wp-content/uploads/2018/03/mister_rogers_feature_2_1050x700.jpg" background-size="cover" auto-animate=true}
+
+::: {style="position: absolute; bottom:50px; left:5px; font-size: 0em; color:#fcdd60"}
+Won't You Be My Neighbor?
+:::
+
+## {background-image="https://www.russellmoore.com/wp-content/uploads/2018/03/mister_rogers_feature_2_1050x700.jpg" background-size="cover" auto-animate=true}
+
+
+::: {style="position: absolute; bottom:50px; left:5px; font-size: 2.5em; color:#fcdd60"}
+Won't You Be My Neighbor?
+:::
+
+--- 
+
+[Which words are close to each other in this new feature-space of word embeddings?]{.small1}
+  
+. . . 
+
+```{r}
+nearest_neighbors <- function(df, token) { # <28>
+  df |>
+    widely(
+      ~ {
+        y <- .[rep(token, nrow(.)), ]
+        res <- rowSums(. * y) / 
+          (sqrt(rowSums(. ^ 2)) * sqrt(sum(.[token, ] ^ 2)))
+        
+        matrix(res, ncol = 1, dimnames = list(x = names(res)))
+      },
+      sort = TRUE
+    )(item1, dimension, value) |>
+    select(-item2)
+}
+```
+
+28. This function will find the nearest words to any given example using our newly created word embeddings
+
+::: {.aside .small2}
+
+This function takes the tidy word embeddings as input, along with a word (or token, more strictly) as a string. It uses matrix multiplication and sums to calculate the cosine similarity between the specified word and all the words in the embedding to find which words are closer or farther to the input word, and returns a dataframe sorted by similarity.
+
+:::
+
+---
+
+<br>
+
+:::: {.columns}
+
+::: {.column width="33.33%"}
+```{r}
+#| output-location: fragment
+tidy_word_vectors |> 
+  nearest_neighbors(
+    "weird"
+    )
+```
+:::
+  
+::: {.column width="33.33%"}
+```{r}
+#| output-location: fragment
+tidy_word_vectors |> 
+  nearest_neighbors(
+    "jimmy"
+    )
+```
+:::
+  
+::: {.column width="33.33%"}
+```{r}
+#| output-location: fragment
+tidy_word_vectors |> 
+  nearest_neighbors(
+    "fart"
+    )
+```
+:::
+  
+::::
+
+## Dimensions Explaining Most Variation
+  
+::: {.panel-tabset}
+
+### Code
+
+```{r}
+#| eval: false
+tidy_word_vectors |>
+  filter(dimension <= 9) |>
+  mutate(sign = if_else(value > 0, "positive", "negative")) |> 
+  group_by(dimension) |>
+  top_n(10, abs(value)) |>
+  ungroup() |>
+  mutate(item1 = reorder_within(item1, value, dimension)) |>
+  ggplot(aes(item1, value, fill = as_factor(dimension), alpha = sign)) +
+  geom_col(show.legend = FALSE) +
+  facet_wrap(~ dimension, scales = "free_y", ncol = 3) +
+  scale_x_reordered() +
+  scale_fill_manual(values = observable[1:9]) +
+  scale_alpha_manual(values = c(0.5, 1)) +
+  coord_flip() +
+  labs(
+    x = NULL,
+    y = "Value",
+    title = "First 9 principal components for text of Bob's Burgers scripts",
+    subtitle = "Top words contributing to the components that explain the most variation") + 
+  theme_minimal(base_size = 18)
+```
+
+### Bar Chart
+
+```{r}
+#| echo: false
+#| fig-align: center
+#| fig-height: 7
+#| fig-width: 10.5
+tidy_word_vectors |>
+  filter(dimension <= 9) |>
+  mutate(sign = if_else(value > 0, "positive", "negative")) |> 
+  group_by(dimension) |>
+  top_n(10, abs(value)) |>
+  ungroup() |>
+  mutate(item1 = reorder_within(item1, value, dimension)) |>
+  ggplot(aes(item1, value, fill = as_factor(dimension), alpha = sign)) +
+  geom_col(show.legend = FALSE) +
+  facet_wrap(~ dimension, scales = "free_y", ncol = 3) +
+  scale_x_reordered() +
+  scale_fill_manual(values = observable[1:9]) +
+  scale_alpha_manual(values = c(0.5, 1)) +
+  coord_flip() +
+  labs(
+    x = NULL,
+    y = "Value",
+    title = "First 9 principal components for text of Bob's Burgers scripts",
+    subtitle = "Top words contributing to the components that explain the most variation") + 
+  theme_minimal(base_size = 18)
+```
+
+:::
+
+## Pre-trained Embeddings 
+
+::: {.incremental}
+* Word-embeddings work well when you have a large amount of data and our Bob dataset is a bit small
+  * In that case, you may want to explore using pre-trained word-embeddings
+* We're going to use the `wordsalad` package which provides some convenient functions to access some of the more popular pre-trained embeddings
+:::
+
+::: {.fragment}
+```{r}
+#| eval: false
+library(wordsalad)
+
+glove_word_vec <- 
+  glove(text = clean_bob$cleaned_text, # <29> 
+        dim = 100, 
+        window = 4, 
+        min_count = 50, 
+        stopwords = stop_words$word, 
+        composition = "tibble")
+
+glove_word_vec
+```
+
+29. Global Vectors for Word Representation, aka [GloVe](https://nlp.stanford.edu/projects/glove/) 
+
+:::
+
+```{r}
+#| echo: false
+#| output-location: slide
+# library(wordsalad)
+# 
+# glove_word_vec <- 
+#   glove(text = clean_bob$cleaned_text, # <4> 
+#         dim = 100, 
+#         window = 4, 
+#         min_count = 50, 
+#         stopwords = stop_words$word, 
+#         composition = "tibble")
+# 
+# write_csv(glove_word_vec, file = "workshops/data/glove_word_vec.csv")
+
+glove_word_vec <- read_csv("data/glove_word_vec.csv")
+glove_word_vec
+```
+
+## Tidying our GloVe(s)
+  
+```{r}
+#| output-location: fragment
+tidy_glove <- 
+  glove_word_vec |> 
+  pivot_longer(contains("V"),
+               names_to = "dimension", 
+               names_prefix = "V", 
+               names_transform = list(dimension = as.integer)) |> 
+  rename(item1 = tokens)
+
+tidy_glove
+```
+
+## Most Variation (Pre-Trained)
+
+::: {.panel-tabset}
+
+### Code
+
+```{r}
+#| eval: false
+tidy_glove |> 
+  filter(dimension <= 9)  |> 
+  mutate(sign = if_else(value > 0, "positive", "negative")) |> 
+  group_by(dimension) |>
+  top_n(10, abs(value)) |>
+  ungroup() |>
+  mutate(item1 = reorder_within(item1, value, dimension)) |>
+  ggplot(aes(item1, value, fill = as_factor(dimension), alpha = sign)) +
+  geom_col(show.legend = FALSE) +
+  facet_wrap(~dimension, scales = "free_y", ncol = 3) +
+  scale_x_reordered() +
+  scale_fill_manual(values = observable[1:9]) +
+  scale_alpha_manual(values = c(0.5, 1)) +
+  coord_flip() +
+  labs(
+    x = NULL,
+    y = "Value",
+    title = "First 9 principal components for text of Bob's Burgers scripts using GloVe word embeddings",
+    subtitle = "Top words contributing to the components that explain the most variation") + 
+  theme_minimal(base_size = 18)
+```
+
+### Bar Chart
+
+```{r}
+#| echo: false
+#| fig-align: center
+#| fig-height: 7
+#| fig-width: 10.5
+tidy_glove |> 
+  filter(dimension <= 9)  |> 
+  mutate(sign = if_else(value > 0, "positive", "negative")) |> 
+  group_by(dimension) |>
+  top_n(10, abs(value)) |>
+  ungroup() |>
+  mutate(item1 = reorder_within(item1, value, dimension)) |>
+  ggplot(aes(item1, value, fill = as_factor(dimension), alpha = sign)) +
+  geom_col(show.legend = FALSE) +
+  facet_wrap(~dimension, scales = "free_y", ncol = 3) +
+  scale_x_reordered() +
+  scale_fill_manual(values = observable[1:9]) +
+  scale_alpha_manual(values = c(0.5, 1)) +
+  coord_flip() +
+  labs(
+    x = NULL,
+    y = "Value",
+    title = "First 9 principal components for text of Bob's Burgers scripts using GloVe word embeddings",
+    subtitle = "Top words contributing to the components that explain the most variation") + 
+  theme_minimal(base_size = 18)
+```
+
+:::
+
+# Topic Modeling {background-color="#c5b4e3"}
+
+## {background-size="contain" background-image="https://keepcoding.io/wp-content/uploads/2023/02/image-157.png"}
+
+## Latent Dirichlet allocation (LDA)
+
+::: {.incremental}
+* A type of Bayesian network model that makes two general assumptions
+  * Each document is a mixture of topics
+  * Each topic is a distribution of words
+:::
+
+::: {.fragment .r-fit-text}
+> LDA is a mathematical method for estimating <br>
+  both of these at the same time: finding the <br>
+  mixture of words that is associated with each <br>
+  topic, while also determining the mixture <br>
+  of topics that describes each document.
+:::
+
+## {background-size="contain" background-image="https://www.tidytextmining.com/images/tmwr_0601.png"}
+
+## Cast Tidy Data into a Matrix
+
+```{r}
+#| output-location: fragment
+library(topicmodels)
+
+bob_matrix <- season_words |> 
+  anti_join(stop_words) |> 
+  cast_dtm(season, word, n) # <1>
+  
+bob_matrix
+```
+1. This function turns tidy data (with one token per row/observation) into a Document x Term matrix (necessary data structure for topic modeling)
+
+::: {.fragment}
+```{r}
+#| output-location: fragment
+bob_matrix$dimnames$Docs # <2>
+```
+2. This shows us the row names of our sparse matrix (the documents that make up our corpus)
+:::
+
+::: {.fragment}
+```{r}
+#| output-location: fragment
+bob_matrix$dimnames$Terms |> head(50) # <3>
+```
+3. Here we see the first 50 column names (tokens/words) of our sparse matrix (out of 25464 total)
+:::
+
+## Runing our LDA Model
+
+```{r}
+#| eval: false
+bob_lda <- LDA(bob_matrix, 
+               k = 5, # <4>
+               control = list(seed = 01302025)) # <5>
+
+bob_lda
+```
+
+4. Need to specify the number of topics (read more about how one might select the best K value [here](https://juliasilge.com/blog/evaluating-stm/))
+5. Set a seed so that the output of the model is predictable
+
+```{r}
+#| echo: false
+#| output-location: fragment
+# bob_lda <- LDA(bob_matrix, 
+#                k = 5, # <4>
+#                control = list(seed = 01302025)) # <5>
+
+# write_rds(bob_lda, "workshops/data/bob_lda.rds")
+bob_lda <- read_rds("data/bob_lda.rds")
+bob_lda
+```
+
+## Per-Topic-Per-Word Probabilities
+
+::: {.panel-tabset}
+
+### Beta Matrix
+
+```{r}
+bob_topics <- tidy(bob_lda, matrix = "beta") 
+
+bob_topics
+```
+
+### Top Terms
+
+```{r}
+bob_top_terms <- bob_topics |> 
+  group_by(topic) |> 
+  slice_max(beta, n = 10) |> 
+  ungroup() |> 
+  arrange(topic, -beta)
+
+bob_top_terms
+```
+
+### [Code]{style="color:#e93cac"}
+
+```{r}
+#| eval: false
+bob_top_terms |> 
+  mutate(term = reorder_within(term, beta, topic)) |> 
+  ggplot(aes(beta, term, fill = factor(topic))) +
+  geom_col(show.legend = FALSE) +
+  facet_wrap(~ topic, scales = "free") +
+  scale_y_reordered() + 
+  scale_fill_manual(values = observable[1:5]) + 
+  theme_minimal(base_size = 18)
+```
+
+### [Bar Chart]{style="color:#e93cac"}
+
+```{r}
+#| echo: false
+#| fig-align: center
+#| fig-height: 8
+#| fig-width: 12
+bob_top_terms |> 
+  mutate(term = reorder_within(term, beta, topic)) |> 
+  ggplot(aes(beta, term, fill = factor(topic))) +
+  geom_col(show.legend = FALSE) +
+  facet_wrap(~ topic, scales = "free") +
+  scale_y_reordered() + 
+  scale_fill_manual(values = observable[1:5]) + 
+  theme_minimal(base_size = 18)
+```
+
+:::
+
+## Document-topic Probabilities
+
+::: {.panel-tabset}
+
+### Gamma Matrix
+
+```{r}
+bob_documents <- tidy(bob_lda, matrix = "gamma")
+bob_documents
+```
+
+### [Code]{style="color:#c5b4e3"}
+
+```{r}
+#| eval: false 
+bob_documents |> 
+  mutate(document = fct(document, levels = seq(1:14) |> as.character())) |> 
+  group_by(topic) |> 
+  slice_max(gamma, n = 10) |> 
+  ungroup() |> 
+  arrange(topic, -gamma) |> 
+  ggplot(aes(gamma, document, fill = factor(topic))) +
+  geom_col(show.legend = FALSE, alpha = 0.75) +
+  scale_fill_manual(values = observable[1:5]) + 
+  theme_minimal(base_size = 18)
+```
+
+### [Bar Chart]{style="color:#c5b4e3"}
+
+```{r}
+#| echo: false 
+#| fig-align: center
+#| fig-height: 8
+#| fig-width: 12
+bob_documents |> 
+  mutate(document = fct(document, levels = seq(1:14) |> as.character())) |> 
+  group_by(topic) |> 
+  slice_max(gamma, n = 10) |> 
+  ungroup() |> 
+  arrange(topic, -gamma) |> 
+  ggplot(aes(gamma, document, fill = factor(topic))) +
+  geom_col(show.legend = FALSE) +
+  #facet_wrap(~ topic, scales = "free") +
+  scale_fill_manual(values = observable[1:5]) + 
+  theme_minimal(base_size = 18)
+```
+
+:::
+
+## Bob's kinda boring ^[As a dataset for topic modeling, that is. Not as the perfect comfort show!]...
+
+. . . 
+
+A better example:
+
+```{r}
+#| output-location: fragment
+library(gutenbergr)
+
+books <- gutenberg_download(c(61, 408, 833, 14977), 
+                            meta_fields = c("title", "author"))
+
+books |> distinct(author, title)
+```
+
+## Book Cleaning
+
+```{r}
+#| output-location: fragment
+books <- books |> 
+  distinct(text, .keep_all = TRUE) |> # <6> 
+  mutate(author = if_else(author == "Marx, Karl", # <7>
+                          "Marx, Karl; Engels, Friedrich", # <7>
+                          author), # <7>
+         title = if_else(str_detect(title, "The Red Record"), # <8> 
+                         "The Red Record", # <8> 
+                         title)) # <8> 
+
+books
+```
+6. Remove duplicates of The Communist Manifesto
+7. Explicitly adding Engels to Communist Manifesto authorship
+8. Truncating The Red Record for readability
+
+## Divide Each Book into Sections
+
+```{r}
+#| output-location: slide
+by_section <- books |> 
+  filter(text != "") |> # <9> 
+  mutate(text = str_remove_all(text, "[:digit:]"),  # <10>
+         word_count = str_count(text, "\\S+")) |> # <11>
+  group_by(title) |> 
+  mutate(cumulative_words = cumsum(word_count), # <12>
+         row_chunk = ceiling(cumulative_words / 2000)) |>  # <13>
+  group_by(title, row_chunk) |> 
+  summarize(section = str_c(text, collapse = " "), .groups = "drop") |> # <14>
+  unite(document, title, row_chunk, sep = "_", remove = FALSE) |> # <15>
+  select(document, section)
+
+by_section
+```
+9. Remove row with empty strings
+10. Remove all digits from our raw `text` column
+11. Count number of words per row
+12. Calculate cumulative word count per book
+13. Creates a `row_chunk` index that groups observations of ~ 2000 words together
+14. Combines the `row_chunk` indices together so each book section is about the same length
+15. Combines `title` and `row_chunk` into a new variable called `document`, separated by `_`
+
+## Create our Tidy Text Dataset
+
+```{r}
+by_section_word <- by_section |> 
+  unnest_tokens(word, section)
+
+by_section_word
+```
+
+## Find Document-Word Counts
+
+```{r}
+#| output-location: fragment
+word_counts <- by_section_word |> 
+  anti_join(stop_words) |> 
+  count(document, word, sort = TRUE)
+
+word_counts
+```
+
+## {background-image="https://media.wired.com/photos/5ca648a330f00e47fd82ae77/master/w_2240,c_limit/Culture_Matrix_Code_corridor.jpg" background-size="cover" auto-animate=true}
+
+::: {style="position: absolute; bottom:150px; left:175px; font-size: 0em; color:#e93cac"}
+Back into the matrix...
+:::
+
+## {background-image="https://media.wired.com/photos/5ca648a330f00e47fd82ae77/master/w_2240,c_limit/Culture_Matrix_Code_corridor.jpg" background-size="cover" auto-animate=true}
+
+::: {style="position: absolute; bottom:150px; left:175px; font-size: 2.5em; color:#e93cac"}
+Back into the matrix...
+:::
+
+---
+
+```{r}
+#| output-location: fragment
+sections_dtm <- word_counts |> 
+  cast_dtm(document, word, n)
+
+sections_dtm
+```
+
+```{r}
+#| eval: false
+sections_lda <- LDA(sections_dtm, k = 4, control = list(seed = 01302025))
+
+sections_lda
+```
+
+```{r}
+#| echo: false
+#| output-location: fragment
+# sections_lda <- LDA(sections_dtm, k = 4, control = list(seed = 01302025))
+
+# write_rds(sections_lda, "workshops/data/sections_lda.rds")
+sections_lda <- read_rds("data/sections_lda.rds")
+
+sections_lda
+```
+
+## Visualize Top Terms
+
+::: {.panel-tabset}
+
+### Beta Matrix
+
+```{r}
+#| fig-column: page
+sections_topics <- tidy(sections_lda, matrix = "beta")
+sections_topics |> 
+  arrange(-beta)
+```
+
+### [Code]{style="color:#aadb1e"}
+
+```{r}
+#| eval: false
+top_terms <- sections_topics |> 
+  group_by(topic) |> 
+  slice_max(beta, n = 5) |> 
+  ungroup() |> 
+  arrange(topic, -beta)
+
+top_terms |> 
+  mutate(term = reorder_within(term, beta, topic)) |> 
+  ggplot(aes(beta, term, fill = factor(topic))) +
+  geom_col(show.legend = FALSE) +
+  scale_fill_manual(values = observable[1:4]) +
+  facet_wrap(~ topic, scales = "free") +
+  scale_y_reordered() + 
+  theme_minimal(base_size = 18)
+```
+
+### [Bar Chart]{style="color:#aadb1e"}
+
+```{r}
+#| echo: false
+#| fig-align: center
+#| fig-height: 7
+#| fig-width: 10.5
+top_terms <- sections_topics |> 
+  group_by(topic) |> 
+  slice_max(beta, n = 5) |> 
+  ungroup() |> 
+  arrange(topic, -beta)
+
+top_terms |> 
+  mutate(term = reorder_within(term, beta, topic)) |> 
+  ggplot(aes(beta, term, fill = factor(topic))) +
+  geom_col(show.legend = FALSE) +
+  scale_fill_manual(values = observable[1:4]) +
+  facet_wrap(~ topic, scales = "free") +
+  scale_y_reordered() + 
+  theme_minimal(base_size = 18)
+```
+
+:::
+
+## Per-document classification
+
+::: {.panel-tabset}
+
+### Gamma Matrix
+
+```{r}
+sections_gamma <- tidy(sections_lda, matrix = "gamma")
+sections_gamma
+```
+
+### [Code]{style="color:#2ad2c9"}
+
+```{r}
+#| eval: false
+sections_gamma <- sections_gamma |> 
+  separate(document, c("title", "section"), sep = "_", convert = TRUE)
+
+sections_gamma |> 
+  mutate(title = reorder(title, gamma * topic)) |> 
+  ggplot(aes(factor(topic), gamma, fill = factor(topic))) +
+  geom_boxplot(alpha = 0.5, show.legend = FALSE) +
+  scale_fill_manual(values = observable[1:4]) +
+  facet_wrap(~ title) +
+  labs(x = "topic", y = expression(gamma)) + 
+  theme_minimal(base_size = 18)
+```
+
+### [Boxplot]{style="color:#2ad2c9"}
+
+```{r}
+#| echo: false
+#| fig-align: center
+#| fig-height: 7
+#| fig-width: 10.5
+sections_gamma <- sections_gamma |> 
+  separate(document, c("title", "section"), sep = "_", convert = TRUE)
+
+sections_gamma |> 
+  mutate(title = reorder(title, gamma * topic)) |> 
+  ggplot(aes(factor(topic), gamma, fill = factor(topic))) +
+  geom_boxplot(alpha = 0.5, show.legend = FALSE) +
+  scale_fill_manual(values = observable[1:4]) +
+  facet_wrap(~ title) +
+  labs(x = "topic", y = expression(gamma)) + 
+  theme_minimal(base_size = 18)
+```
+
+:::
+
+## Section Classifications
+
+```{r}
+section_classifications <- sections_gamma |> 
+  group_by(title, section) |> 
+  slice_max(gamma) |> 
+  ungroup()
+
+section_classifications
+```
+
+## Book-Topic Consensus
+
+```{r}
+book_topics <- section_classifications |> 
+  count(title, topic) |> 
+  group_by(title) |> 
+  slice_max(n, n = 1) |>  
+  ungroup() |> 
+  transmute(consensus = title, topic)
+
+book_topics
+```
+
+## Incorrect Predictions by Section
+
+```{r}
+section_classifications |> 
+  inner_join(book_topics, by = "topic") |> 
+  filter(title != consensus) |> 
+  count(title, consensus)
+```
+
+## Incorrect Predictions by Word
+
+```{r}
+#| output-location: fragment
+assignments <- broom::augment(sections_lda, 
+                              data = sections_dtm) # <16>
+assignments
+```
+
+16. Takes our model and appends information to each observation in the original data
+
+## Incorrect Predictions by Word
+
+```{r}
+#| output-location: fragment
+assignments <- assignments |> # <17>
+  separate(document, c("title", "section"), # <17>
+           sep = "_", convert = TRUE) |> # <17>
+  inner_join(book_topics, # <17>
+             by = c(".topic" = "topic")) # <17>
+
+assignments
+```
+
+17. Now we can combine these data with `book_topics` to see which words were incorrectly classified
+
+## Confusion Matrix 
+
+::: {.panel-tabset}
+
+### Code
+
+```{r}
+#| eval: false
+library(scales)
+
+assignments |> 
+  count(title, consensus, wt = count) |> 
+  mutate(across(c(title, consensus), ~str_wrap(., 20))) |> 
+  group_by(title) |> 
+  mutate(percent = n / sum(n)) |> 
+  ggplot(aes(consensus, title, fill = percent)) +
+  geom_tile() +
+  scale_fill_gradient2(high = observable_light[4], label = percent_format()) +
+  theme_minimal(base_size = 18) +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1),
+        panel.grid = element_blank()) +
+  labs(x = "Book words were assigned to",
+       y = "Book words came from",
+       fill = "% of assignments")
+```
+
+### Visualization
+
+```{r}
+#| echo: false
+#| fig-align: center
+#| fig-height: 7
+#| fig-width: 10.5
+library(scales)
+
+assignments |> 
+  count(title, consensus, wt = count) |> 
+  mutate(across(c(title, consensus), ~str_wrap(., 20))) |> 
+  group_by(title) |> 
+  mutate(percent = n / sum(n)) |> 
+  ggplot(aes(consensus, title, fill = percent)) +
+  geom_tile() +
+  scale_fill_gradient2(high = observable_light[4], label = percent_format()) +
+  theme_minimal(base_size = 18) +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1),
+        panel.grid = element_blank()) +
+  labs(x = "Book words were assigned to",
+       y = "Book words came from",
+       fill = "% of assignments")
+```
+
+:::
+  
+## Two-Topic Model?
+
+```{r}
+#| echo: false
+sections_lda <- LDA(sections_dtm, k = 2, control = list(seed = 01302025))
+sections_topics <- tidy(sections_lda, matrix = "beta")
+```
+
+::: {.panel-tabset}
+
+### Top Terms 
+
+```{r}
+#| echo: false
+#| fig-align: center
+#| fig-height: 7
+#| fig-width: 10.5
+top_terms <- sections_topics |> 
+  group_by(topic) |> 
+  slice_max(beta, n = 5) |> 
+  ungroup() |> 
+  arrange(topic, -beta)
+
+top_terms |> 
+  mutate(term = reorder_within(term, beta, topic)) |> 
+  ggplot(aes(beta, term, fill = factor(topic))) +
+  geom_col(show.legend = FALSE) +
+  scale_fill_manual(values = observable[1:4]) +
+  facet_wrap(~ topic, scales = "free") +
+  scale_y_reordered() + 
+  theme_minimal(base_size = 18)
+```
+
+### Per-Doc Classification
+
+```{r}
+#| echo: false
+#| fig-align: center
+#| fig-height: 7
+#| fig-width: 10.5
+sections_gamma <- tidy(sections_lda, matrix = "gamma")
+sections_gamma <- sections_gamma |> 
+  separate(document, c("title", "section"), sep = "_", convert = TRUE)
+
+sections_gamma |> 
+  mutate(title = reorder(title, gamma * topic)) |> 
+  ggplot(aes(factor(topic), gamma, fill = factor(topic))) +
+  geom_boxplot(alpha = 0.5, show.legend = FALSE) +
+  scale_fill_manual(values = observable[1:4]) +
+  facet_wrap(~ title) +
+  labs(x = "topic", y = expression(gamma)) + 
+  theme_minimal(base_size = 18)
+```
+
+### Assignment Confusion Matrix
+
+```{r}
+#| echo: false
+#| fig-align: center
+#| fig-height: 7
+#| fig-width: 10.5
+assignments <- broom::augment(sections_lda, data = sections_dtm)
+
+section_classifications <- sections_gamma |> 
+  group_by(title, section) |> 
+  slice_max(gamma) |> 
+  ungroup()
+
+book_topics <- section_classifications |> 
+  count(title, topic) |> 
+  group_by(title) |> 
+  slice_max(n, n = 1) |>  
+  ungroup() |> 
+  transmute(consensus = title, topic)
+
+assignments <- assignments |>
+  separate(document, c("title", "section"), sep = "_", convert = TRUE) |>
+  inner_join(book_topics, by = c(".topic" = "topic"))
+
+assignments |> 
+  count(title, consensus, wt = count) |> 
+  mutate(across(c(title, consensus), ~str_wrap(., 20))) |> 
+  group_by(title) |> 
+  mutate(percent = n / sum(n)) |> 
+  ggplot(aes(consensus, title, fill = percent)) +
+  geom_tile() +
+  scale_fill_gradient2(high = observable_light[1], label = percent_format()) +
+  theme_minimal(base_size = 18) +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1),
+        panel.grid = element_blank()) +
+  labs(x = "Book words were assigned to",
+       y = "Book words came from",
+       fill = "% of assignments")
+```
+
+:::
+  
+# Further Learning & Resources {background-color="#c5b4e3"}
+
+## Methods and Implementation
+
+::: {.incremental}
+* [Text Mining in R](https://www.tidytextmining.com/) by Julia Silge & David Robinson
+* [Supervised Machine Learning for Text Analysis in R](https://smltar.com/) by Emil Hvitfeldt & Julia Silge
+* Julia Silge's [blog](https://juliasilge.com/blog/)
+* [Text as Data](https://press.princeton.edu/books/paperback/9780691207551/text-as-data?srsltid=AfmBOopDzI9FRYzSe3EWqUK_-ekew8aa9SMMQdPu3I4C_BY4OBoVzUOF) by Justin Grimmer, Brandon M. Stewart, and Margaret E. Roberts
+  * [Companion course in R](https://joeornstein.github.io/text-as-data/) by Joe Ornstein
+* Michael Clark's [Text Analysis Tutorial](https://m-clark.github.io/text-analysis-with-R/)
+:::
+
+## UW Computing Resources
+
+::: {.incremental}
+* CSDE Computing [account](https://csde.washington.edu/computing/accounts/)
+  * CSDE [SIM cluster](https://csde.washington.edu/computing/resources/)
+* [Research Computing Club](https://depts.washington.edu/uwrcc/) (RCC) @ UW
+  * [Hyak](https://depts.washington.edu/uwrcc/hyak/) - High Performance Computing (HPC)
+    * More about Hyak can be found [here](https://hyak.uw.edu/docs)
+  * [Cloud Credit Program ](https://depts.washington.edu/uwrcc/cloud/) 
+:::
+
+# Thanks! {background-color="#c5b4e3"}
+

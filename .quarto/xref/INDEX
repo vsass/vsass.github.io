@@ -16,5 +16,8 @@
   },
   "teaching.qmd": {
     "teaching.html": "c711b8cd"
+  },
+  "workshops/text_analysis.qmd": {
+    "text_analysis.html": "5ab8cbb5"
   }
 }

@@ -25,8 +25,8 @@ website:
         menu: 
           - text: "Introduction to R using R Studio"
             href: workshops/intro_r_rstudio.qmd
-          - text: "Introduction to Quarto"
-            href: workshops/intro_quarto.qmd
+          - text: "Text Analysis in R"
+            href: workshops/text_analysis.qmd
           - text: "Data Wrangling in R"
             href: workshops/data_wrangling_r.qmd
     tools: 

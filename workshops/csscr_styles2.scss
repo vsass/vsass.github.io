@@ -13,14 +13,21 @@ $presentation-heading-font: $font-family-sans-serif;
 $presentation-line-height:	1.3;
 $presentation-font-smaller: 0.8;
 $presentation-heading-font-weight: 400;
+$presentation-font-size-root: 32px;
 
 
-// colors
+// UW colors
+$dark_purple: #32006e;
 $purple: #4B2E83;
 $gold: #B7A57A;
-$metallic_gold: 	#85754D;
+$metallic_gold: #85754D;
+$yellow: #ffc700;
 $white: #FFFFFF;
 $black: #000000;
+$teal: #2ad2c9;
+$lavender: #c5b4e3;
+$pink: #e93cac;
+$green: #aadb1e;
 // tableau colors
 $tab_blue: #4e79a7;
 $tab_orange: #f28e2c;
@@ -40,21 +47,12 @@ $link-color: $purple;
 $link-hover-color: $gold;
 $btn-link-hover-color: $gold;
 $tabset-border-color: $purple;
-$code-block-font-size: 0.75em;
-$code-color: $gold; 
+$code-block-font-size: 0.65em;
+$code-color: $teal; 
 $dark-bg-code-color: #ffa07a;
 $code-block-bg: $black;
 
 /*-- scss:rules --*/
-// Ripped blink from stack overflow result //
-.blink_me {
-  animation: blinker 1s linear infinite;
-}
-@keyframes blinker {
-  50% {
-    opacity: 0;
-  }
-}
 
 // class selectors
 .custom-title { 
@@ -63,7 +61,7 @@ $code-block-bg: $black;
   font-size: 2.5em;
   font-weight: 500;
   position: relative;
-  top: 0em;
+  top: -1.5em;
   margin: 0;
 }
 
@@ -73,7 +71,7 @@ $code-block-bg: $black;
   font-size: 1.5em;
   font-weight: 500;
   position: relative;
-  top: 0.5em;
+  top: -1em;
   margin: 0;
 }
 
@@ -82,7 +80,7 @@ $code-block-bg: $black;
   color: $white;
   font-size: 1em;
   position: relative;
-  top: 8em;
+  top: 1.5em;
   margin: 0;
 }
 
@@ -91,8 +89,14 @@ $code-block-bg: $black;
   color: $white;
   font-size: 1em;
   position: relative;
-  top: 7em;
+  top: 1.25em;
   margin: 0;
+}
+
+
+
+.reveal section h1 {
+  color: $white;
 }
 
 .section-title {
@@ -103,7 +107,6 @@ $code-block-bg: $black;
   text-align: center;
 }
 
-
 .highlight-tableaured {
   color: $tab_red;
 }
@@ -113,11 +116,12 @@ $code-block-bg: $black;
 }
 
 .small1 {
-  font-size: 0.8em;
+  font-size: 0.75em;
 }
 
-.reveal section h1 {
-  color: $white;
+.small2 {
+  font-size: 0.75em;
+  font-style: italic;
 }
 
 // custom sizing
