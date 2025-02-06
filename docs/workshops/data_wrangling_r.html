@@ -11,7 +11,7 @@
 <link href="../site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
 <link href="../site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.551">
+<meta name="generator" content="quarto-1.5.43">
 <title>data_wrangling_r</title>
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -43,7 +43,7 @@
     }
     @media print {
     pre > code.sourceCode { white-space: pre-wrap; }
-    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
     }
     pre.numberSource code
       { counter-reset: source-line 0; }
@@ -3055,7 +3055,7 @@ $ wk76         &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N
 <aside><ol class="aside-footnotes"><li id="fn16"><p>Placing variables in columns also leverages <code>R</code>’s vectorized nature, i.e.&nbsp;most built-in <code>R</code> functions work with values of vectors.</p></li><li id="fn17"><p>In fact, all tidyverse functions are designed to work with tidy data.</p></li></ol></aside></section><section id="slightly-messy-data" class="slide level2"><h2>Slightly “Messy” Data</h2>
 <div class="columns">
 <div class="column" style="width:60%;">
-<table>
+<table class="caption-top">
 <thead><tr class="header">
 <th><strong>Program</strong></th>
 <th style="text-align: right;"><strong>First Year</strong></th>
@@ -3111,7 +3111,7 @@ $ wk76         &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N
 </section><section id="tidy-version" class="slide level2"><h2>Tidy Version</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
-<table>
+<table class="caption-top">
 <thead><tr class="header">
 <th><strong>Program</strong></th>
 <th style="text-align: right;"><strong>Year</strong></th>
@@ -3756,24 +3756,23 @@ $ rank         &lt;int&gt; 87, 82, 72, 77, 87, 94, 99, NA, NA, NA, NA, NA, NA, N
 <p>As you continue to learn <code>R</code> feel free to drop by with any/all of your <code>R</code> coding questions. Below are our hours for the quarter:</p>
 <div class="cell">
 <div class="cell-output-display">
-<div>
-<div id="zsydtutmam" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#zsydtutmam table {
+<div id="ltiyvawxwn" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#ltiyvawxwn table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#zsydtutmam thead, #zsydtutmam tbody, #zsydtutmam tfoot, #zsydtutmam tr, #zsydtutmam td, #zsydtutmam th {
+#ltiyvawxwn thead, #ltiyvawxwn tbody, #ltiyvawxwn tfoot, #ltiyvawxwn tr, #ltiyvawxwn td, #ltiyvawxwn th {
   border-style: none;
 }
 
-#zsydtutmam p {
+#ltiyvawxwn p {
   margin: 0;
   padding: 0;
 }
 
-#zsydtutmam .gt_table {
+#ltiyvawxwn .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -3799,12 +3798,12 @@ $ rank         &lt;int&gt; 87, 82, 72, 77, 87, 94, 99, NA, NA, NA, NA, NA, NA, N
   border-left-color: #D3D3D3;
 }
 
-#zsydtutmam .gt_caption {
+#ltiyvawxwn .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#zsydtutmam .gt_title {
+#ltiyvawxwn .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -3816,7 +3815,7 @@ $ rank         &lt;int&gt; 87, 82, 72, 77, 87, 94, 99, NA, NA, NA, NA, NA, NA, N
   border-bottom-width: 0;
 }
 
-#zsydtutmam .gt_subtitle {
+#ltiyvawxwn .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -3828,7 +3827,7 @@ $ rank         &lt;int&gt; 87, 82, 72, 77, 87, 94, 99, NA, NA, NA, NA, NA, NA, N
   border-top-width: 0;
 }
 
-#zsydtutmam .gt_heading {
+#ltiyvawxwn .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -3840,13 +3839,13 @@ $ rank         &lt;int&gt; 87, 82, 72, 77, 87, 94, 99, NA, NA, NA, NA, NA, NA, N
   border-right-color: #D3D3D3;
 }
 
-#zsydtutmam .gt_bottom_border {
+#ltiyvawxwn .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#zsydtutmam .gt_col_headings {
+#ltiyvawxwn .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -3861,7 +3860,7 @@ $ rank         &lt;int&gt; 87, 82, 72, 77, 87, 94, 99, NA, NA, NA, NA, NA, NA, N
   border-right-color: #D3D3D3;
 }
 
-#zsydtutmam .gt_col_heading {
+#ltiyvawxwn .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -3881,7 +3880,7 @@ $ rank         &lt;int&gt; 87, 82, 72, 77, 87, 94, 99, NA, NA, NA, NA, NA, NA, N
   overflow-x: hidden;
 }
 
-#zsydtutmam .gt_column_spanner_outer {
+#ltiyvawxwn .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -3893,15 +3892,15 @@ $ rank         &lt;int&gt; 87, 82, 72, 77, 87, 94, 99, NA, NA, NA, NA, NA, NA, N
   padding-right: 4px;
 }
 
-#zsydtutmam .gt_column_spanner_outer:first-child {
+#ltiyvawxwn .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#zsydtutmam .gt_column_spanner_outer:last-child {
+#ltiyvawxwn .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#zsydtutmam .gt_column_spanner {
+#ltiyvawxwn .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -3913,11 +3912,11 @@ $ rank         &lt;int&gt; 87, 82, 72, 77, 87, 94, 99, NA, NA, NA, NA, NA, NA, N
   width: 100%;
 }
 
-#zsydtutmam .gt_spanner_row {
+#ltiyvawxwn .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#zsydtutmam .gt_group_heading {
+#ltiyvawxwn .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3943,7 +3942,7 @@ $ rank         &lt;int&gt; 87, 82, 72, 77, 87, 94, 99, NA, NA, NA, NA, NA, NA, N
   text-align: left;
 }
 
-#zsydtutmam .gt_empty_group_heading {
+#ltiyvawxwn .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -3958,15 +3957,15 @@ $ rank         &lt;int&gt; 87, 82, 72, 77, 87, 94, 99, NA, NA, NA, NA, NA, NA, N
   vertical-align: middle;
 }
 
-#zsydtutmam .gt_from_md > :first-child {
+#ltiyvawxwn .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#zsydtutmam .gt_from_md > :last-child {
+#ltiyvawxwn .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#zsydtutmam .gt_row {
+#ltiyvawxwn .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3985,7 +3984,7 @@ $ rank         &lt;int&gt; 87, 82, 72, 77, 87, 94, 99, NA, NA, NA, NA, NA, NA, N
   overflow-x: hidden;
 }
 
-#zsydtutmam .gt_stub {
+#ltiyvawxwn .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -3998,7 +3997,7 @@ $ rank         &lt;int&gt; 87, 82, 72, 77, 87, 94, 99, NA, NA, NA, NA, NA, NA, N
   padding-right: 5px;
 }
 
-#zsydtutmam .gt_stub_row_group {
+#ltiyvawxwn .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -4012,15 +4011,15 @@ $ rank         &lt;int&gt; 87, 82, 72, 77, 87, 94, 99, NA, NA, NA, NA, NA, NA, N
   vertical-align: top;
 }
 
-#zsydtutmam .gt_row_group_first td {
+#ltiyvawxwn .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#zsydtutmam .gt_row_group_first th {
+#ltiyvawxwn .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#zsydtutmam .gt_summary_row {
+#ltiyvawxwn .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -4030,16 +4029,16 @@ $ rank         &lt;int&gt; 87, 82, 72, 77, 87, 94, 99, NA, NA, NA, NA, NA, NA, N
   padding-right: 5px;
 }
 
-#zsydtutmam .gt_first_summary_row {
+#ltiyvawxwn .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#zsydtutmam .gt_first_summary_row.thick {
+#ltiyvawxwn .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#zsydtutmam .gt_last_summary_row {
+#ltiyvawxwn .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -4049,7 +4048,7 @@ $ rank         &lt;int&gt; 87, 82, 72, 77, 87, 94, 99, NA, NA, NA, NA, NA, NA, N
   border-bottom-color: #D3D3D3;
 }
 
-#zsydtutmam .gt_grand_summary_row {
+#ltiyvawxwn .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -4059,7 +4058,7 @@ $ rank         &lt;int&gt; 87, 82, 72, 77, 87, 94, 99, NA, NA, NA, NA, NA, NA, N
   padding-right: 5px;
 }
 
-#zsydtutmam .gt_first_grand_summary_row {
+#ltiyvawxwn .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -4069,7 +4068,7 @@ $ rank         &lt;int&gt; 87, 82, 72, 77, 87, 94, 99, NA, NA, NA, NA, NA, NA, N
   border-top-color: #D3D3D3;
 }
 
-#zsydtutmam .gt_last_grand_summary_row_top {
+#ltiyvawxwn .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -4079,11 +4078,11 @@ $ rank         &lt;int&gt; 87, 82, 72, 77, 87, 94, 99, NA, NA, NA, NA, NA, NA, N
   border-bottom-color: #D3D3D3;
 }
 
-#zsydtutmam .gt_striped {
+#ltiyvawxwn .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#zsydtutmam .gt_table_body {
+#ltiyvawxwn .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -4092,7 +4091,7 @@ $ rank         &lt;int&gt; 87, 82, 72, 77, 87, 94, 99, NA, NA, NA, NA, NA, NA, N
   border-bottom-color: #D3D3D3;
 }
 
-#zsydtutmam .gt_footnotes {
+#ltiyvawxwn .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -4106,7 +4105,7 @@ $ rank         &lt;int&gt; 87, 82, 72, 77, 87, 94, 99, NA, NA, NA, NA, NA, NA, N
   border-right-color: #D3D3D3;
 }
 
-#zsydtutmam .gt_footnote {
+#ltiyvawxwn .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -4115,7 +4114,7 @@ $ rank         &lt;int&gt; 87, 82, 72, 77, 87, 94, 99, NA, NA, NA, NA, NA, NA, N
   padding-right: 5px;
 }
 
-#zsydtutmam .gt_sourcenotes {
+#ltiyvawxwn .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -4129,7 +4128,7 @@ $ rank         &lt;int&gt; 87, 82, 72, 77, 87, 94, 99, NA, NA, NA, NA, NA, NA, N
   border-right-color: #D3D3D3;
 }
 
-#zsydtutmam .gt_sourcenote {
+#ltiyvawxwn .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -4137,67 +4136,76 @@ $ rank         &lt;int&gt; 87, 82, 72, 77, 87, 94, 99, NA, NA, NA, NA, NA, NA, N
   padding-right: 5px;
 }
 
-#zsydtutmam .gt_left {
+#ltiyvawxwn .gt_left {
   text-align: left;
 }
 
-#zsydtutmam .gt_center {
+#ltiyvawxwn .gt_center {
   text-align: center;
 }
 
-#zsydtutmam .gt_right {
+#ltiyvawxwn .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#zsydtutmam .gt_font_normal {
+#ltiyvawxwn .gt_font_normal {
   font-weight: normal;
 }
 
-#zsydtutmam .gt_font_bold {
+#ltiyvawxwn .gt_font_bold {
   font-weight: bold;
 }
 
-#zsydtutmam .gt_font_italic {
+#ltiyvawxwn .gt_font_italic {
   font-style: italic;
 }
 
-#zsydtutmam .gt_super {
+#ltiyvawxwn .gt_super {
   font-size: 65%;
 }
 
-#zsydtutmam .gt_footnote_marks {
+#ltiyvawxwn .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#zsydtutmam .gt_asterisk {
+#ltiyvawxwn .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#zsydtutmam .gt_indent_1 {
+#ltiyvawxwn .gt_indent_1 {
   text-indent: 5px;
 }
 
-#zsydtutmam .gt_indent_2 {
+#ltiyvawxwn .gt_indent_2 {
   text-indent: 10px;
 }
 
-#zsydtutmam .gt_indent_3 {
+#ltiyvawxwn .gt_indent_3 {
   text-indent: 15px;
 }
 
-#zsydtutmam .gt_indent_4 {
+#ltiyvawxwn .gt_indent_4 {
   text-indent: 20px;
 }
 
-#zsydtutmam .gt_indent_5 {
+#ltiyvawxwn .gt_indent_5 {
   text-indent: 25px;
 }
+
+#ltiyvawxwn .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#ltiyvawxwn div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
 </style>
-<table class="gt_table" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<table class="gt_table caption-top" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
 <colgroup>
 <col style="width: 33%">
 <col style="width: 33%">
@@ -4211,10 +4219,10 @@ $ rank         &lt;int&gt; 87, 82, 72, 77, 87, 94, 99, NA, NA, NA, NA, NA, NA, N
 <th colspan="3" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border">Consulting Hours for Fall 2024</th>
 </tr>
 <tr class="header gt_col_headings">
-<th class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col"></th>
-<th id="In-Person<span class=&quot;gt_footnote_marks&quot; style=&quot;white-space:nowrap;font-style:italic;font-weight:normal;&quot;><sup>1</sup></span>" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">In-Person<span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;"><sup>1</sup></span>
+<th id="a::stub" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col"></th>
+<th id="drop_in" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">In-Person<span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>1</sup></span>
 </th>
-<th id="Virtual<span class=&quot;gt_footnote_marks&quot; style=&quot;white-space:nowrap;font-style:italic;font-weight:normal;&quot;><sup>2</sup></span>" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">Virtual<span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;"><sup>2</sup></span>
+<th id="evening" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">Virtual<span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>2</sup></span>
 </th>
 </tr>
 </thead>
@@ -4247,11 +4255,10 @@ $ rank         &lt;int&gt; 87, 82, 72, 77, 87, 94, 99, NA, NA, NA, NA, NA, NA, N
 </tbody>
 <tfoot><tr class="even gt_footnotes">
 <td colspan="3" class="gt_footnote"><div style="padding-bottom:2px;">
-<span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;"><sup>1</sup></span> Drop-in @ Savery 119 <span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;"><sup>2</sup></span> Online Via Zoom
+<span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>1</sup></span> Drop-in @ Savery 119 <span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>2</sup></span> Online Via Zoom
 </div></td>
 </tr></tfoot>
 </table>
-</div>
 </div>
 </div>
 </div>
@@ -4526,18 +4533,7 @@ $ rank         &lt;int&gt; 87, 82, 72, 77, 87, 94, 99, NA, NA, NA, NA, NA, NA, N
         }
         return false;
       }
-      const clipboard = new window.ClipboardJS('.code-copy-button', {
-        text: function(trigger) {
-          const codeEl = trigger.previousElementSibling.cloneNode(true);
-          for (const childEl of codeEl.children) {
-            if (isCodeAnnotation(childEl)) {
-              childEl.remove();
-            }
-          }
-          return codeEl.innerText;
-        }
-      });
-      clipboard.on('success', function(e) {
+      const onCopySuccess = function(e) {
         // button target
         const button = e.trigger;
         // don't keep focus
@@ -4569,7 +4565,29 @@ $ rank         &lt;int&gt; 87, 82, 72, 77, 87, 94, 99, NA, NA, NA, NA, NA, NA, N
         }, 1000);
         // clear code selection
         e.clearSelection();
+      }
+      const getTextToCopy = function(trigger) {
+          const codeEl = trigger.previousElementSibling.cloneNode(true);
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+      }
+      const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+        text: getTextToCopy
       });
+      clipboard.on('success', onCopySuccess);
+      if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+        // For code content inside modals, clipBoardJS needs to be initialized with a container option
+        // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+        const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+          text: getTextToCopy,
+          container: window.document.getElementById('quarto-embedded-source-code-modal')
+        });
+        clipboardModal.on('success', onCopySuccess);
+      }
         var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
         var mailtoRegex = new RegExp(/^mailto:/);
           var filterRegex = new RegExp('/' + window.location.host + '/');
@@ -4577,7 +4595,7 @@ $ rank         &lt;int&gt; 87, 82, 72, 77, 87, 94, 99, NA, NA, NA, NA, NA, NA, N
             return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
         }
         // Inspect non-navigation links and adorn them if external
-     	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+     	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
         for (var i=0; i<links.length; i++) {
           const link = links[i];
           if (!isInternal(link.href)) {
