@@ -158,7 +158,7 @@
     "href": "workshops/text_analysis.html#sentiments-datasets",
     "title": "",
     "section": "sentiments datasets",
-    "text": "sentiments datasets\n\n1library(textdata)\n\n\n1\n\nRequired to download the AFINN and bing datasets\n\n\n\n\n\n\nAFINNbingnrc\n\n\n\n2get_sentiments(\"afinn\")\n\n\n2\n\nScale from -5 to 5 delineating most negative to most positive\n\n\n\n\n# A tibble: 2,477 × 2\n   word       value\n   &lt;chr&gt;      &lt;dbl&gt;\n 1 abandon       -2\n 2 abandoned     -2\n 3 abandons      -2\n 4 abducted      -2\n 5 abduction     -2\n 6 abductions    -2\n 7 abhor         -3\n 8 abhorred      -3\n 9 abhorrent     -3\n10 abhors        -3\n# ℹ 2,467 more rows\n\n\n\n\n\n3get_sentiments(\"bing\")\n\n\n3\n\nBinary categorization of positive/negative\n\n\n\n\n# A tibble: 6,786 × 2\n   word        sentiment\n   &lt;chr&gt;       &lt;chr&gt;    \n 1 2-faces     negative \n 2 abnormal    negative \n 3 abolish     negative \n 4 abominable  negative \n 5 abominably  negative \n 6 abominate   negative \n 7 abomination negative \n 8 abort       negative \n 9 aborted     negative \n10 aborts      negative \n# ℹ 6,776 more rows\n\n\n\n\n\n4get_sentiments(\"nrc\")\n\n\n4\n\nCategorizations of positive, negative, anger, anticipation, disgust, fear, joy, sadness, surprise, and trust\n\n\n\n\n# A tibble: 13,872 × 2\n   word        sentiment\n   &lt;chr&gt;       &lt;chr&gt;    \n 1 abacus      trust    \n 2 abandon     fear     \n 3 abandon     negative \n 4 abandon     sadness  \n 5 abandoned   anger    \n 6 abandoned   fear     \n 7 abandoned   negative \n 8 abandoned   sadness  \n 9 abandonment anger    \n10 abandonment fear     \n# ℹ 13,862 more rows"
+    "text": "sentiments datasets\n\n1library(textdata)\n\n\n1\n\nRequired to download the AFINN and nrc datasets\n\n\n\n\n\n\nAFINNbingnrc\n\n\n\n2get_sentiments(\"afinn\")\n\n\n2\n\nScale from -5 to 5 delineating most negative to most positive\n\n\n\n\n# A tibble: 2,477 × 2\n   word       value\n   &lt;chr&gt;      &lt;dbl&gt;\n 1 abandon       -2\n 2 abandoned     -2\n 3 abandons      -2\n 4 abducted      -2\n 5 abduction     -2\n 6 abductions    -2\n 7 abhor         -3\n 8 abhorred      -3\n 9 abhorrent     -3\n10 abhors        -3\n# ℹ 2,467 more rows\n\n\n\n\n\n3get_sentiments(\"bing\")\n\n\n3\n\nBinary categorization of positive/negative\n\n\n\n\n# A tibble: 6,786 × 2\n   word        sentiment\n   &lt;chr&gt;       &lt;chr&gt;    \n 1 2-faces     negative \n 2 abnormal    negative \n 3 abolish     negative \n 4 abominable  negative \n 5 abominably  negative \n 6 abominate   negative \n 7 abomination negative \n 8 abort       negative \n 9 aborted     negative \n10 aborts      negative \n# ℹ 6,776 more rows\n\n\n\n\n\n4get_sentiments(\"nrc\")\n\n\n4\n\nCategorizations of positive, negative, anger, anticipation, disgust, fear, joy, sadness, surprise, and trust\n\n\n\n\n# A tibble: 13,872 × 2\n   word        sentiment\n   &lt;chr&gt;       &lt;chr&gt;    \n 1 abacus      trust    \n 2 abandon     fear     \n 3 abandon     negative \n 4 abandon     sadness  \n 5 abandoned   anger    \n 6 abandoned   fear     \n 7 abandoned   negative \n 8 abandoned   sadness  \n 9 abandonment anger    \n10 abandonment fear     \n# ℹ 13,862 more rows"
   },
   {
     "objectID": "workshops/text_analysis.html#compare-lexicons",
@@ -1286,5 +1286,26 @@
     "title": "Research",
     "section": "",
     "text": "I’m still working on this page! Check back soon for updates and in the meantime click the Google icon to the right to see my published work."
+  },
+  {
+    "objectID": "workshops/text_analysis.html",
+    "href": "workshops/text_analysis.html",
+    "title": "Source Material",
+    "section": "",
+    "text": "Introduction to  Text Analysis in R\nCSSCR Workshop\n30 January 2025\nVictoria Sass"
+  },
+  {
+    "objectID": "workshops/text_analysis.html#footnotes",
+    "href": "workshops/text_analysis.html#footnotes",
+    "title": "Source Material",
+    "section": "Footnotes",
+    "text": "Footnotes\n\n\nYou can read the official manifesto here.↩︎\nIllustrations from the Openscapes blog Tidy Data for reproducibility, efficiency, and collaboration by Julia Lowndes and Allison Horst↩︎\nPlacing variables in columns also leverages R’s vectorized nature, i.e. most built-in R functions work with values of vectors.↩︎\nIn fact, all tidyverse functions are designed to work with tidy data.↩︎\nIllustrations from the Openscapes blog Tidy Data for reproducibility, efficiency, and collaboration by Julia Lowndes and Allison Horst↩︎\nAs a dataset for topic modeling, that is. Not as the perfect comfort show!↩︎"
+  },
+  {
+    "objectID": "workshops/intro_r_rstudio.html",
+    "href": "workshops/intro_r_rstudio.html",
+    "title": "",
+    "section": "",
+    "text": "Introduction to R & RStudio\nIntroduction to R & RStudio\nCSSCR Workshop\nCSSCR Workshop\nVictoria Sass"
   }
 ]

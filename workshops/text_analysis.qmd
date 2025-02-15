@@ -467,7 +467,7 @@ tidy_bob |>
 library(textdata) # <1>
 ```
 
-1. Required to download the AFINN and bing datasets
+1. Required to download the AFINN and nrc datasets
 
 ::: {.fragment}
 ::: {.panel-tabset}
