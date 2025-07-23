@@ -43,7 +43,7 @@ library(nycflights13)
 
 [CSSCR Workshop]{.custom-subtitle}
 
-[31 October 2024]{.custom-subtitle2}
+[23 July 2025]{.custom-subtitle2}
 
 [Victoria Sass]{.custom-subtitle3}
 
@@ -2196,7 +2196,7 @@ hours <- tibble(day = c("Monday", "Tuesday", "Wednesday", "Thursday", "Friday"),
 hours |> 
   gt(rowname_col = "day") |> 
   tab_header(title = "The Center for Social Science Computation and Research", 
-             subtitle = "Consulting Hours for Fall 2024")  |> 
+             subtitle = "Consulting Hours for Fall 2025")  |> 
   cols_label(drop_in = "In-Person", 
              evening = "Virtual") |> 
   tab_footnote(footnote = "Drop-in @ Savery 119", 

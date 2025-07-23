@@ -487,7 +487,7 @@
     "href": "workshops/data_wrangling_r.html#title-slide",
     "title": "",
     "section": "",
-    "text": "Data Wrangling in R\nCSSCR Workshop\n31 October 2024\nVictoria Sass"
+    "text": "Data Wrangling in R\nCSSCR Workshop\n23 July 2025\nVictoria Sass"
   },
   {
     "objectID": "workshops/data_wrangling_r.html#roadmap",
@@ -529,7 +529,7 @@
     "href": "workshops/data_wrangling_r.html#alternate-solution",
     "title": "",
     "section": "Alternate Solution",
-    "text": "Alternate Solution\nWhen you import data from an external file you’ll also see it in the Global Environment tab in the upper-right pane of RStudio:\n\n\n\nYou can also import the data manually!\nIn the upper right-hand pane of RStudio (make sure you’re in the Environment tab), select:\nImport Dataset &gt; From Text (readr) and browse to the file on your computer1.\n\n\nOnce you’ve imported the data, you can copy/paste the import code from the console into your file!!\nThis makes the process reproducible!\n\n\n\n\n\nIdeally you’ve saved it in your project folder!"
+    "text": "Alternate Solution\nWhen you import data from an external file you’ll also see it in the Global Environment tab in the upper-right pane of RStudio:\n\n\n\nYou can also import the data manually!\nIn the upper right-hand pane of RStudio (make sure you’re in the Environment tab), select:\nImport Dataset &gt; From Text (readr) and browse to the file on your computer1.\n\n\nOnce you’ve imported the data, you can copy/paste the import code from the console into your file!!\nThis makes the process reproducible!\n\n\n\n\nIdeally you’ve saved it in your project folder!"
   },
   {
     "objectID": "workshops/data_wrangling_r.html#manual-data-import",
@@ -585,21 +585,21 @@
     "href": "workshops/data_wrangling_r.html#other-packages-to-read-in-data-1",
     "title": "",
     "section": "Other Packages to Read in Data",
-    "text": "Other Packages to Read in Data\nThere are a range of other ways, besides delimited files, that data are stored.\nThe following packages are part of the extended tidyverse and therefore operate with similar syntax and logic as readr.\n\n\n\n\n\nFor Excel files (.xls or .xlsx), use package readxl1\n\n\n\n\n\n\nNote: For Excel files and Googlesheets You won’t keep text formatting, color, comments, or merged cells. See the openxlsx package for those capabilities. Also, tidyxl can help import non-tabular data from Excel.\nFunctions have additional arguments to read in specific sheets or a range of cells."
+    "text": "Other Packages to Read in Data\nThere are a range of other ways, besides delimited files, that data are stored.\nThe following packages are part of the extended tidyverse and therefore operate with similar syntax and logic as readr.\n\n\n\n\n\nFor Excel files (.xls or .xlsx), use package readxl1\n\n\n\n\n\nNote: For Excel files and Googlesheets You won’t keep text formatting, color, comments, or merged cells. See the openxlsx package for those capabilities. Also, tidyxl can help import non-tabular data from Excel.\nFunctions have additional arguments to read in specific sheets or a range of cells."
   },
   {
     "objectID": "workshops/data_wrangling_r.html#other-packages-to-read-in-data-2",
     "href": "workshops/data_wrangling_r.html#other-packages-to-read-in-data-2",
     "title": "",
     "section": "Other Packages to Read in Data",
-    "text": "Other Packages to Read in Data\nThere are a range of other ways, besides delimited files, that data are stored.\nThe following packages are part of the extended tidyverse and therefore operate with similar syntax and logic as readr.\n\n\n\n\n\nFor Excel files (.xls or .xlsx), use package readxl1\n\nFor Google Docs Spreadsheets, use package googlesheets42\n\n\n\n\n\n\nNote: For Excel files and Googlesheets You won’t keep text formatting, color, comments, or merged cells. See the openxlsx package for those capabilities. Also, tidyxl can help import non-tabular data from Excel.\nFunctions have additional arguments to read in specific sheets or a range of cells.Very similar to readxl with some slight variations you can read about here."
+    "text": "Other Packages to Read in Data\nThere are a range of other ways, besides delimited files, that data are stored.\nThe following packages are part of the extended tidyverse and therefore operate with similar syntax and logic as readr.\n\n\n\n\n\nFor Excel files (.xls or .xlsx), use package readxl1\n\nFor Google Docs Spreadsheets, use package googlesheets42\n\n\n\n\n\nNote: For Excel files and Googlesheets You won’t keep text formatting, color, comments, or merged cells. See the openxlsx package for those capabilities. Also, tidyxl can help import non-tabular data from Excel.\nFunctions have additional arguments to read in specific sheets or a range of cells.Very similar to readxl with some slight variations you can read about here."
   },
   {
     "objectID": "workshops/data_wrangling_r.html#other-packages-to-read-in-data-3",
     "href": "workshops/data_wrangling_r.html#other-packages-to-read-in-data-3",
     "title": "",
     "section": "Other Packages to Read in Data",
-    "text": "Other Packages to Read in Data\nThere are a range of other ways, besides delimited files, that data are stored.\nThe following packages are part of the extended tidyverse and therefore operate with similar syntax and logic as readr.\n\n\n\n\n\nFor Excel files (.xls or .xlsx), use package readxl1\n\nFor Google Docs Spreadsheets, use package googlesheets42\n\nFor Stata, SPSS, and SAS files, use package haven3\n\n\n\n\n\n\nNote: For Excel files and Googlesheets You won’t keep text formatting, color, comments, or merged cells. See the openxlsx package for those capabilities. Also, tidyxl can help import non-tabular data from Excel.\nFunctions have additional arguments to read in specific sheets or a range of cells.Very similar to readxl with some slight variations you can read about here.SAS, SPSS, and Stata have so-called “labelled” vectors for which haven provides a class to represent in R. Alternatively, you can get rid of them with these functions."
+    "text": "Other Packages to Read in Data\nThere are a range of other ways, besides delimited files, that data are stored.\nThe following packages are part of the extended tidyverse and therefore operate with similar syntax and logic as readr.\n\n\n\n\n\nFor Excel files (.xls or .xlsx), use package readxl1\n\nFor Google Docs Spreadsheets, use package googlesheets42\n\nFor Stata, SPSS, and SAS files, use package haven3\n\n\n\n\n\nNote: For Excel files and Googlesheets You won’t keep text formatting, color, comments, or merged cells. See the openxlsx package for those capabilities. Also, tidyxl can help import non-tabular data from Excel.\nFunctions have additional arguments to read in specific sheets or a range of cells.Very similar to readxl with some slight variations you can read about here.SAS, SPSS, and Stata have so-called “labelled” vectors for which haven provides a class to represent in R. Alternatively, you can get rid of them with these functions."
   },
   {
     "objectID": "workshops/data_wrangling_r.html#how-does-readr-parse-different-data-types",
@@ -676,7 +676,7 @@
     "href": "workshops/data_wrangling_r.html#writing-other-file-types",
     "title": "",
     "section": "Writing Other File-Types",
-    "text": "Writing Other File-Types\n\n\nwritexl\ngooglesheets4\nhaven\n\n\n\n\n\n\n\nwrite_xlsx() writes to an xlsx file\n\n\n\n\n\n\n\n\n\n\n\nsheet_write() or write_sheet() (over)writes new data into a Sheet\n\ngs4_create() creates a new Sheet\n\nsheet_append() appends rows to a sheet\n\nrange_write() (over)writes new data into a range\n\nrange_flood() floods a range of cells\n`range_clear() clears a range of cells\n\n\n\n\n\n\n\n\n\n\n\nwrite_dta() writes Stata DTA files\n\nwrite_sav() writes SPSS files\n\nwrite_xpt() writes SAS transport files"
+    "text": "Writing Other File-Types\n\n\nwritexl\ngooglesheets4\nhaven\n\n\n\n\n\n\n\nwrite_xlsx() writes to an xlsx file\n\n\n\n\n\n\n\n\n\n\nsheet_write() or write_sheet() (over)writes new data into a Sheet\n\ngs4_create() creates a new Sheet\n\nsheet_append() appends rows to a sheet\n\nrange_write() (over)writes new data into a range\n\nrange_flood() floods a range of cells\n`range_clear() clears a range of cells\n\n\n\n\n\n\n\n\n\n\nwrite_dta() writes Stata DTA files\n\nwrite_sav() writes SPSS files\n\nwrite_xpt() writes SAS transport files"
   },
   {
     "objectID": "workshops/data_wrangling_r.html#death-to-spreadsheets",
@@ -704,14 +704,14 @@
     "href": "workshops/data_wrangling_r.html#logical-operators-in-r",
     "title": "",
     "section": "Logical Operators in R\n",
-    "text": "Logical Operators in R\n\nComparing objects\n\n\n\n\n\n==:\n\n!=:\n\n&gt;, &gt;=, &lt;, &lt;=:\n\n%in%:\n\n\n\n\n\nis equal to1\n\nnot equal to\nless than, less than or equal to, etc.\nused when checking if equal to one of several values\n\n\n\n\n\n\nCombining comparisons\n\n\n\n\n\n\n&:\n\n|:\n\n!:\n\nxor():\n\n\n\n\n\n\nboth conditions need to hold (AND)\n\n\nat least one condition needs to hold (OR)\n\n\ninverts a logical condition (TRUE becomes FALSE, vice versa)\n\n\nexclusive OR (i.e. x or y but NOT both)\n\n\n\n\n\n\nYou may also see && and || but they are what’s known as short-circuiting operators and are not to be used in dplyr functions (used for programming not data manipulation); they’ll only ever return a single TRUE or FALSE.\nNote: there are TWO equal signs here!"
+    "text": "Logical Operators in R\n\nComparing objects\n\n\n\n\n\n==:\n\n!=:\n\n&gt;, &gt;=, &lt;, &lt;=:\n\n%in%:\n\n\n\n\n\nis equal to1\n\nnot equal to\nless than, less than or equal to, etc.\nused when checking if equal to one of several values\n\n\n\n\nCombining comparisons\n\n\n\n\n\n\n&:\n\n|:\n\n!:\n\nxor():\n\n\n\n\n\n\nboth conditions need to hold (AND)\n\n\nat least one condition needs to hold (OR)\n\n\ninverts a logical condition (TRUE becomes FALSE, vice versa)\n\n\nexclusive OR (i.e. x or y but NOT both)\n\n\n\n\n\nYou may also see && and || but they are what’s known as short-circuiting operators and are not to be used in dplyr functions (used for programming not data manipulation); they’ll only ever return a single TRUE or FALSE.\nNote: there are TWO equal signs here!"
   },
   {
     "objectID": "workshops/data_wrangling_r.html#logical-summaries",
     "href": "workshops/data_wrangling_r.html#logical-summaries",
     "title": "",
     "section": "Logical Summaries",
-    "text": "Logical Summaries\n\n\n\n\n\nany():\n\nall():\n\n\n\n\n\nthe equivalent of |; it’ll return TRUE if there are any TRUE’s in x\nthe equivalent of &; it’ll return TRUE only if all values of x are TRUE’s\n\n\n\n\n\n\nC &lt;- c(5, 10, NA, 10, 20, NA)\nany(C &lt;= 10) \n1all(C &lt;= 20)\n2all(C &lt;= 20, na.rm = TRUE)\n3mean(C, na.rm = TRUE)\n\n\n1\n\nLike other summary functions, they’ll return NA if there are any missing values present and it’s FALSE.\n\n2\n\nUse na.rm = TRUE to remove NAs prior to evaluation.\n\n3\n\nWhen you evaluate a logical vector numerically, TRUE = 1 and FALSE = 0. This makes sum() and mean() useful when summarizing logical functions (sum gives number of TRUEs and mean gives the proportion).\n\n\n\n\n[1] TRUE\n[1] NA\n[1] TRUE\n[1] 11.25"
+    "text": "Logical Summaries\n\n\n\n\n\nany():\n\nall():\n\n\n\n\n\nthe equivalent of |; it’ll return TRUE if there are any TRUE’s in x\nthe equivalent of &; it’ll return TRUE only if all values of x are TRUE’s\n\n\n\n\n\nC &lt;- c(5, 10, NA, 10, 20, NA)\nany(C &lt;= 10) \n1all(C &lt;= 20)\n2all(C &lt;= 20, na.rm = TRUE)\n3mean(C, na.rm = TRUE)\n\n\n1\n\nLike other summary functions, they’ll return NA if there are any missing values present and it’s FALSE.\n\n2\n\nUse na.rm = TRUE to remove NAs prior to evaluation.\n\n3\n\nWhen you evaluate a logical vector numerically, TRUE = 1 and FALSE = 0. This makes sum() and mean() useful when summarizing logical functions (sum gives number of TRUEs and mean gives the proportion).\n\n\n\n\n[1] TRUE\n[1] NA\n[1] TRUE\n[1] 11.25"
   },
   {
     "objectID": "workshops/data_wrangling_r.html#conditional-transformations",
@@ -956,7 +956,7 @@
     "href": "workshops/data_wrangling_r.html#basic-equi--joins",
     "title": "",
     "section": "Basic (Equi-) Joins",
-    "text": "Basic (Equi-) Joins\nAll join functions have the same basic interface: they take a pair of data frames and return one data frame.\n\nThe order of the rows and columns is primarily going to be determined by the first data frame.\n\n\ndplyr has two types of joins: mutating and filtering.\n\n\n\n\n\nMutating Joins\nAdd new variables to one data frame from matching observations from another data frame.\n\nleft_join()\nright_join()\ninner_join()\nfull_join()\n\n\n\n\n\nFiltering Joins\nFilter observations from one data frame based on whether or not they match an observation in another data frame.\n\nsemi_join()\nanti-join()"
+    "text": "Basic (Equi-) Joins\nAll join functions have the same basic interface: they take a pair of data frames and return one data frame.\n\nThe order of the rows and columns is primarily going to be determined by the first data frame.\n\n\ndplyr has two types of joins: mutating and filtering.\n\n\n\n\nMutating Joins\nAdd new variables to one data frame from matching observations from another data frame.\n\nleft_join()\nright_join()\ninner_join()\nfull_join()\n\n\n\n\nFiltering Joins\nFilter observations from one data frame based on whether or not they match an observation in another data frame.\n\nsemi_join()\nanti-join()"
   },
   {
     "objectID": "workshops/data_wrangling_r.html#mutating-joins-1",
@@ -1089,21 +1089,21 @@
     "href": "workshops/data_wrangling_r.html#non-equi-joins",
     "title": "",
     "section": "Non-Equi Joins",
-    "text": "Non-Equi Joins\nThe joins we’ve discussed thus far have all been equi-joins, where the rows match if the x key equals the y key. But you can also specify other types of relationships.\n\ndplyr has four different types of non-equi joins:\n\n\n\n\n\n\nCross joins match every pair of rows.\n\n\n\n\n\n\n\n\nCross joins, aka self-joins, are useful when generating permutations (e.g. creating every possible combination of values). This comes in handy when creating datasets of predicted probabilities for plotting in ggplot."
+    "text": "Non-Equi Joins\nThe joins we’ve discussed thus far have all been equi-joins, where the rows match if the x key equals the y key. But you can also specify other types of relationships.\n\ndplyr has four different types of non-equi joins:\n\n\n\n\n\n\nCross joins match every pair of rows.\n\n\n\n\n\n\n\nCross joins, aka self-joins, are useful when generating permutations (e.g. creating every possible combination of values). This comes in handy when creating datasets of predicted probabilities for plotting in ggplot."
   },
   {
     "objectID": "workshops/data_wrangling_r.html#non-equi-joins-1",
     "href": "workshops/data_wrangling_r.html#non-equi-joins-1",
     "title": "",
     "section": "Non-Equi Joins",
-    "text": "Non-Equi Joins\nThe joins we’ve discussed thus far have all been equi-joins, where the rows match if the x key equals the y key. But you can also specify other types of relationships.\ndplyr has four different types of non-equi joins:\n\n\n\n\nCross joins match every pair of rows.\n\nInequality joins use &lt;, &lt;=, &gt;, and &gt;= instead of ==.\n\n\nOverlap joins are a special type of inequality join designed to work with ranges1.\n\n\n\n\n\n\n\n\n\nInequality joins can be used to restrict the cross join so that instead of generating all permutations, we generate all combinations.\nOverlap joins provide three helpers that use inequality joins to make it easier to work with intervals: between(), within(), overlaps(). Read more about their functionality and specifications here."
+    "text": "Non-Equi Joins\nThe joins we’ve discussed thus far have all been equi-joins, where the rows match if the x key equals the y key. But you can also specify other types of relationships.\ndplyr has four different types of non-equi joins:\n\n\n\n\nCross joins match every pair of rows.\n\nInequality joins use &lt;, &lt;=, &gt;, and &gt;= instead of ==.\n\n\nOverlap joins are a special type of inequality join designed to work with ranges1.\n\n\n\n\n\n\n\n\nInequality joins can be used to restrict the cross join so that instead of generating all permutations, we generate all combinations.\nOverlap joins provide three helpers that use inequality joins to make it easier to work with intervals: between(), within(), overlaps(). Read more about their functionality and specifications here."
   },
   {
     "objectID": "workshops/data_wrangling_r.html#non-equi-joins-2",
     "href": "workshops/data_wrangling_r.html#non-equi-joins-2",
     "title": "",
     "section": "Non-Equi Joins",
-    "text": "Non-Equi Joins\nThe joins we’ve discussed thus far have all been equi-joins, where the rows match if the x key equals the y key. But you can also specify other types of relationships.\ndplyr has four different types of non-equi joins:\n\n\n\n\nCross joins match every pair of rows.\n\nInequality joins use &lt;, &lt;=, &gt;, and &gt;= instead of ==.\n\n\nOverlap joins are a special type of inequality join designed to work with ranges.\n\n\n\nRolling joins are similar to inequality joins but only find the closest match.\n\n\n\n\n\n\n\nRolling joins are a special type of inequality join where instead of getting every row that satisfies the inequality, you get just the closest row. You can turn any inequality join into a rolling join by adding closest()."
+    "text": "Non-Equi Joins\nThe joins we’ve discussed thus far have all been equi-joins, where the rows match if the x key equals the y key. But you can also specify other types of relationships.\ndplyr has four different types of non-equi joins:\n\n\n\n\nCross joins match every pair of rows.\n\nInequality joins use &lt;, &lt;=, &gt;, and &gt;= instead of ==.\n\n\nOverlap joins are a special type of inequality join designed to work with ranges.\n\n\n\nRolling joins are similar to inequality joins but only find the closest match.\n\n\n\n\n\n\nRolling joins are a special type of inequality join where instead of getting every row that satisfies the inequality, you get just the closest row. You can turn any inequality join into a rolling join by adding closest()."
   },
   {
     "objectID": "workshops/data_wrangling_r.html#what-is-tidy-data",
@@ -1250,7 +1250,7 @@
     "href": "workshops/data_wrangling_r.html#variable-values-in-column-names-1",
     "title": "",
     "section": "Variable & Values in Column Names",
-    "text": "Variable & Values in Column Names\n\n\nhousehold |&gt; \n  pivot_longer(\n    cols = !family, \n6    names_to = c(\".value\", \"child\"),\n    names_sep = \"_\", \n7    values_drop_na = TRUE\n  )\n\n\n\n\n6\n\n.value isn’t the name of a variable but a unique value that tells pivot_longer to use the first component of the pivoted column name as a variable name in the output.\n\n7\n\nUsing values_drop_na = TRUE again since not every family has 2 children.\n\n\n\n\n# A tibble: 9 × 4\n  family child  dob        name  \n   &lt;int&gt; &lt;chr&gt;  &lt;date&gt;     &lt;chr&gt; \n1      1 child1 1998-11-26 Susan \n2      1 child2 2000-01-29 Jose  \n3      2 child1 1996-06-22 Mark  \n4      3 child1 2002-07-11 Sam   \n5      3 child2 2004-04-05 Seth  \n6      4 child1 2004-10-10 Craig \n7      4 child2 2009-08-27 Khai  \n8      5 child1 2000-12-05 Parker\n9      5 child2 2005-02-28 Gracie"
+    "text": "Variable & Values in Column Names\n\n\nhousehold |&gt; \n  pivot_longer(\n    cols = !family, \n6    names_to = c(\".value\", \"child\"),\n    names_sep = \"_\", \n7    values_drop_na = TRUE\n  )\n\n\n\n6\n\n.value isn’t the name of a variable but a unique value that tells pivot_longer to use the first component of the pivoted column name as a variable name in the output.\n\n7\n\nUsing values_drop_na = TRUE again since not every family has 2 children.\n\n\n\n\n# A tibble: 9 × 4\n  family child  dob        name  \n   &lt;int&gt; &lt;chr&gt;  &lt;date&gt;     &lt;chr&gt; \n1      1 child1 1998-11-26 Susan \n2      1 child2 2000-01-29 Jose  \n3      2 child1 1996-06-22 Mark  \n4      3 child1 2002-07-11 Sam   \n5      3 child2 2004-04-05 Seth  \n6      4 child1 2004-10-10 Craig \n7      4 child2 2009-08-27 Khai  \n8      5 child1 2000-12-05 Parker\n9      5 child2 2005-02-28 Gracie"
   },
   {
     "objectID": "workshops/data_wrangling_r.html#pivot_wider",
@@ -1278,7 +1278,7 @@
     "href": "workshops/data_wrangling_r.html#csscr-consulting-services",
     "title": "",
     "section": "CSSCR Consulting Services",
-    "text": "CSSCR Consulting Services\nCSSCR is a resource center for the social science departments1 at the University of Washington.\n\nAs you continue to learn R feel free to drop by with any/all of your R coding questions. Below are our hours for the quarter:\n\n\n\n\n\n\n\n\n\n\n\n\nThe Center for Social Science Computation and Research\n\n\nConsulting Hours for Fall 2024\n\n\n\nIn-Person1\n\nVirtual2\n\n\n\n\n\nMonday\n8am - 6pm\n6 - 9pm\n\n\nTuesday\n8am - 6pm\n6 - 9pm\n\n\nWednesday\n8am - 6pm\n6 - 9pm\n\n\nThursday\n8am - 6pm\n6 - 9pm\n\n\nFriday\n8am - 5pm\n\n\n\n\n\n1 Drop-in @ Savery 119 2 Online Via Zoom\n\n\n\n\n\n\n\nConstituent member departments include The College of Education, The Department of Anthropology, The Department of Communication, The Department of Economics, The Department of Geography, The Department of Political Science, The Department of Psychology, The Department of Sociology, The Jackson School of International Studies, and The School of Social Work"
+    "text": "CSSCR Consulting Services\nCSSCR is a resource center for the social science departments1 at the University of Washington.\n\nAs you continue to learn R feel free to drop by with any/all of your R coding questions. Below are our hours for the quarter:\n\n\n\n\n\n\n\n\n\n\n\n\nThe Center for Social Science Computation and Research\n\n\nConsulting Hours for Fall 2025\n\n\n\nIn-Person1\n\nVirtual2\n\n\n\n\n\nMonday\n8am - 6pm\n6 - 9pm\n\n\nTuesday\n8am - 6pm\n6 - 9pm\n\n\nWednesday\n8am - 6pm\n6 - 9pm\n\n\nThursday\n8am - 6pm\n6 - 9pm\n\n\nFriday\n8am - 5pm\n\n\n\n\n\n1 Drop-in @ Savery 119 2 Online Via Zoom\n\n\n\n\n\n\n\nConstituent member departments include The College of Education, The Department of Anthropology, The Department of Communication, The Department of Economics, The Department of Geography, The Department of Political Science, The Department of Psychology, The Department of Sociology, The Jackson School of International Studies, and The School of Social Work"
   },
   {
     "objectID": "research.html",
