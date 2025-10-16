@@ -487,14 +487,14 @@
     "href": "workshops/data_wrangling_r.html#title-slide",
     "title": "",
     "section": "",
-    "text": "Data Wrangling in R\nCSSCR Workshop\n23 July 2025\nVictoria Sass"
+    "text": "Data Wrangling in R\nCSSCR Workshop\n16 October 2025\nVictoria Sass"
   },
   {
     "objectID": "workshops/data_wrangling_r.html#roadmap",
     "href": "workshops/data_wrangling_r.html#roadmap",
     "title": "",
     "section": "Roadmap",
-    "text": "Roadmap\n\n\nImporting and Exporting Data\nManipulating and Summarizing Data\nMerging Data\nTidying and Reshaping Data"
+    "text": "Roadmap\n\nImporting and Exporting Data\nManipulating and Summarizing Data\nMerging Data\nTidying and Reshaping Data"
   },
   {
     "objectID": "workshops/data_wrangling_r.html#data-packages",
@@ -515,7 +515,7 @@
     "href": "workshops/data_wrangling_r.html#readr",
     "title": "",
     "section": "readr",
-    "text": "readr\nR has some built-in functions for importing data, such as read.table() and read.csv().\n\nThe readr package provides similar functions, like read_csv(), that have slightly better features:\n\n\nFaster!\nBetter defaults (e.g. doesn’t automatically convert characters to factors)\nA bit smarter about dates and times\nLoading progress bars for large files\n\n\n\n\nreadr is one of the core tidyverse packages so loading tidyverse will load it too:\n\nlibrary(tidyverse)\n\n\n\nAlternatively, you can just load readr like so:\n\nlibrary(readr)"
+    "text": "readr\nR has some built-in functions for importing data, such as read.table() and read.csv().\n\nThe readr package provides similar functions, like read_csv(), that have slightly better features:\n\nFaster!\nBetter defaults (e.g. doesn’t automatically convert characters to factors)\nA bit smarter about dates and times\nLoading progress bars for large files\n\n\n\nreadr is one of the core tidyverse packages so loading tidyverse will load it too:\n\nlibrary(tidyverse)\n\n\n\nAlternatively, you can just load readr like so:\n\nlibrary(readr)"
   },
   {
     "objectID": "workshops/data_wrangling_r.html#readr-importing-example",
@@ -683,7 +683,7 @@
     "href": "workshops/data_wrangling_r.html#death-to-spreadsheets",
     "title": "",
     "section": "Death to Spreadsheets",
-    "text": "Death to Spreadsheets\nTools like Excel or Google Sheets let you manipulate spreadsheets using functions.\n\n\nSpreadsheets are not reproducible: It’s hard to know how someone changed the raw data!\nIt’s hard to catch mistakes when you use spreadsheets1.\n\n\n\nWe want to know how to use R to manipulate data more transparently and reproducibly.\n\nDon’t be the next sad Research Assistant who makes headlines with an Excel error! (Reinhart & Rogoff, 2010)"
+    "text": "Death to Spreadsheets\nTools like Excel or Google Sheets let you manipulate spreadsheets using functions.\n\nSpreadsheets are not reproducible: It’s hard to know how someone changed the raw data!\nIt’s hard to catch mistakes when you use spreadsheets1.\n\n\nWe want to know how to use R to manipulate data more transparently and reproducibly.\n\nDon’t be the next sad Research Assistant who makes headlines with an Excel error! (Reinhart & Rogoff, 2010)"
   },
   {
     "objectID": "workshops/data_wrangling_r.html#data-types-in-r",
@@ -732,7 +732,7 @@
     "href": "workshops/data_wrangling_r.html#dplyr-basics",
     "title": "",
     "section": "\ndplyr Basics",
-    "text": "dplyr Basics\nAll dplyr functions have the following in common:\n\n\nThe first argument is always a data frame.\nThe subsequent arguments typically describe which columns to operate on, using the variable names (without quotes).\nThe output is always a new data frame.\n\n\n\nEach function operates either on rows, columns, groups, or entire tables.\n\n\nTo save the transformations you’ve made to a data frame you’ll need to save the output to a new object."
+    "text": "dplyr Basics\nAll dplyr functions have the following in common:\n\nThe first argument is always a data frame.\nThe subsequent arguments typically describe which columns to operate on, using the variable names (without quotes).\nThe output is always a new data frame.\n\n\nEach function operates either on rows, columns, groups, or entire tables.\n\n\nTo save the transformations you’ve made to a data frame you’ll need to save the output to a new object."
   },
   {
     "objectID": "workshops/data_wrangling_r.html#subset-rows-filter",
@@ -837,7 +837,7 @@
     "href": "workshops/data_wrangling_r.html#summarizing-data-summarize",
     "title": "",
     "section": "Summarizing Data: summarize()\n",
-    "text": "Summarizing Data: summarize()\n\nsummarize() calculates summaries of variables in your data:\n\n\nCount the number of rows\nCalculate the mean\nCalculate the sum\nFind the minimum or maximum value\n\n\n\nYou can use any function inside summarize() that aggregates multiple values into a single value (like sd(), mean(), or max())."
+    "text": "Summarizing Data: summarize()\n\nsummarize() calculates summaries of variables in your data:\n\nCount the number of rows\nCalculate the mean\nCalculate the sum\nFind the minimum or maximum value\n\n\nYou can use any function inside summarize() that aggregates multiple values into a single value (like sd(), mean(), or max())."
   },
   {
     "objectID": "workshops/data_wrangling_r.html#summarize-example",
@@ -893,7 +893,7 @@
     "href": "workshops/data_wrangling_r.html#select-specific-rows-per-group-slice_",
     "title": "",
     "section": "Select Specific Rows Per Group: slice_*\n",
-    "text": "Select Specific Rows Per Group: slice_*\n\nThere are five handy functions that allow you extract specific rows within each group:\n\n\n\ndf |&gt; slice_head(n = 1) takes the first row from each group.\n\ndf |&gt; slice_tail(n = 1) takes the last row in each group.\n\ndf |&gt; slice_min(x, n = 1) takes the row with the smallest value of column x.\n\ndf |&gt; slice_max(x, n = 1) takes the row with the largest value of column x.\n\ndf |&gt; slice_sample(n = 1) takes one random row.\n\n\n\nLet’s find the flights that are most delayed upon arrival at each destination."
+    "text": "Select Specific Rows Per Group: slice_*\n\nThere are five handy functions that allow you extract specific rows within each group:\n\n\ndf |&gt; slice_head(n = 1) takes the first row from each group.\n\ndf |&gt; slice_tail(n = 1) takes the last row in each group.\n\ndf |&gt; slice_min(x, n = 1) takes the row with the smallest value of column x.\n\ndf |&gt; slice_max(x, n = 1) takes the row with the largest value of column x.\n\ndf |&gt; slice_sample(n = 1) takes one random row.\n\n\nLet’s find the flights that are most delayed upon arrival at each destination."
   },
   {
     "objectID": "workshops/data_wrangling_r.html#select-specific-rows-per-group-slice_-1",
@@ -921,7 +921,7 @@
     "href": "workshops/data_wrangling_r.html#keys",
     "title": "",
     "section": "Keys",
-    "text": "Keys\nKeys are the way that two datasets are connected to one another. The two types of keys are:\n\n\n\nPrimary: a variable or set of variables that uniquely identifies each observation.\n\nWhen more than one variable makes up the primary key it’s called a compound key\n\n\n\n\nForeign: a variable (or set of variables) that corresponds to a primary key in another table."
+    "text": "Keys\nKeys are the way that two datasets are connected to one another. The two types of keys are:\n\n\nPrimary: a variable or set of variables that uniquely identifies each observation.\n\nWhen more than one variable makes up the primary key it’s called a compound key\n\n\n\n\nForeign: a variable (or set of variables) that corresponds to a primary key in another table."
   },
   {
     "objectID": "workshops/data_wrangling_r.html#primary-keys",
@@ -935,7 +935,7 @@
     "href": "workshops/data_wrangling_r.html#foreign-keys",
     "title": "",
     "section": "Foreign Keys",
-    "text": "Foreign Keys\n\nNote: grey shading indicates the primary key for that particular dataset.\n\n\nflights$origin –&gt; airports$faa\n\n\nflights$dest –&gt; airports$faa\n\n\nflights$origin-flights$time_hour –&gt; weather$origin-weather$time_hour.\n\nflights$tailnum –&gt; planes$tailnum\n\n\nflights$carrier –&gt; airlines$carrier"
+    "text": "Foreign Keys\n\nNote: grey shading indicates the primary key for that particular dataset.\n\nflights$origin –&gt; airports$faa\n\n\nflights$dest –&gt; airports$faa\n\n\nflights$origin-flights$time_hour –&gt; weather$origin-weather$time_hour.\n\nflights$tailnum –&gt; planes$tailnum\n\n\nflights$carrier –&gt; airlines$carrier"
   },
   {
     "objectID": "workshops/data_wrangling_r.html#checking-keys",
@@ -970,7 +970,7 @@
     "href": "workshops/data_wrangling_r.html#left_join",
     "title": "",
     "section": "\nleft_join() \n",
-    "text": "left_join() \n\n\n\n\n\n\n\n\n\nThe most common type of join\nAppends columns from y to x by the rows in x\n\n\nNA added if there is nothing from y\n\n\n\nNatural join: when all variables that appear in both datasets are used as the join key\n\nIf the join_by() argument is not specified, left_join() will automatically join by all columns that have names and values in common."
+    "text": "left_join() \n\n\n\n\n\n\n\n\nThe most common type of join\nAppends columns from y to x by the rows in x\n\n\nNA added if there is nothing from y\n\n\n\nNatural join: when all variables that appear in both datasets are used as the join key\n\nIf the join_by() argument is not specified, left_join() will automatically join by all columns that have names and values in common."
   },
   {
     "objectID": "workshops/data_wrangling_r.html#left_join-in-nycflights13",
@@ -1075,7 +1075,7 @@
     "href": "workshops/data_wrangling_r.html#more-than-one-match",
     "title": "",
     "section": "More Than One Match",
-    "text": "More Than One Match\n\n\nThere are three possible outcomes for a row in x:\n\n\nIf it doesn’t match anything, it’s dropped.\nIf it matches 1 row in y, it’s preserved.\nIf it matches more than 1 row in y, it’s duplicated once for each match.\n\n\n\n\nWhat happens if we match on more than one row?"
+    "text": "More Than One Match\n\n\nThere are three possible outcomes for a row in x:\n\nIf it doesn’t match anything, it’s dropped.\nIf it matches 1 row in y, it’s preserved.\nIf it matches more than 1 row in y, it’s duplicated once for each match.\n\n\n\nWhat happens if we match on more than one row?"
   },
   {
     "objectID": "workshops/data_wrangling_r.html#more-than-one-match-1",
@@ -1110,14 +1110,14 @@
     "href": "workshops/data_wrangling_r.html#what-is-tidy-data",
     "title": "",
     "section": "What is Tidy Data",
-    "text": "What is Tidy Data\nTidy data1 (aka “long data”) are such that:\n\n\n\n\n\n\nThe values for a single variable are in their own column.\nThe values for a single observation are in their own row.\nThere is only one value per cell.\n\n\nRead the original article here."
+    "text": "What is Tidy Data\nTidy data1 (aka “long data”) are such that:\n\n\n\n\n\nThe values for a single variable are in their own column.\nThe values for a single observation are in their own row.\nThere is only one value per cell.\nRead the original article here."
   },
   {
     "objectID": "workshops/data_wrangling_r.html#why-do-we-want-tidy-data",
     "href": "workshops/data_wrangling_r.html#why-do-we-want-tidy-data",
     "title": "",
     "section": "Why do we Want Tidy Data?",
-    "text": "Why do we Want Tidy Data?\n\n\n\nEasier to understand many rows than many columns1\n\nRequired for plotting in ggplot22\n\nRequired for many types of statistical procedures (e.g. hierarchical or mixed effects models)\nFewer issues with missing values and “imbalanced” repeated measures data\nHaving a consistent method for storing data means it’s easier to learn the tools to work with it since there’s an underlying uniformity.\n\n\n\nMost real-world data is not tidy because data are often organized for goals other than analysis (i.e. data entry) and most people aren’t familiar with the principles of tidy data.\n\nPlacing variables in columns also leverages R’s vectorized nature, i.e. most built-in R functions work with values of vectors.In fact, all tidyverse functions are designed to work with tidy data."
+    "text": "Why do we Want Tidy Data?\n\n\nEasier to understand many rows than many columns1\n\nRequired for plotting in ggplot22\n\nRequired for many types of statistical procedures (e.g. hierarchical or mixed effects models)\nFewer issues with missing values and “imbalanced” repeated measures data\nHaving a consistent method for storing data means it’s easier to learn the tools to work with it since there’s an underlying uniformity.\n\n\nMost real-world data is not tidy because data are often organized for goals other than analysis (i.e. data entry) and most people aren’t familiar with the principles of tidy data.\n\nPlacing variables in columns also leverages R’s vectorized nature, i.e. most built-in R functions work with values of vectors.In fact, all tidyverse functions are designed to work with tidy data."
   },
   {
     "objectID": "workshops/data_wrangling_r.html#slightly-messy-data",
@@ -1145,7 +1145,7 @@
     "href": "workshops/data_wrangling_r.html#how-is-billboard-currently-organized",
     "title": "",
     "section": "How is Billboard currently organized?",
-    "text": "How is Billboard currently organized?\n\n\nWhat are the observations in the data?\n\nSong on the Billboard chart each week\n\n\nWhat are the variables in the data?\n\nYear, artist, track, song length, date entered Hot 100, week since first entered Hot 100 (spread over many columns), rank during week (spread over many columns)\n\n\nWhat are the values in the data?\n\ne.g. 2000; 3 Doors Down; Kryptonite; 3 minutes 53 seconds; April 8, 2000; Week 3 (stuck in column headings); rank 68 (spread over many columns)"
+    "text": "How is Billboard currently organized?\n\nWhat are the observations in the data?\n\nSong on the Billboard chart each week\n\n\nWhat are the variables in the data?\n\nYear, artist, track, song length, date entered Hot 100, week since first entered Hot 100 (spread over many columns), rank during week (spread over many columns)\n\n\nWhat are the values in the data?\n\ne.g. 2000; 3 Doors Down; Kryptonite; 3 minutes 53 seconds; April 8, 2000; Week 3 (stuck in column headings); rank 68 (spread over many columns)"
   },
   {
     "objectID": "workshops/data_wrangling_r.html#tidyr",
@@ -1159,7 +1159,7 @@
     "href": "workshops/data_wrangling_r.html#pivot_longer",
     "title": "",
     "section": "pivot_longer()",
-    "text": "pivot_longer()\nThis function usually takes three arguments:\n\n\n\ncols: The columns that need to be pivoted (are not variables)\n\nnames_to: Names the new variable that is stored in multiple columns\n\nvalues_to: Names the variable stored in the cell values"
+    "text": "pivot_longer()\nThis function usually takes three arguments:\n\n\ncols: The columns that need to be pivoted (are not variables)\n\nnames_to: Names the new variable that is stored in multiple columns\n\nvalues_to: Names the variable stored in the cell values"
   },
   {
     "objectID": "workshops/data_wrangling_r.html#pivot_longer-1",

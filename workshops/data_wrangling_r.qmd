@@ -43,7 +43,7 @@ library(nycflights13)
 
 [CSSCR Workshop]{.custom-subtitle}
 
-[23 July 2025]{.custom-subtitle2}
+[16 October 2025]{.custom-subtitle2}
 
 [Victoria Sass]{.custom-subtitle3}
 
@@ -2215,4 +2215,5 @@ hours |>
 
 
 # Thanks!{.section-title background-color="#4B2E83"}
+
 
