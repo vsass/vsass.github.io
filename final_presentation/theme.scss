@@ -1,0 +1,74 @@
+
+/*-- scss:defaults --*/
+
+// fonts
+@import url('https://fonts.googleapis.com/css2?family=Quattrocento:wght@400;700&family=Roboto+Mono&display=swap');
+
+$font-family-sans-serif: Quattrocento, sans-serif;
+$font-family-monospace: 'Roboto Mono', monospace;
+$presentation-heading-font: $font-family-sans-serif;
+
+//formating stuff
+
+$presentation-heading-line-height: 1.3;
+$presentation-font-smaller: 0.8;
+$presentation-heading-font-weight: 400;
+$presentation-font-size-root: 32px;
+
+// colors
+$orange: #f88a4f;
+$green: #148f8d;
+$grey: #646262; 
+$white: #fff;
+
+
+$body-color: $grey;
+$presentation-heading-color: $green;
+$body-bg: $white;
+$link-color: $orange; 
+$link-hover-color: $orange;
+$btn-link-hover-color: $green;
+$tabset-border-color: $green;
+$tabset-border-color: $orange;
+
+
+// class selectors
+.custom-title { 
+  font-family: $font-family-sans-serif;
+  color: $green;
+  font-size: 2.35em;
+  position: relative;
+  top: 3em;
+  margin: 0;
+}
+
+.custom-subtitle { 
+  font-family: $font-family-sans-serif;
+  color: $grey;
+  font-size: 1.5em;
+  position: relative;
+  top: 7em;
+  margin: 0;
+}
+
+.reveal .slide-logo {
+  z-index: -999 !important;
+  display: block;
+  position: fixed;
+  top: unset !important;
+  left: unset !important;
+  bottom: 5px;
+  right: 12px;
+  height: 110px !important;
+  width: 110px !important;
+  max-width: unset !important;
+  max-height: unset !important;
+}
+
+.reveal .slides section {
+      font-size: 75%;
+    }
+    
+.reveal .slide aside .aside-footnotes {
+    font-size: 85%;
+}

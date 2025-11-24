@@ -1,0 +1,143 @@
+---
+title: "Appendix"
+format: html
+reference-location: margin
+---
+
+Below are the steps/rationale taken to clean and merge the individual datasets necessary to conduct our analyses. Code available upon request. 
+
+## Data Cleaning
+
+#### H-SYNC Data
+
+- Referral date (from study data) was appended to hsync person file
+- De-duplicated individuals with two logon-ids in PACT so all PACT data associated with the same logon_id
+- Linked hsync person-file with PACT data
+
+#### PACT Data
+
+- Merged H-SYNC pact data with non-HSYNC pact data
+- Recoding date of birth (DOB) variable in PACT (using CCRD DOB)
+    - PACT DOB data was rife with typos resulting in a range in ages of -983.24 to 126.24 years
+    - CCRD DOB data did not have the same issues and had an age range of 9.11 to 48.4 years old
+    - Therefore, PACT DOB was recoded to CCRD DOB (if available) and left as is otherwise
+        - 2 non-HSYNC folks had no ccrd DOB and their PACT DOB was erroneous (resulted in ages at PACT assessment start of ~ 0 and 1 year old respectively); they were removed
+        - This resulted in a new PACT DOB range of 9.11 to 48.4 years old
+        - Most common typo errors in PACT dob for year
+            - 2995 —> 1995
+            - 2202 —> 2002
+            - 2204 —> 2004
+            - 2033 —> 2003
+            - 2012 —> 2002
+            - 2013 —> 2003
+            - 1983 —> 1993
+            - 1984 —> 1994
+            - 1885 —> 1995
+            - various iterations of using assessment year (+/- 1 or 2 years) rather than birth year
+
+    
+#### CCRD Data 
+
+- Cleaned up zip code variable 
+    - In order to derive a county variable (for matching) from the ccrd person-file, the zip code variable was used
+        - Unfortunately this variable had many typos that needed to be handled first
+    - The strategy for the zip code data was:
+        - Use zipcodeR package to create a lookup table of valid zip codes in Washington state
+        - Using said table, separate ccrd person file into observations with:
+            - invalid zip codes (634 obs)
+                - removed missing observations (517 observations)
+                - performed a fuzzy join with zip code lookup table using OSA method and allowing for up to a 2 digit distance from a valid zip code
+                - kept the top 3 matches for each individual by smallest string distance
+                - merged in ccrd disposition data to leverage information about disposition counties
+                    - pre-merge, weights for frequency of county appearance were created for each individual (in order to break ties based solely on string distance of potential zip code matches from the fuzzy join)
+                - each potential county match was given a score based upon the product of:
+                    - a similarity index of existing zip to potential valid matching zip (using exponential decay function)
+                    - 1 + 3*county weights from disposition data (if disposition county was not represented in potential fuzzy match this weight = 0)
+                - all county scores within each individual were summed to create a total score for each potential matching county
+                - the highest scoring county was selected for each research id as the most likely county
+                - this resulted in 109 individuals with one most likely county and 27 individuals with tied most likely counties
+                    - the tied counties were due to no county match between the fuzzy join counties and ccrd disposition counties
+                    - to break the tie, geographic distances between potential fuzzy join counties and all ccrd disposition counties were calculated
+                    - the fuzzy join county with the nearest proximity to a ccrd disposition county was selected as the most likely county
+            - valid zip codes
+                - 8,915 observations had matching zip codes in the zip code lookup table
+                - 11 individuals had multiple valid zip codes, 2 of which had valid zip codes for different counties
+                    - county weights from ccrd disposition data were calculated for those 2 individuuals
+                    - a weighted score was calculated as (1 + 3*county_weight); again, county_weight = 0 if it was not one of their valid counties from the person-file data
+                    - weighted scores were summed by county for each respondent to derive a total score for each valid person-file county
+                    - both respondents had a highest total score and were assigned that respective county for the person-file data
+                - the 9 individuals with multiple valid matches that were the same county were deduplicated
+                - all valid observations were combined (8,907 obs)
+            - missing zip codes
+                - first, observations with missing zip codes were anti_joined with all valid zip code observations to remove respondents with a valid observation (2 individuals)
+                - to impute most likely county for the 515 respondents with only missing zip codes, the same ccrd disposition county weights were created
+                    - the highest weighted county was assigned as most likely person-file county
+                    - there were 7 individuals that had ties for highest county weight but all had birth years outside the range of our treatment group so their first county was selected (they will eventually be filtered out of the data)
+                    - 6 individuals had no valid zip code and no ccrd disposition data and were removed from the data
+                - 509 missing zip codes imputed using ccrd disposition weighted counties
+                
+- Harmonized multiple logon_ids in CCRD with PACT logon id
+    - 27 individuals in ccrd person file data had 2 logon ids
+        - 16 were explicit (1 observation per research_id with non-missing values for **both** logon_id_1 and logon_id_2)
+        - 11 were implicit (2 observations per research_id with non_missing value for logon_id_1 and missing for logon_id_2)
+            - these were reformatted to have only 1 observation per person and non-missing values for both logon_id_1 and logon_id_2
+    - An id-lookup table was created from the ccrd person-file using logon_id_1 and logon_id_2
+        - This table was merged with all PACT observations by logon_id_2 thereby adding the associated logon_id_1 value for those with both
+        - logon_id in PACT was recoded to logon_id_1 if non-missing (our duplcates) and kept as is otherwise (everyone else with only one unique logon id value
+
+
+## Merging Data
+
+#### Preliminary steps
+
+- Filtered PACT data: 
+    - Birth years between 1999-2008^[Similar to the range of birth years for H-SYNC participants (2000-2007) +/- 1 year]
+    - H-SYNC participants
+        - Valid PACT assessment within 90 days (before or after) their referral date to H-SYNC program^[If multiple within that time-frame, the PACT assessment conducted closest to their referral date was selected]
+    - Non H-SYNC participants
+        - For respondents with multiple PACT assessments conducted on the same day, the most complete^[In terms of assessment type followed by degree of missingness of PACT variables] assessment was selected
+
+- Filtered CCRD data: 
+    - Birth years between 1999-2008
+    - Offense severity either felony or misdemeanor
+    - Counties for within and between county matching
+        Within: King, Kitsap, Okanogan, Snohomish
+        Between: King, Pierce, Spokane, Snohomish, Kitsap, Clark, Mason, Jefferson, Clallam, Skagit, Okanogan, Kittitas, Ferry, Douglas, Chelan
+    
+#### Merging Data
+
+*PACT and CCRD data were then merged into one dataset, with duplicate variables^[Sex, Race, and County] from each retained to enable proper recoding.*
+
+#### Recoding Data
+
+- Sex
+    - Consistent measures between PACT and CCRD left as is
+    - If CCRD `sex` missing, assigned PACT `sex`
+    - Reassigned discrepancies between the two datasets to CCRD `sex`
+- Race 
+    - Consistent measures between PACT and CCRD left as is
+    - Anything coded as `Missing` or `Other` in PACT that had a valid descriptive racial category in CCRD was assigned CCRD `race`
+    - Values of `American` in PACT were recoded to their CCRD `race`
+        - If missing in CCRD, recoded as `American Indian/Alaskan Native`^[63% of all `American` in PACT were coded as `American Indian/Alaskan Native` in CCRD]
+    - `Hispanic` was its own racial category in PACT and not part of the racial categories in CCRD (a separate indicator for ethnicity was available)
+        - Anyone coded `Hispanic` for PACT with a valid racial category in CCRD was assigned their CCRD `race`
+        - If CCRD race was missing, their `race` was coded `Unknown/Missing`
+    - If CCRD `race` missing, PACT `race` was assigned
+    - For inconsistencies between PACT and CCRD `race`, PACT was assigned
+    - If PACT `race` missing, CCRD was assigned
+    - `Multiracial` and `Other` were combined into one category due to small N
+- Ethnicity (Hispanic)
+    - If CCRD `ethnicity` was `Hispanic`, coded `Hispanic`
+    - If CCRD `ethnicity` was `Not Hispanic` but PACT `race` was `Hispanic`, coded `Hispanic`
+    - If CCRD `ethnicity` was missing, coded `Not Hispanic`
+- County
+    - `within_county` was coded from PACT `county`
+    - `between_county`
+        - H-SYNC participants were coded from PACT `county`
+        - Potential controls were assigned to corresponding PACT `county` based upon similarity of `CCRD` counties
+            - King <-- King, Spokane, Snohomish^[CCRD counties coded as Snohomish were proportionally assigned to King and `Snohomish` counties based on distribution of those two counties among H-SYNC participants.], Pierce^[CCRD counties coded as `Pierce` were proportionally assigned to King and Snohomish counties based on distribution of those two counties among H-SYNC participants.]
+            - Kitsap <-- Kitsap, Clark, Mason, Jefferson, Clallam
+            - Okanogan <-- Okanogan, Kittitas, Ferry, Douglas, Chelan
+            - Snohomish <-- Snohomish, Pierce
+    
+    

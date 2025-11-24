@@ -1,0 +1,315 @@
+---
+format: 
+  revealjs:
+    logo: images/HSYNC-Logo.webp
+    theme: theme.scss
+    controls: true
+    controls-tutorial: true
+    slide-number: true
+    incremental: true
+    history: false
+    progress: true
+    smaller: true
+
+---
+
+## {#title-slide data-menu-title="H-SYNC and Recidivism" background-image="images/CoLab-large.webp" background-position="top 10% center" background-size="35%" background-color="#fff"}
+
+[Housing Stability for Youth in Courts (H-SYNC) and Recidivism]{.custom-title}
+
+[Victoria Sass, Sarah Walker, Jerald Herting]{.custom-subtitle}
+
+## Overview
+
+:::: {.columns}
+
+::: {.column width="50%"}
+::: {.fragment .fade-in-then-semi-out .nonincremental}
+- [Background]{style="color:#f88a4f;font-weight:bold"}
+    - Motivation
+    - Data
+    - Creating Control Groups
+        - Calculating prior court contact
+        - Calculating recidivism
+    - Balancing the Data
+    - Random-Matching Dataset Search
+:::
+
+::: {.fragment .fade-in-then-semi-out .nonincremental}
+- [Balance Diagnostics]{style="color:#f88a4f;font-weight:bold"} 
+    - Overall
+    - Covariate Balance:<br>&nbsp;&nbsp;&nbsp;&nbsp;Better after Matching
+    - Covariate Balance:<br>&nbsp;&nbsp;&nbsp;&nbsp;Similar/Worse After Matching
+:::
+:::
+
+::: {.column width="50%"}
+::: {.fragment .fade-in-then-semi-out .nonincremental}
+- [Survival Analysis Results]{style="color:#f88a4f;font-weight:bold"}
+    - All Offense Types
+    - Felonies
+    - Misdemeanors
+:::
+
+::: {.fragment .fade-in-then-semi-out .nonincremental}
+- [Recidivism Offense Types]{style="color:#f88a4f;font-weight:bold"}
+    - COVID-19
+    - Tables
+        - Offense Types
+        - Offense Types by Year
+    - Streamgraphs
+        - Offense Types (Proportional)
+        - Offense Types (Count)
+        - Offense Severity (Proportional)
+        - Offense Severity (Count)
+::: 
+:::
+
+::::
+
+# Background 
+
+## Motivation
+
+- The H-SYNC pilot program (2019–2022) was developed by the [UW CoLab](https://uwcolab.org/) in partnership with Snohomish and Kitsap County workgroups to prevent youth homelessness by identifying and supporting at-risk youth within the juvenile court system. 
+    - Implemented in King, Snohomish, Kitsap, and Okanogan counties, the program used a stepped-care model to connect youth and their families to prevention, intervention, and housing services based on their level of need. 
+- Following the pilot, coordination of H-SYNC transitioned to the Y Social Impact Center at the YMCA of Greater Seattle, expanding into a statewide collaboration between juvenile courts and community service providers.
+
+. . . 
+
+<hr>
+
+<br>
+
+The goal of the current analysis is to evaluate if engagement with H-SYNC during the pilot program impacted recidivism compared to a matched control group. 
+
+
+## Data
+
+- In order to create the necessary dataset for this analysis, H-SYNC pilot study data was linked to two research databases^[Developed by the Washington State Center for Court Research, as part of the MacArthur Models for Change Initiative in Washington State.]:
+  - *The Assessments Research Database* (**ARD**), which includes responses to the PACT 2.0 Full-Assessment for juveniles^[A 126-item, multiple choice in-depth assessment instrument, which produces research-validated risk level scores measuring a juvenile's risk of re-offending.].
+  - *The Court Contact and Recidivism Database* (**CCRD**). This resource contains all individual contacts with the Washington court system regardless of age, enabling longitudinal analysis of juvenile dispositions. 
+- Once these data were cleaned and merged^[See the [Appendix](Appendix.qmd) for more details.], H-SYNC participants with missing values on key matching variables were dropped, resulting in a final treatment group of [52]{style="color:#f88a4f;font-weight:bold"} individuals. 
+
+## Creating Control Groups
+
+ARD and CCRD data were also used to construct the pool of potential controls with which to compare H-SYNC participants.
+
+. . . 
+
+#### Calculating prior court contact
+
+A key feature of creating these potential controls involved the creation of a **level of prior court contact** variable which could be used in the subsequent matching process. The approach was:
+
+- Every possible control was paired with each H-SYNC participant to leverage their referral-date to the pilot program. 
+- Using that date as an anchor, only control cases with court contact within the prior year were retained as a potential match for that H-SYNC participant.
+- For all H-SYNC participants and their respective controls, all instances of court contact prior to the referral date were summed to create a count. 
+    - Total, felony, and misdemeanor counts were created and the date of offense was used (rather than the filing date) to ensure accurate timing. 
+
+## Creating Control Groups
+
+ARD and CCRD data were also used to construct the pool of potential controls with which to compare H-SYNC participants.
+
+#### Calculating recidivism
+
+- A survival window was calculated based on the latest referral date to the H-SYNC program (August 23, 2021) and the latest date of court contact in the CCRD data (September 26, 2023) which resulted in a span of 764 days (~ 2 years).
+- This window was then used to calculated survival time between the referral date and days to reoffense, or the full period if there was no reoffense for that treatment or control case. 
+- Analyses were conducted on all dispositions available in CCRD as well as a collapsed version of dispositions based upon offense date^[This entailed filtering dispositions for only one instance of either felony or misdemeanor on the same offense date to avoid duplicate observations pertaining to the same offense.]
+    - Only the [**within**]{style="color:#f88a4f"}-county analysis with [**collapsed**]{style="color:#f88a4f"} dispositions will be presented here but all analyses showed similar findings.
+
+---
+
+### Balancing the Data
+
+The following variables were used to create a balanced dataset using the [MatchIt package](https://kosukeimai.github.io/MatchIt/)^[Optimal full matching was applied with coarsened versions of covariates to ensure adequate numbers of potential matching cases.] in `R`.
+
+:::: {.columns}
+
+::: {.column width="50%"}
+#### Demographics
+
+::: {.fragment .nonincremental}
+- Referral date (coarsened into 9 seasons^[Exact matching specified for this variable.])
+- Birth year (coarsened into 4 categories)
+- County of offense^[Both within- and between-county analyses were run.]
+- Sex
+- Race
+- Hispanic ethnicity
+- Court-contact history (coarsened into a binary of 1 offense/2+ offenses)
+:::
+
+:::
+
+::: {.column width="50%"}
+#### PACT assessment
+
+::: {.fragment .nonincremental}
+::: {style="font-size: 0.85em"}
+- Individual variables
+  - Runaway history
+  - Alcohol history
+  - Court contact history
+  - Adult supervision
+  - School enrollment
+  - History of neglect
+  - Mental health history
+- z-score indicies (7) derived from a factor analysis of PACT assessment variables
+:::
+:::
+
+
+:::
+
+::::
+
+---
+
+### Random-Matching Dataset Search
+
+::: {style="font-size: 0.80em"}
+Once survival times were calculated, the resulting dataset had duplicate control cases for individuals who were flagged as a potential control for more than one referral date.
+:::
+
+::: {.fragment}
+```{r}
+#| echo: false
+#| fig-width: 15
+#| fig-height: 5
+#| fig-align: center
+
+library(tidyverse)
+
+duplicate_counts <- read_csv("duplicate_counts.csv")
+
+duplicate_counts |> 
+  ggplot(aes(x = duplicates, y = n, fill = duplicates)) + 
+  geom_col() + 
+  paletteer::scale_fill_paletteer_c("ggthemes::Red-Gold") +
+  labs(x = "Number of duplicate observations (per unique control case)", y = "Count", 
+       title = "Distribution of Duplicates for Potential Control Cases") + 
+  ggthemes::theme_tufte(base_size = 18) + 
+  theme(legend.position = "none")
+  
+
+```
+:::
+
+::: {.incremental style="font-size: 0.80em"}
+- Using parallel processing, 5 million potential matching datasets^[There are $\approx 3.28\times10^{521}$ possible one-observation-per-id datasets (a 522-digit number).] were created, each with only one observation per control.
+    - The dataset with the best balance on key metrics was selected and used for the final survival analyses. 
+
+:::
+
+# Balance Diagnostics 
+
+# [Overall]{style="color:#f88a4f"}
+
+--- 
+
+![](visualizations/04-creating-matched-data/diagnostics/within_county/overall_cov_bal.png){.absolute top="-5%" left="-8%" width="109%" height="105%" style="max-width: unset; max-height: unset;"}
+
+# Covariate Balance:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Better after Matching]{style="font-size: 0.75em; color:#f88a4f"}
+
+---
+
+![](visualizations/04-creating-matched-data/diagnostics/within_county/demographics1.png){.absolute top="-5%" left="-8%" width="109%" height="105%" style="max-width: unset; max-height: unset;"}
+
+---
+
+![](visualizations/04-creating-matched-data/diagnostics/within_county/demographics2.png){.absolute top="-5%" left="-8%" width="109%" height="105%" style="max-width: unset; max-height: unset;"}
+
+---
+
+![](visualizations/04-creating-matched-data/diagnostics/within_county/factor_zscores.png){.absolute top="-5%" left="-8%" width="109%" height="105%" style="max-width: unset; max-height: unset;"}
+
+--- 
+
+![](visualizations/04-creating-matched-data/diagnostics/within_county/pact_vars.png){.absolute top="-5%" left="-8%" width="109%" height="105%" style="max-width: unset; max-height: unset;"}
+
+# Covariate Balance:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Similar/Worse after Matching]{style="font-size: 0.75em; color: #f88a4f"}
+
+---
+
+![](visualizations/04-creating-matched-data/diagnostics/within_county/worse_balance.png){.absolute top="-5%" left="-8%" width="109%" height="105%" style="max-width: unset; max-height: unset;"}
+
+
+# Survival Analysis Results<br>[Within County & Dispositions Collapsed]{.fragment style="font-size: 0.70em; color: #f88a4f;"}
+
+# [All Offense Types]{style="color: #f88a4f;"}
+
+---
+
+![](visualizations/05-survival-analysis/kaplan_meier_plots/within_county/collapsed/kmplot_all_collapsed_within.png){.absolute top="-5%" left="-8%" width="109%" height="105%" style="max-width: unset; max-height: unset;"}
+
+# [Felonies]{style="color: #f88a4f;"}
+
+---
+
+![](visualizations/05-survival-analysis/kaplan_meier_plots/within_county/collapsed/kmplot_felony_collapsed_within.png){.absolute top="-5%" left="-8%" width="109%" height="105%" style="max-width: unset; max-height: unset;"}
+
+
+# [Misdemeanors]{style="color: #f88a4f;"}
+
+---
+
+![](visualizations/05-survival-analysis/kaplan_meier_plots/within_county/collapsed/kmplot_misdemeanor_collapsed_within.png){.absolute top="-5%" left="-8%" width="109%" height="105%" style="max-width: unset; max-height: unset;"}
+
+# Recidivism Offense Types
+
+## COVID-19
+
+- Given the timing of the H-SYNC pilot program (2019-2022), there may be reason to believe that the impact of the COVID-19 pandemic (which began to spread worldwide in January 2020) and the ensuing statewide "stay-at-home" orders differentially impacted levels of recidivism between our treatment and control groups. 
+  - Washington state had both the first confirmed case^[Officially announced on January 21, 2020] and deaths^[The first death was originally reported to have occurred on February 29 but it was later confirmed that two deaths on February 26 were due to COVID-19.] related to the pandemic in the United States.
+  - The state of emergency declared by Governor Jay Inslee on February 29, 2020 was officially in effect until October 31, 2022, though the state officially lifted restrictions on businesses, transit agencies, and most other activities (with the exception of large indoor events) on June 30, 2021. 
+
+. . . 
+
+<hr> 
+
+Given the difference in recidivism between our treatment and control groups, a further investigation into the type and severity of offenses was conducted. 
+
+# [Offense Types]{style="color: #f88a4f;"}
+
+---
+
+![](visualizations/06-recidivism-offense-types/within_county/tables/offense_types_collapsed.png){.absolute top="-5%" left="27.5%" width="45%" height="105%" style="max-width: unset; max-height: unset;"}
+
+# [Offense Types by Year]{style="color: #f88a4f"}
+
+---
+
+![](visualizations/06-recidivism-offense-types/within_county/tables/offense_types_year_collapsed.png){.absolute top="-5%" left="-8%" width="109%" height="100%" style="max-width: unset; max-height: unset;"}
+
+
+# [Offense Types (Proportional)]{style="color: #f88a4f;"}
+
+---
+
+![](visualizations/06-recidivism-offense-types/within_county/streamgraphs/streamgraph_offense_cat_prop.png){.absolute top="-5%" left="-8%" width="109%" height="105%" style="max-width: unset; max-height: unset;"}
+
+# [Offense Types (Count)]{style="color: #f88a4f;"}
+
+---
+
+![](visualizations/06-recidivism-offense-types/within_county/streamgraphs/streamgraph_offense_cat_count.png){.absolute top="-5%" left="-8%" width="109%" height="105%" style="max-width: unset; max-height: unset;"}
+
+# [Offense Severity (Proportional)]{style="font-size: 0.94em; color: #f88a4f;"}
+
+---
+
+![](visualizations/06-recidivism-offense-types/within_county/streamgraphs/streamgraph_severity_prop.png){.absolute top="-5%" left="-8%" width="109%" height="105%" style="max-width: unset; max-height: unset;"}
+
+# [Offense Severity (Count)]{style="color: #f88a4f;"}
+
+---
+
+![](visualizations/06-recidivism-offense-types/within_county/streamgraphs/streamgraph_severity_count.png){.absolute top="-5%" left="-8%" width="109%" height="105%" style="max-width: unset; max-height: unset;"}
+
+
+
+
+
+
+
+
+

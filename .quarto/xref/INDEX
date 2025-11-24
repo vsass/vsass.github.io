@@ -19,5 +19,11 @@
   },
   "workshops/text_analysis.qmd": {
     "text_analysis.html": "5ab8cbb5"
+  },
+  "final_presentation/final_presentation.qmd": {
+    "final_presentation.html": "4747245f"
+  },
+  "final_presentation/Appendix.qmd": {
+    "Appendix.html": "bed77e8e"
   }
 }
