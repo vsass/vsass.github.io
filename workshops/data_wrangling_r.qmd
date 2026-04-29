@@ -2190,26 +2190,24 @@ As you continue to learn `R` feel free to drop by with any/all of your `R` codin
 #| echo: false
 library(gt)
 hours <- tibble(day = c("Monday", "Tuesday", "Wednesday", "Thursday", "Friday"), 
-                drop_in = c(rep("8am - 6pm", 4), "8am - 5pm"), 
-                evening = c(rep("6 - 9pm", 4), ""))
+                drop_in = rep("8am - 5pm", 5))
 
 hours |> 
   gt(rowname_col = "day") |> 
   tab_header(title = "The Center for Social Science Computation and Research", 
-             subtitle = "Consulting Hours for Fall 2025")  |> 
-  cols_label(drop_in = "In-Person", 
-             evening = "Virtual") |> 
+             subtitle = "Consulting Hours for Spring 2026")  |> 
+  cols_label(drop_in = "In-Person") |> 
   tab_footnote(footnote = "Drop-in @ Savery 119", 
                locations = cells_column_labels(columns = drop_in), 
                placement = "right") |> 
-  tab_footnote(footnote = "Online Via Zoom", 
-               locations = cells_column_labels(columns = evening), 
-               placement = "right") |> 
-  tab_options(footnotes.multiline = FALSE) |> 
+  #tab_footnote(footnote = "Online Via Zoom", 
+  #             locations = cells_column_labels(columns = evening), 
+  #             placement = "right") |> 
+  #tab_options(footnotes.multiline = FALSE) |> 
   data_color(columns = drop_in, 
-             palette = c("LightGoldenrodYellow", "PaleGoldenrod")) |> 
-  data_color(columns = evening, 
-             palette = "Purples")
+             palette = "LightGoldenrodYellow") 
+  #data_color(columns = evening, 
+  #           palette = "Purples")
 
 ```
 
