@@ -8,3 +8,6 @@
 workshops/data/
 *.csv
 *.rds
+.positai
+
+**/*.quarto_ipynb

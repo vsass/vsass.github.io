@@ -43,7 +43,7 @@ library(nycflights13)
 
 [CSSCR Workshop]{.custom-subtitle}
 
-[16 October 2025]{.custom-subtitle2}
+[29 April 2026]{.custom-subtitle2}
 
 [Victoria Sass]{.custom-subtitle3}
 
@@ -345,9 +345,9 @@ For each column in a data frame, `readr` functions pull the first 1000 rows and 
 %%| fig-height: 5.5
 %%| fig-align: center
 flowchart LR
-    id1((Variable))==>A(["1. Does it contain only F, T, FALSE, TRUE, or NA (ignoring case)?"])==>id2{{Logical}}
-    id1((Variable))==>B(["2. Does it contain only numbers (e.g., 1, -4.5, 5e6, Inf?)"])==>id3{{Number}}
-    id1((Variable))==>C(["3. Does it match the ISO8601 standard?"])==>id4{{Date/Date-time}}
+    id1((Variable))==>A(["1. Contain TRUE/FALSE/NA?"])==>id2{{Logical}}
+    id1((Variable))==>B(["2. Contain only numbers"])==>id3{{Number}}
+    id1((Variable))==>C(["3. Match ISO8601 standard?"])==>id4{{Date/Date-time}}
     id1((Variable))==>D(["4. None of the above"])==>id5{{String}}
     style id1 fill:#4B2E83,color:#B7A57A,stroke:#B7A57A
     style id2 fill:#B7A57A,color:#4B2E83,stroke:#4B2E83
@@ -368,12 +368,12 @@ For each column in a data frame, `readr` functions pull the first 1000 rows and 
 ```{mermaid}
 %%| echo: false
 %%| fig-width: 11
-%%| fig-height: 5.5
+%%| fig-height: 8
 %%| fig-align: center
 flowchart LR
-    id1((Variable))==>A(["1. Does it contain only F, T, FALSE, TRUE, or NA (ignoring case)?"])==>id2{{Logical}}
-    id1((Variable))==>B(["2. Does it contain only numbers (e.g., 1, -4.5, 5e6, Inf?)"])==>id3{{Number}}
-    id1((Variable))==>C(["3. Does it match the ISO8601 standard?"])==>id4{{Date/Date-time}}
+    id1((Variable))==>A(["1. Contain TRUE/FALSE/NA?"])==>id2{{Logical}}
+    id1((Variable))==>B(["2. Contain only numbers"])==>id3{{Number}}
+    id1((Variable))==>C(["3. Match ISO8601 standard?"])==>id4{{Date/Date-time}}
     id1((Variable))==>D(["4. None of the above"])==>id5{{String}}
     style id1 fill:#4B2E83,color:#B7A57A,stroke:#B7A57A
     style id2 fill:#4B2E83,color:#B7A57A,stroke:#B7A57A
@@ -394,12 +394,12 @@ For each column in a data frame, `readr` functions pull the first 1000 rows and 
 ```{mermaid}
 %%| echo: false
 %%| fig-width: 11
-%%| fig-height: 5.5
+%%| fig-height: 8
 %%| fig-align: center
 flowchart LR
-    id1((Variable))==>A(["1. Does it contain only F, T, FALSE, TRUE, or NA (ignoring case)?"])==>id2{{Logical}}
-    id1((Variable))==>B(["2. Does it contain only numbers (e.g., 1, -4.5, 5e6, Inf?)"])==>id3{{Number}}
-    id1((Variable))==>C(["3. Does it match the ISO8601 standard?"])==>id4{{Date/Date-time}}
+    id1((Variable))==>A(["1. Contain TRUE/FALSE/NA?"])==>id2{{Logical}}
+    id1((Variable))==>B(["2. Contain only numbers"])==>id3{{Number}}
+    id1((Variable))==>C(["3. Match ISO8601 standard?"])==>id4{{Date/Date-time}}
     id1((Variable))==>D(["4. None of the above"])==>id5{{String}}
     style id1 fill:#4B2E83,color:#B7A57A,stroke:#B7A57A
     style id2 fill:#B7A57A,color:#4B2E83,stroke:#4B2E83
@@ -420,12 +420,12 @@ For each column in a data frame, `readr` functions pull the first 1000 rows and 
 ```{mermaid}
 %%| echo: false
 %%| fig-width: 11
-%%| fig-height: 5.5
+%%| fig-height: 8
 %%| fig-align: center
 flowchart LR
-    id1((Variable))==>A(["1. Does it contain only F, T, FALSE, TRUE, or NA (ignoring case)?"])==>id2{{Logical}}
-    id1((Variable))==>B(["2. Does it contain only numbers (e.g., 1, -4.5, 5e6, Inf?)"])==>id3{{Number}}
-    id1((Variable))==>C(["3. Does it match the ISO8601 standard?"])==>id4{{Date/Date-time}}
+    id1((Variable))==>A(["1. Contain TRUE/FALSE/NA?"])==>id2{{Logical}}
+    id1((Variable))==>B(["2. Contain only numbers"])==>id3{{Number}}
+    id1((Variable))==>C(["3. Match ISO8601 standard?"])==>id4{{Date/Date-time}}
     id1((Variable))==>D(["4. None of the above"])==>id5{{String}}
     style id1 fill:#4B2E83,color:#B7A57A,stroke:#B7A57A
     style id2 fill:#B7A57A,color:#4B2E83,stroke:#4B2E83
@@ -446,12 +446,12 @@ For each column in a data frame, `readr` functions pull the first 1000 rows and 
 ```{mermaid}
 %%| echo: false
 %%| fig-width: 11
-%%| fig-height: 5.5
+%%| fig-height: 8
 %%| fig-align: center
 flowchart LR
-    id1((Variable))==>A(["1. Does it contain only F, T, FALSE, TRUE, or NA (ignoring case)?"])==>id2{{Logical}}
-    id1((Variable))==>B(["2. Does it contain only numbers (e.g., 1, -4.5, 5e6, Inf?)"])==>id3{{Number}}
-    id1((Variable))==>C(["3. Does it match the ISO8601 standard?"])==>id4{{Date/Date-time}}
+    id1((Variable))==>A(["1. Contain TRUE/FALSE/NA?"])==>id2{{Logical}}
+    id1((Variable))==>B(["2. Contain only numbers"])==>id3{{Number}}
+    id1((Variable))==>C(["3. Match ISO8601 standard?"])==>id4{{Date/Date-time}}
     id1((Variable))==>D(["4. None of the above"])==>id5{{String}}
     style id1 fill:#4B2E83,color:#B7A57A,stroke:#B7A57A
     style id2 fill:#B7A57A,color:#4B2E83,stroke:#4B2E83
