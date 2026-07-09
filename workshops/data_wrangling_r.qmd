@@ -43,7 +43,7 @@ library(nycflights13)
 
 [CSSCR Workshop]{.custom-subtitle}
 
-[29 April 2026]{.custom-subtitle2}
+[9 July 2026]{.custom-subtitle2}
 
 [Victoria Sass]{.custom-subtitle3}
 
