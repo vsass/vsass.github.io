@@ -1,0 +1,261 @@
+/*-- scss:defaults --*/
+
+// Palette pulled from the dissertation figures
+$black:   #2D2A26;   // background
+$white:   #FBF8F2;   // emphasis text
+$cream:   #DBD3C2;   // readable text
+$teal:    #68ABB3;   // Consistent Lose shades::brightness("#457277", shades::scalefac(1.5)) # contrast w/ bg = 5.48 
+$sky:     #9BE3F9;   // Consistent Maintain shades::brightness("#8DCEE2", shades::scalefac(1.1)) # contrast w/ bg = 8.3, 
+$yellow:  #FFB920;   // Changing Lose/Maintain shades::brightness("#D2981A", shades::scalefac(1.25)) # contrast w/ bg = 8.3
+$mustard: #D2981A;
+$mauve:   #BA83A3;   // Changing Goals 
+$maroon:  #FF6030;   // Consistent Gain shades::brightness("#A53E1F", shades::scalefac(1.55)) # contrast w/ bg = 4.74
+$grey:    #AFA69A;   // Consistent Nothing # shades::brightness("#8C857B", shades::scalefac(1.25)) 
+
+// Fonts
+@import url('https://fonts.googleapis.com/css2?family=Cutive+Mono&family=Fraunces:ital,opsz,wght@0,9..144,200;0,9..144,500;1,9..144,200&family=Raleway:ital,wght@0,300;0,600;1,300&display=swap');
+
+$font-family-serif: 'Fraunces', serif; 
+$font-family-sans-serif: 'Raleway', sans-serif;
+$font-family-monospace: 'Cutive', monospace;
+$presentation-heading-font: $font-family-serif;
+
+// Colors
+$body-bg: $black;
+$body-color: $cream;
+$link-color: $mauve;
+$code-color: $mauve;
+$presentation-heading-color: $mauve;
+
+// Text Size
+$presentation-font-size-root: 34px;
+$presentation-h1-font-size: 70px;
+$presentation-h2-font-size: 50px;
+$presentation-h3-font-size: 30px;
+
+/*-- scss:rules --*/
+
+.reveal h1 {font-weight: bold; letter-spacing: 0.02em; color: $mustard;}
+.reveal h2 {font-weight: bold;}
+
+// Muted, italic subtitle styling (matches the figure subtitles)
+.reveal .subtitle, .reveal .muted {
+  color: $grey;
+  font-style: italic;
+  font-weight: 400;
+}
+
+// Accent helpers you can drop on any span: [text]{.teal} etc.
+.black   { color: $black; }
+.cream   { color: $cream;   }
+.white   { color: $white;   }
+.teal    { color: $teal;   }
+.sky     { color: $sky;  }
+.mustard { color: $mustard; }
+.yellow  { color: $yellow; }
+.mauve   { color: $mauve; }
+.maroon  { color: $maroon; }
+.grey    { color: $grey; }
+
+// Big single-idea slides
+.reveal .big {
+  font-size: 1.6em;
+  line-height: 1.25;
+  font-family: $presentation-heading-font;
+}
+
+.reveal .citation {
+  font-size: 0.75em;     // relative, so it shrinks against whatever text it sits in
+  color: $mauve;        // your color
+}
+
+.reveal .citation a {
+  color: inherit;
+}
+
+.reveal .smaller {
+  font-size: 30px;     // relative, so it shrinks against whatever text it sits in
+}
+
+// Pull-quote / epigraph block
+.reveal blockquote {
+  border-left: 4px solid $mustard;
+  background: transparent;
+  font-family: $presentation-heading-font;
+  font-style: italic;
+}
+
+// Tighten image captions
+.reveal figcaption { color: $grey; font-size: 0.5em; }
+
+
+// Custom titles
+.custom-title { 
+  font-family: $font-family-serif;
+  color: $mauve;
+  font-size: 2.35em;  
+  font-weight: bold;
+  //position: relative;
+  //top: 5.75em;
+  //margin: 0;
+  //$link-color: #c7cdac;
+}
+
+.custom-sec-title { 
+  font-family: $font-family-serif;
+  color: $mustard;
+  font-size: 70px;  
+  font-weight: bold;
+  position: relative;
+  top: 4.17em;
+  margin: 0;
+  letter-spacing: 0.03em;
+}
+
+.custom-subtitle1 { 
+  font-family: $font-family-sans-serif;
+  color: $grey;
+  font-size: 1em;
+  //position: relative;
+  //top: 8.0em;
+  //margin: 0;
+}
+
+.custom-subtitle2 { 
+  font-family: $font-family-sans-serif;
+  color: $mustard;
+  font-size: 1.2em;
+  //position: relative;
+  //top: 8.0em;
+  //margin: 0;
+}
+
+// MAIN POINTS — colored, bold, and waiting for the prior collapse before entering
+.reveal .slides section .mainpoint {
+  font-size: 30px;
+  color: $grey;
+  font-weight: 700;                 // drop if you only want color
+}
+.reveal .slides section .mainpoint.fragment.fade-in {
+  transition: opacity 0.5s ease;
+  transition-delay: 0.5s;
+}
+
+// SUBPOINT GROUP — collapses to nothing and reclaims its space when stepped past
+.reveal .slides section .collapse-box {
+  overflow: hidden;
+  max-height: 60vh;                 // generous; lower toward the real group height to cut lag
+  transition: max-height 0.5s ease, opacity 0.5s ease;
+}
+.reveal .slides section .collapse-box.fragment.fade-out.visible {
+  max-height: 0;
+  opacity: 0;
+  visibility: visible;
+}
+
+// SUBPOINTS — indented, bulleted, fading in slowly one at a time
+.reveal .slides section .subpoint {
+  font-size: 24px;
+  position: relative;
+  padding-left: 1.5em;
+  margin: 0.25em 0;
+}
+.reveal .slides section .subpoint::before { 
+  content: "▸";
+  position: absolute;
+  left: 0.4em;
+}
+.reveal .slides section .subpoint.fragment {
+  transition: opacity 0.8s ease;
+}
+.reveal .slides section .collapse-box .subpoint:nth-child(1) { transition-delay: 1.0s; }
+.reveal .slides section .collapse-box .subpoint:nth-child(2) { transition-delay: 2.0s; }
+.reveal .slides section .collapse-box .subpoint:nth-child(3) { transition-delay: 3.0s; }
+.reveal .slides section .collapse-box .subpoint:nth-child(4) { transition-delay: 4.0s; }
+.reveal .slides section .collapse-box .subpoint:nth-child(5) { transition-delay: 5.0s; }
+.reveal .slides section .collapse-box .subpoint:nth-child(6) { transition-delay: 6.0s; }
+
+.reveal .quote {
+  font-size: 45px;
+  color: $yellow;
+}
+
+.reveal .small-grey30 {
+  font-size: 30px;
+  color: $grey;
+}
+
+.reveal .small-white29 {
+  font-size: 29px;
+}
+section.spaced-bullets li { margin-bottom: 2em; }
+
+.reveal .small-white25 {
+  font-size: 25px;
+}
+
+.small-white20 {
+  font-size: 20px;
+}
+
+.reveal .fade-semi-out {
+  opacity: 0.5;
+}
+
+/* Overrides the default fragment transition to have a custom ease in */
+//.reveal .slides section .fragment {
+//  opacity: 0;
+//  transition: opacity 0.6s cubic-bezier(0.25, 1, 0.5, 1); /* Custom easing */
+//  
+//  &.visible {
+//    opacity: 1;
+//  }
+//}
+
+.reveal .slides section .fragment {
+  margin: 0 0 0 0;   // controls spacing between fragment groups — adjust this value
+
+  ul {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+}
+
+#move-down-aside aside {
+  position: relative;
+  top: 1em;
+}
+
+.wide-content {
+  width: 115% !important;
+  max-width: none !important;
+  margin-left: -5% !important;
+}
+
+.wide-less-content {
+  width: 105% !important;
+  max-width: none !important;
+  margin-left: -5% !important;
+}
+
+//.reveal .slides section aside {
+//  position: relative;
+//  bottom: 0.5em;   // moves it down from wherever it's currently anchored
+//}
+
+// Custom Fragment: Text changes to purple when active
+.reveal .slides section .fragment.highlight-yellow {
+  opacity: unset;
+  visibility: unset;
+
+  // Color when the fragment step is reached and stays active
+  &.visible {
+    color: $yellow;
+  }
+
+  // Optional: Distinct color strictly when it is the active step
+  //&.current-fragment {
+  //  color: #da70d6; 
+  //}
+}
+

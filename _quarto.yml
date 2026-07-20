@@ -2,9 +2,10 @@ project:
   type: website
   render: 
     - "*.qmd"
-    - "!resume.qmd"     # don't build this with site settings
+    - "!resume.qmd"     # don't build with site settings (otherwise will inherit site scss)
   resources: 
-    - "resume.html"     # but do copy the built file into _site/
+    - "resume.html"     # but copy the built file into _site/
+    - "defense_presentation/" # also copy defense slides so the link from resume works
   output-dir: docs
 
 website:
