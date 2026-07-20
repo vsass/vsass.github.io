@@ -1,5 +1,136 @@
 ---
 title: "Research"
+toc: true
+toc-location: right
+toc-title: "On this page"
+page-layout: article
 ---
 
-I'm still working on this page! Check back soon for updates and in the meantime click the Google icon to the right to see my published work. 
+
+```{=html}
+<style>
+.slide-embed {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.15);
+  margin-bottom: 0.75rem;
+}
+.slide-embed iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+.pub-entry {
+  margin-bottom: 3rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+.pub-entry img {
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+</style>
+```
+
+## Dissertation
+
+### *An Iatrogenic Imperative: Weight-Goal Pursuit and Morbidity from Adolescence to Adulthood*
+
+Since the mid-twentieth century, American medicine and public health have been organized around the weight-centered health paradigm — the conviction that 'excess' weight is dangerous for health and that its reduction will produce healthier populations. This dissertation inverts the paradigm's central assumption: rather than asking what a larger body does to health, it asks what the sustained pursuit of a smaller one does. Drawing on five waves of the National Longitudinal Study of Adolescent to Adult Health (Add Health), I operationalize this pursuit as membership in distinct weight-goal trajectories traced from adolescence into adulthood and follow it across three linked studies. The first asks who the paradigm recruits into weight-goal pursuit and finds that recruitment is near-total and socially structured: fewer than one in twenty adolescents held no weight goal, women were sorted overwhelmingly toward loss and men toward gain, and perceived weight status predicted sustained loss pursuit far more powerfully than clinical BMI classification. The second asks what the pursuit does, and finds that trajectory membership is the dominant predictor of goal-directed weight-control behavior, with sustained loss pursuit roughly two and a half times as likely to involve extreme practices and dieting specifically predicting escalation into them. The third asks what the pursuit leaves behind, and finds that sustained pursuit and the behaviors it motivates predict elevated cardiometabolic and mental-health morbidity into the thirties and forties — associations only partially attenuated by body size. Together the studies identify the paradigm as iatrogenic in the strict sense: a harm produced by the intervention meant to prevent it, pressed most insistently on those already marked as falling short of an approved body, and returned to the paradigm as apparent vindication. A substantial share of the ill health attributed to fat bodies is, on this evidence, the ill health of the campaign waged against them.
+
+#### Defense Slides
+
+<!-- Replace SLIDES_URL with the path to your rendered revealjs slides,
+     e.g. slides/defense.html (same repo) or a full URL. -->
+
+```{=html}
+<div class="slide-embed">
+  <iframe src="defense_presentation/defense-presentation.html" title="Dissertation defense slides" loading="lazy" allowfullscreen></iframe>
+</div>
+```
+
+[View slides full screen ↗](defense_presentation/defense-presentation.html){.btn .btn-outline-primary .btn-sm target="_blank"}
+
+## Publications
+
+::: {.pub-entry}
+
+### *Toward a Cross-Platform Framework: Assessing the Comprehensiveness of Online Rental Listings*
+
+Ana Costa, **Victoria Sass**, Ian Kennedy, Roshni Roy, Rebecca J. Walter, Arthur Acolin, Kyle Crowder, Chris Hess, Alex Ramiller, and Sarah Chasins. (2021). *Cityscape*, 23(2), 327.
+
+Research on rental housing markets in the United States has traditionally relied on national or local housing surveys. Those sources lack temporal and spatial specificity, limiting their use for tracking short-term changes in local markets. As rental housing ads have transitioned to digital spaces, a growing body of literature has utilized web scraping to analyze listing practices and variations in rental market dynamics. Those studies have primarily relied on one platform, Craigslist, as a source of data. Despite Craigslist’s popularity, the authors contend that rental listings from various websites, rather than from individual ones, provide a more comprehensive picture. Using a mixed-methods approach to study listings across various platforms in five metropolitan areas, this article demonstrates considerable variation in both the types of rental units advertised and the features provided across those platforms. The article begins with an account of the birth and consolidation of online rental platforms and emergent characteristics of several selected websites, including the criteria for posting, search parameters, search results priority, and first-page search results. Visualizations are used to compare features such as the 40th percentile of rent, rent distribution, and bedroom size based on scraped data from six online platforms (Padmapper, Forrent.com, Trulia, Zillow, Craigslist, and GoSection8), 2020 Fair Market Rents, and 2019 American Community Survey data. The analyses indicate that online listing platforms target different audiences and offer distinct information on units within those market segments, resulting in markedly different estimates of local rental costs and unit size distribution depending on the platform.
+
+[Read the article ↗](https://europepmc.org/articles/PMC9121771){.btn .btn-outline-primary .btn-sm target="_blank"}
+:::
+
+::: {.pub-entry}
+
+### *Toward a Cross-Platform Framework: Assessing the Comprehensiveness of Online Rental Listings*
+
+**Victoria Sass** and Sylvie Gadeyne. (2021). *Social Environment and Cancer in Europe*, Springer, p. 141-158.*
+
+Much has been written about the social disparities in incidence and mortality from head and neck cancer, but comparatively, little is understood about how socioeconomic factors affect survival. As a major form of cancer incidence in Europe, it is important to more fully contextualise the social effects on survival from this complex disease. We conducted a systematic review of the literature on social disparities and head and neck cancer survival in Europe and found clear evidence to support the role of social status on survivability, with those at the lower end of the hierarchy having worse survival outcomes. Tobacco and alcohol (ab)use were the most commonly studied and cited risk factors associated with both social position and length of survival, but it remains evident that much more work is needed to explicate the exact ways these and other less-studied risks directly impact survival.
+
+[Read the article ↗](https://doi.org/10.1007/978-3-030-69329-9_10){.btn .btn-outline-primary .btn-sm target="_blank"}
+:::
+
+::: {.pub-entry}
+
+### *Social Inequalities in Cancer Survival in Belgium: A Population-Based Cohort Study*
+
+Michael Rosskamp, Julie Verbeeck, **Victoria Sass**, Sylvie Gadeyne, Freija Verdoodt, and Harlinde De Schutter. (2021). *Cancer Epidemiology Biomarkers & Prevention*, 30(1):45.
+
+Socioeconomic status (SES) is an important factor in cancer survival; however, results are heterogeneous and linked to characteristics of the study population and health care system. This population-based cohort study evaluates the association between individual-level socioeconomic and demographic factors and cancer survival for the first time in Belgium. From the Belgian Cancer Registry, we identified 109,591 patients diagnosed between 2006 and 2013 with one of eight common cancer types. Information on treatment, socioeconomic parameters, and vital status were retrieved from multiple data sources and linked using a unique personal identification number. The outcome was 5-year observed survival. Associations between survival and socioeconomic and demographic factors were assessed using multivariable Cox proportional-hazard regression models. Lower income, unemployment, and living alone were all associated with worse cancer survival. These associations were most pronounced for certain lifestyle-related cancer types (e.g., head and neck cancers) and those with good to moderate prognosis (e.g., colorectal and female breast cancer). These results indicate that, despite a comprehensive and nationwide health insurance program in which equity in rights and access to health care are pursued, SES is associated with disparities in cancer survival in Belgium. This population-based study with individual-level socioeconomic information of more than 100,000 patients with cancer identifies patient groups that may be at highest risk for socioeconomic disparities in cancer survival. Reasons behind the observed disparities are multiple and complex and should be further examined. Health policy interventions should consider the observed deprivation gap to plan targeted actions.
+
+[Read the article ↗](https://doi.org/10.1158/1055-9965.epi-20-0721){.btn .btn-outline-primary .btn-sm target="_blank"}
+:::
+
+::: {.pub-entry}
+
+### *Residential Segregation and Racial/Ethnic Disparities in Ambient Air Pollution*
+
+Bongki Woo, Nicole Kravitz-Wirtz, **Victoria Sass**, Kyle Crowder, Samantha Teixeira, and David T. Takeuchi. (2019). *Race and Social Problems*, 11(1) 60-67.
+
+Race and ethnicity are consequential constructs when it comes to exposure to air pollution. Persistent environmental racial/ethnic inequalities call for attention to identifying the factors that maintain them. We examined associations between racial residential segregation and racial/ethnic inequalities in exposure to three types of air pollutants. Using data from the Panel Study of Income Dynamics (1990–2011), the U.S. Census (1990–2010), and the Environmental Protection Agency, we tested the independent and joint contributions of race/ethnicity and metropolitan-level residential segregation on individual levels of exposure to air pollution nationwide. We found that racial and ethnic minorities were exposed to significantly higher levels of air pollution compared to Whites. The difference between minorities and Whites in exposure to all three types of air pollution was most pronounced in metropolitan areas with high levels of residential segregation. The environmental inequities observed in this study call for public health and policy initiatives to ameliorate the sources of racial/ethnic gaps in pollution exposure. Given the links between the physical environment and health, addressing such uneven environmental burdens may be a promising way to improve population health and decrease racial/ethnic inequalities therein.
+
+[Read the article ↗](https://doi.org/10.1007/s12552-018-9254-0){.btn .btn-outline-primary .btn-sm target="_blank"}
+:::
+
+::: {.pub-entry}
+
+### *Migration and protest in the Jim Crow South*
+
+Stewart E. Tolnay, Woody E. Beck, and **Victoria Sass**. (2018). *Social Science Research*, 73:13-30.
+
+The Great Migration and the Civil Rights Movement were two pivotal events experienced by the southern African American population during the 20th Century. Each has received considerable attention by social scientists and historians, and a possible connection between the two phenomena has been speculated. However, no systematic investigation of the effect of migration on protest during the Jim Crow era has been conducted. In this study we use data for 333 southern communities to examine the relationship between youthful black migration between 1950 and 1960 and the occurrence of sit-ins early in 1960. We find a strong positive, non-linear, relationship between net-migration and the likelihood of a sit-in which can be explained by two sets of mediating influences: local demographic conditions and local organizational presence. Our findings offer strong empirical support for an association between southern black migration and protest during Jim Crow and suggest the value of considering the influence of demographic forces on collective action.
+
+[Read the article ↗](https://doi.org/10.1016/j.ssresearch.2018.03.011){.btn .btn-outline-primary .btn-sm target="_blank"}
+:::
+
+::: {.pub-entry}
+
+### *The effects of air pollution on individual psychological distress*
+
+**Victoria Sass**, Nicole Kravitz-Wirtz, Steven M. Karceski, Anjum Hajat, Kyle Crowder, and David Takeuchi. (2017). *Health & Place*, 48:72-79.
+
+This study is the first of its kind to utilize longitudinal, nationally representative panel data from the United States to assess the relationship between exposure to air pollution and reports of psychological distress. Using annual-average measures of air pollution in respondents' census blocks of residence we find that over the period 1999–2011 particulate matter 2.5 is significantly associated with increased psychological distress; this association remains even after controlling for a robust set of demographic, socioeconomic, and health-related covariates. This study suggests that public health efforts to reduce the personal and societal costs of mental illness should consider addressing not only individual characteristics and factors in the social environment, but also underexplored facets of the physical environment such as air pollution.
+
+[Read the article ↗](https://doi.org/10.1016/j.healthplace.2017.09.006){.btn .btn-outline-primary .btn-sm target="_blank"}
+:::
+
+::: {.pub-entry}
+
+### *The Long-Term Dynamics of Racial-Ethnic Inequality in Neighborhood Air Pollution Exposure, 1990–2009*
+
+Nicole Kravitz-Wirtz, Kyle Crowder, Anjum Hajat, and **Victoria Sass**. (2016). *Du Bois Review*, Volume 13 - Issue 2.
+
+Research examining racial/ethnic disparities in pollution exposure often relies on cross-sectional data. These analyses are largely insensitive to exposure trends and rarely account for broader contextual dynamics. To provide a more comprehensive assessment of racial-environmental inequality over time, we combine the 1990 to 2009 waves of the Panel Study of Income Dynamics (PSID) with spatially- and temporally-resolved measures of nitrogen dioxide (NO2) and particulate matter (PM2.5 and PM10) in respondents’ neighborhoods, as well as census data on the characteristics of respondents’ metropolitan areas. Results based on multilevel repeated measures models indicate that Blacks and Latinos are, on average, more likely to be exposed to higher levels of NO2, PM2.5, and PM10 than Whites. Despite nationwide declines in levels of pollution over time, racial and ethnic disparities persist and cannot be fully explained by individual-, household-, or metropolitan-level factors.
+
+[Read the article ↗](https://doi.org/10.1017/s1742058x16000205){.btn .btn-outline-primary .btn-sm target="_blank"}
+:::
+

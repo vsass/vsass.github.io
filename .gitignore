@@ -11,3 +11,4 @@ workshops/data/
 .positai
 
 **/*.quarto_ipynb
+short_answers.qmd

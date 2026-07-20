@@ -31,5 +31,17 @@
   },
   "CoLab/Appendix.qmd": {
     "Appendix.html": "7a6ac3c7"
+  },
+  "resume.qmd": {
+    "resume.html": "664933a3"
+  },
+  "short_answers.qmd": {
+    "short_answers.html": "ca851fab"
+  },
+  "cv.qmd": {
+    "cv.html": "4419ab0e"
+  },
+  "defense_presentation/defense-presentation.qmd": {
+    "defense-presentation.html": "42d43acd"
   }
 }

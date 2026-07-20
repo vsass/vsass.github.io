@@ -26,7 +26,7 @@ format:
 #| echo: false
 #| cache: false
 
-#pak::pak("poncest/bobsburgersR")
+# pak::pak("poncest/bobsburgersR")
 require(tidyverse)
 require(bobsburgersR)
 ```
@@ -829,7 +829,7 @@ ggplot(season_words, aes(x = n/total, y = season, fill = as_factor(season))) +
 #| fig-height: 8
 library(colorspace)
 library(ggridges) 
-season_words <- left_join(season_words, total_words) 
+season_words <- left_join(season_words, total_words) |> filter(season < 15)
 
 observable_light <- lighten(observable, 0.5) 
 

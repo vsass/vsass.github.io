@@ -1,5 +1,10 @@
 project:
   type: website
+  render: 
+    - "*.qmd"
+    - "!resume.qmd"     # don't build this with site settings
+  resources: 
+    - "resume.html"     # but do copy the built file into _site/
   output-dir: docs
 
 website:
@@ -35,7 +40,7 @@ website:
     - icon: github 
       href: https://github.com/vsass
     - icon: file-person
-      href: Sass_Victoria_CV_2023.pdf
+      href: resume.html
 
 format:
   html:

@@ -1,0 +1,694 @@
+---
+pagetitle: "Victoria Sass — CV"
+format:
+  html:
+    page-layout: custom
+    theme: resume_styles.scss
+    embed-resources: true
+    include-in-header:
+      text: |
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet"
+              href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600;700&family=Raleway:wght@300;400;500;600;700&display=swap">
+engine: knitr
+---
+
+::::: {.resume}
+
+<!-- ============ HEADER ============ -->
+::: {.header}
+# [Victoria]{.first} [Sass]{.last} {.name}
+
+::: {.tagline}
+Behavioral Health Data Scientist
+:::
+
+<!-- ::: {.affiliation} -->
+<!-- Department of Sociology, University of Washington, 211 Savery Hall, Box 353340 -->
+<!-- ::: -->
+:::
+
+<!-- ============ TWO-COLUMN BODY ============ -->
+:::: {.two-col}
+
+<!-- ---------- MAIN (left) column ---------- -->
+::: {.col-main}
+
+## {{< fa graduation-cap >}} Education
+
+::: {.entry}
+::: {.date}
+2026
+:::
+::: {.detail}
+**Ph.D., Sociology** [{{< fa building-columns >}} University of Washington, Seattle]{.loc} 
+
+- Dissertation: *An Iatrogenic Imperative: Weight-Goal Pursuit and Morbidity from Adolescence to Adulthood*
+
+:::
+:::
+
+::: {.entry}
+::: {.date}
+2017
+:::
+::: {.detail}
+**M.A., Sociology** [{{< fa building-columns >}} University of Washington, Seattle]{.loc} 
+
+- Thesis: *The Great Decline: Toxic Air Pollution and Neighborhood Dynamics*
+- Graduate Certificate in Demographic Methods [{{< fa certificate >}} Center for Studies in<br>Demography & Ecology]{.loc}
+:::
+:::
+
+::: {.entry}
+::: {.date}
+2011
+:::
+::: {.detail}
+**B.A. (with Honors), Sociology and History** [{{< fa building-columns >}} University of California, Davis]{.loc} 
+
+- *General emphasis in Sociology with concentrations in African and West Asian History*
+:::
+:::
+
+## {{< fa laptop >}} Professional & Research Experience
+
+::: {.entry}
+::: {.date}
+Jan 2024 – <br>present
+:::
+
+::: {.detail}
+**[CoLab for Community & Behavioral Health Policy [{{< fa location-dot >}} Department of Psychiatry<br>&emsp;&emsp;and Behavioral Sciences,<br> University of Washington]{.loc}]{.blue}<br>Graduate Research Assistant,<br>H-SYNC Program Evaluation**  
+
+- Partnered with the Director of CoLab to design and execute a summative evaluation of the Housing Stability for Youth in Courts (H-SYNC) pilot, a continuum of care intervention addressing prevention of housing instability, estimating program impact on youth recidivism to assess whether the intervention's benefits extended beyond housing into criminal-legal system involvement.
+- Extracted, cleaned, matched, and validated individual-level records from two large administrative databases — the Assessments Research Database (ARD) and the Court Contact and Recidivism Database (CCRD) — alongside program service data, resolving inconsistent identifiers and coding schemes across systems to construct a unified analytic dataset of youth with documented court contact.
+- Constructed a matched comparison group from administrative records and implemented a parallelized selection procedure in R to identify the specification achieving optimal covariate balance across 21 key demographic and risk metrics, enabling defensible causal inference from observational data.
+- Conducted survival analyses in R to estimate the effect of program participation on time to subsequent court contact, and translated findings into visualizations and written summaries for both program staff and system partners without technical backgrounds.
+- Built a documented, version-controlled (Git/GitHub) analysis pipeline covering ingestion, cleaning, linkage, matching, modeling, and visualization so that the evaluation can be reproduced and extended as additional cohorts complete the program.
+- Centered equity and social justice in evaluation design by examining differential program impacts across dimensions of sex, race, ethnicity, and geographic context — grounding interpretation in the ways systems inequities shape both the outcomes and the administrative data that record them.
+- Currently preparing results for publication with the CoLab research team.
+:::
+:::
+
+::: {.entry}
+::: {.date}
+Sept 2021 – <br>present
+:::
+::: {.detail}
+**[Center for Social Science Computation & Research]{.blue} [{{< fa location-dot >}} University of Washington]{.loc}<br>Computational Research and Data Consultant**
+
+- Serve as technical subject matter expert for students, staff, and faculty across all social science departments, advising on statistical and quantitative software, data management strategy, database access, analytic design, and reproducible research practice through in-person and remote drop-in consulting.
+- Diagnose and resolve data problems spanning extraction, cleaning, reshaping, merging, and validation, translating researchers' substantive questions into tractable computational workflows across a wide range of technical sophistication.
+- Design and teach quarterly R workshops, building instructional materials that make statistical programming accessible to researchers with varying substantive and technical backgrounds.
+:::
+:::
+
+::: {.entry}
+::: {.date}
+Jun 2023 - <br>Jun 2026
+:::
+::: {.detail}
+**Doctoral Candidate [{{< fa location-dot >}}Department of Sociology,<br>University of Washington]{.loc}**
+
+- Designed and executed a three-study longitudinal analysis of adolescent-to-adult behavioral, cardiometabolic, and mental health outcomes using restricted-access data from the National Longitudinal Study of Adolescent to Adult Health (N ≈ 15,000; five waves, 1994–2018), conducted entirely within a secure data enclave under strict regulatory and disclosure controls.
+- Built an end-to-end reproducible pipeline in R, SQL (DuckDB), and Git — from raw multi-wave survey files through harmonized analytic tables, model estimation, and publication-ready output — including custom functions and internal tooling for survey-weighted model tidying, contrast estimation, and automated table/figure generation reused across all three studies.
+- Constructed longitudinal exposure measures from inconsistently administered, branching survey instruments, resolving item routing, wave-to-wave measurement drift, and item nonresponse across five waves to produce a behavioral trajectory typology used throughout the project.
+- Developed a supervised machine-learning pipeline (gradient-boosted trees in tidymodels) to detect and correct anomalous measurements across waves, removing investigator discretion from a decision affecting core analytic variables.
+- Specified and estimated survey-weighted regression models under a complex sampling design, testing mediation, temporal ordering, and effect modification, and quantifying sensitivity to unmeasured confounding and to alternative specifications.
+- Built a reusable R visualization system (ggplot2, gt, gtsummary) generating marginal-prediction plots, forest plots, and layered model tables, and communicated results through a [Quarto/reveal.js presentation](vsass.github.io/research.html){.course-name} designed to make complex, multi-model findings legible to mixed expert and lay audiences.
+- Documented how exposure to a weight-centered health paradigm with racialized and racist origins produces weight-goal orientations and behavioral repertoires patterned by sex, race, socioeconomic origin, and neighborhood context — and that these orientations and behaviors, rather than body size itself, predict adult health outcomes; currently preparing the studies for publication.
+:::
+:::
+
+::: {.entry}
+::: {.date}
+Winter 2024
+:::
+::: {.detail}
+**[Multi-State Study of Monetary Sanctions (PI: Alexes Harris)]{.blue} [{{< fa location-dot >}}Department of Sociology,<br>University of Washington]{.loc}<br>Graduate Research Assistant**
+
+- Contracted to a multi-state study of court-imposed monetary sanctions and their consequences for low-income defendants, extending Dr. Harris's *A Pound of Flesh: Monetary Sanctions as Punishment for the Poor* (2016) to a comparative analysis across eight states.
+- Cleaned and structured large, unstandardized King County Superior Court administrative records delivered as raw CSV, applying regular expressions and text-as-data methods in R to extract key variables from inconsistently formatted free-text fields.
+- Executed complex joins across court data sources to build an analysis-ready dataset for the research team, resolving record-matching and structural inconsistencies that had blocked downstream analysis.
+:::
+:::
+
+::: {.entry}
+::: {.date}
+Autumn 2015 - <br>Autumn 2021
+:::
+::: {.detail}
+**[Demographic Vulnerability, Neighborhood Pollution,[{{< fa location-dot >}}Department of Sociology,<br>University of Washington]{.loc}<br>and Racial Health Disparities (PI: Kyle Crowder)]{.blue}<br>Graduate Research Assistant**
+
+- Worked as part of an interdisciplinary team on an NIH-funded study examining how individual, family, and neighborhood social and economic conditions interact with environmental exposure to produce racial and ethnic disparities in health.
+- Helped build a comprehensive multilevel longitudinal dataset linking micro-level health and life-history records from the Panel Study of Income Dynamics to modeled neighborhood pollution concentrations derived from EPA and other sources, joined to census measures of neighborhood economic and demographic conditions — enabling analysis of exposure histories that follow individuals across residential moves and over time.
+- Estimated effects of neighborhood pollution exposure on health using longitudinal multilevel models — accounting for confounding and non-random residential selection — and analyzed how racial and ethnic differences in exposure and its amplifying stressors account for persistent racial disparities in health, linking place-, race-, and policy-driven inequities to measurable outcomes.
+- Co-authored three peer-reviewed publications from the project, including first-authored work establishing air pollution exposure as a driver of individual psychological distress (*Health & Place*, 2017).
+:::
+:::
+
+::: {.entry}
+::: {.date}
+Summer 2020
+:::
+::: {.detail}
+**[National Analysis of Rental Markets Using Scraped [{{< fa location-dot >}} College of Built Environments,<br>University of Washington]{.loc}<br> Online Data (PIs: Rebecca Walter and Arthur Acolin)]{.blue} <br> Summer Graduate Research Assistant**
+
+- Worked with a multidisciplinary team on an NSF-funded effort to scrape and analyze online rental-listing data across housing markets, contributing to data collection, processing, and analysis for academic papers.
+- Helped build a visualization dashboard presenting processed data to non-technical community users.
+- Work resulted in one coauthored publication: "Toward a Cross-Platform Framework: Assessing the Comprehensiveness of Online Rental Listings." *Cityscape* (2021).
+:::
+:::
+
+::: {.entry}
+::: {.date}
+Autumn 2018 - <br>Spring 2020
+:::
+::: {.detail}
+**[Interface Demography [{{< fa location-dot >}}Department of Sociology,<br>Vrije Universiteit Brussel]{.loc} <br>(PIs: Sylvie Gadeyne and Harlinde De Schutter)]{.blue}<br>Junior Research Associate (Doctoral Researcher)**
+
+- Conducted quantitative research on socioeconomic inequalities in site-specific cancer incidence, survival, and mortality as part of a national research team, working with individually linked administrative records connecting the Belgian national census, emigration and mortality registers, and the Belgian Cancer Registry to identify where health inequities emerge and where policy intervention is possible.
+- Managed, validated, and analyzed highly sensitive population-scale health records under EU data privacy regulation, accessing restricted patient-level cancer registry data through a secure on-site research environment and working within strict governance requirements on disclosure and data handling.
+- Constructed multidimensional socioeconomic indicators — education, employment, occupation, housing tenure and comfort, household composition — from census records to measure how material, cultural, and social resources structure cancer risk and outcomes across the population.
+- Applied survival analysis, life table methods, and Poisson regression to estimate absolute and relative inequalities in cancer outcomes by socioeconomic position, decomposing mortality inequalities into their incidence and survival components.
+- Extended the project's analytic frame by integrating environmental exposure data, examining how neighborhood environmental quality interacts with socioeconomic position in shaping health outcomes.
+
+[*In the U.S. visiting family when pandemic travel restrictions took effect in March 2020. Because EU data protection requirements permitted access to the cancer registry records only on-site in Brussels, the work could not continue remotely; I documented and transitioned the analysis to my PIs and redirected my dissertation to a new project.*]{.contextual-aside}
+:::
+:::
+
+
+::: {.entry}
+::: {.date}
+Summer 2015 - <br>Autumn 2015
+:::
+::: {.detail}
+**[Southern Exit-Voice Dynamics in the Jim Crow South [{{< fa location-dot >}} Department of Sociology,<br>University of Washington]{.loc}<br> (PI: Stewart Tolnay)]{.blue} <br> Graduate Research Assistant**
+
+- Constructed a multilevel analytic dataset for a study of the relationship between Black out-migration and civil rights protest in the Jim Crow South, integrating four archival and administrative sources — civil rights protest records for 334 southern cities, county-level net-migration estimates, 1960 census data across multiple geographies, and historical records of racial violence — that shared no common identifier and were reported at inconsistent units of analysis.
+- Audited source data for structural problems prior to linkage, profiling variable distributions and missingness, identifying coverage gaps and cases of multiple cities nested within a single county, and reconstructing county FIPS codes to enable merges across datasets — resolving the join logic and boundary-change issues that made the linkage possible.
+- Work resulted in one co-authored publication: "Migration and Protest in the Jim Crow South," *Social Science Research* (2018).
+:::
+:::
+
+::: {.entry}
+::: {.date}
+Summer 2016
+:::
+::: {.detail}
+**Data Science for Social Good Fellow** [{{< fa location-dot >}} eScience Institute,<br> University of Washington]{.loc}
+
+- Partnered with seven regional transit agencies to establish proof of concept that ORCA electronic fare-payment data — collected for revenue purposes and largely unused for planning since 2009 — could serve as an evidentiary basis for transit system planning and evaluation.
+- Characterized bias and data quality limitations in a 21-million-record administrative dataset, quantifying the geographic and socio-demographic bias arising from riders who pay in cash and therefore never appear in the data — establishing the conditions under which the data could and could not support valid policy conclusions.
+Engineered complex joins in SQL across fare-transaction, vehicle-location, and sensor data hosted on a secure AWS RDS instance, constructing unique journey identifiers to reconstruct ~15.5 million multi-agency trips from disconnected boarding records, including inferred alighting locations and transfer behavior.
+- Developed an R/Shiny application linking ORCA trip records to census tract demographics (race/ethnicity, vehicle access, SNAP participation) enabling regional transit agencies to see which communities the system connected and which it underserved, and foregrounding equity in future planning decisions.
+- Collaborated with fellows to design the shared architecture integrating four applications into a single coherent dashboard, enabling non-technical planners to visualize, query, and discover patterns across ~7 million origin-destination pairs.
+:::
+:::
+
+## {{< fa chalkboard-user >}} Teaching Experience
+
+::: {.entry .role}
+::: {.date}
+:::
+::: {.detail}
+**Graduate Student Instructor** [{{< fa building-columns >}} University of Washington, Seattle]{.loc} 
+
+Designed curriculum, developed all course content, and taught quarter-length courses to undergraduate and graduate students across a wide range of substantive and technical backgrounds. Since 2021, designed courses using an ungraded model built on iterative feedback and revision, with students assessing their own learning in one-on-one conferences — keeping attention on learning itself and reducing the ways conventional grading reproduces existing inequities.
+:::
+:::
+
+::: {.entry .course}
+::: {.date}
+Autumn 2025<br>Spring 2024<br>Autumn 2023
+:::
+::: {.detail}
+[CS&SS 508: Introduction to R for Social Scientists](https://vsass.github.io/CSSS508/){.course-name}[Graduate]{.grad}
+
+- Taught the full applied data-science workflow in R to graduate students across the social sciences including importing, cleaning, reshaping, joining, visualizing, working with text data, writing functions, iteration, and reproducible reporting with Quarto and Git/GitHub. The course was designed without prerequisites so it remained accessible and engaging to students with no prior programming experience as well as those seeking to deepen their existing skill set.
+:::
+:::
+
+::: {.entry .course}
+::: {.date}
+Summer 2025<br>Summer 2024<br>Summer 2021
+:::
+::: {.detail}
+[Sociology 221: Statistical Concepts and Methods for the Social Sciences](https://vsass.github.io/SOC221/){.course-name}
+
+- Taught statistical inference, estimation, and regression to undergraduates with no prior background, centered on translating real-world questions into statistical terms and interpreting statistical results back into actionable real-world meaning.
+:::
+:::
+
+::: {.entry .course}
+::: {.date}
+Summer 2023
+:::
+::: {.detail}
+[Sociology 316: Introduction to Sociological Theory]{.course-name}
+
+- Taught classical and contemporary social theory — including conflict, racial formation, feminist, and intersectional frameworks — using an annotation platform for collaborative reading and a peer-reviewed, revised writing sequence, developing students' ability to construct evidence-based arguments and analyze the social and systemic structures through which power and inequality are produced and reproduced.
+:::
+:::
+
+::: {.entry .course}
+::: {.date}
+Winter 2018<br>Spring 2018
+:::
+::: {.detail}
+[Sociology 404 / 399: Sociology in Practice - Community & Civic Internship]{.course-name}
+
+- Taught a community-engaged internship seminar pairing weekly instruction in the sociology of work and organizations with applied placements at Seattle-area civic and community organizations, and supervised students' independent internship credit (SOC 399) across their placements.
+:::
+:::
+
+::: {.entry .course .last}
+::: {.date}
+Autumn 2017
+:::
+::: {.detail}
+[Sociology 321: Using Quantitative Data for Social Science Research]{.course-name}
+
+- Taught applied data management and quantitative analysis in R to undergraduates in the Sociology Honors Program including locating and importing data (raw files, relational database queries, APIs, and web scraping), understanding data structures and units of analysis, cleaning and merging, reproducible workflows with R Markdown and version control in Git/GitHub, data visualization with ggplot2, and regression modeling. Students work throughout the quarter culminated in an independent research project carried through codebook, analysis, written report, and departmental poster presentation.
+:::
+:::
+
+::: {.entry .role}
+::: {.date}
+:::
+::: {.detail}
+**Teaching Assistant** [{{< fa building-columns >}} University of Washington, Seattle]{.loc} 
+
+Attended lectures and taught 2–3 lab sections per course to facilitate discussion and deeper learning, including the required first-year applied statistics sequence for Sociology doctoral students, also taken by graduate students across UW's social science programs.
+:::
+:::
+
+::: {.entry .course .compact}
+::: {.date}
+Spring 2021
+:::
+::: {.detail}
+[Sociology 506: Methodology: Quantitative Techniques in Sociology]{.course-name}[Graduate]{.grad}
+:::
+:::
+
+::: {.entry .course .compact}
+::: {.date}
+Winter 2021
+:::
+::: {.detail}
+[Sociology 505: Applied Social Statistics]{.course-name}[Graduate]{.grad}
+:::
+:::
+
+::: {.entry .course .compact}
+::: {.date}
+Autumn 2020
+:::
+::: {.detail}
+[Sociology 504: Applied Social Statistics]{.course-name}[Graduate]{.grad}
+:::
+:::
+
+::: {.entry .course .compact}
+::: {.date}
+Summer 2015
+:::
+::: {.detail}
+[Statistics 220: Statistical Reasoning]{.course-name}
+:::
+:::
+
+::: {.entry .course .compact}
+::: {.date}
+Spring 2015
+:::
+::: {.detail}
+[Sociology 270: Social Problems]{.course-name}
+:::
+:::
+
+::: {.entry .course .compact}
+::: {.date}
+Winter 2015
+:::
+::: {.detail}
+[Sociology 201: Surviving in South Africa: Contemporary Health & Population Issues]{.course-name}
+:::
+:::
+
+::: {.entry .course .last}
+::: {.date}
+Autumn 2014
+:::
+::: {.detail}
+[Sociology 300: Foundations of Social Inquiry]{.course-name}
+:::
+:::
+
+
+## {{< fa regular file-lines >}} Publications
+
+::: {.entry}
+::: {.date}
+2021
+:::
+::: {.detail}
+**Toward a Cross-Platform Framework: Assessing the Comprehensiveness of Online Rental Listings**. *Cityscape (Washington, DC) 23(2):327.*
+
+Ana Costa, [**Victoria Sass**]{.blue}, Ian Kennedy, Roshni Roy, Rebecca J. Walter, Arthur Acolin, Kyle Crowder, Chris Hess, Alex Ramiller, and Sarah Chasins
+:::
+:::
+
+::: {.entry}
+::: {.date}
+2021
+:::
+::: {.detail}
+**Social Disparities in Survival from Head and Neck Cancers in Europe**. *In: Launoy, G., Zadnik, V., Coleman, M.P. (eds) Social Environment and Cancer in Europe. Springer, Cham. https://doi.org/10.1007/978-3-030-69329-9_10.*
+
+[**Victoria Sass**]{.blue} and Sylvie Gadeyne
+:::
+:::
+
+::: {.entry}
+::: {.date}
+2021
+:::
+::: {.detail}
+**Social Inequalities in Cancer Survival in Belgium: A Population-Based Cohort Study**. *Cancer Epidemiology Biomarkers & Prevention 30(1):45. doi: 10.1158/1055-9965.EPI-20-0721.*
+
+Michael Rosskamp, Julie Verbeeck, [**Victoria Sass**]{.blue}, Sylvie Gadeyne, Freija Verdoodt, and Harlinde De Schutter
+:::
+:::
+
+::: {.entry}
+::: {.date}
+2018
+:::
+::: {.detail}
+**Residential Segregation and Racial/Ethnic Disparities in Ambient Air Pollution**. *Race and Social Problems, 11(1) 60-67 (October 2018).*
+
+Bongki Woo, Nicole Kravitz-Wirtz, [**Victoria Sass**]{.blue}, Kyle Crowder, Samantha Teixeira, David Takeuchi
+:::
+:::
+
+::: {.entry}
+::: {.date}
+2018
+:::
+::: {.detail}
+**Migration and Protest in the Jim Crow South**. *Social Science Research, 73:13-30 (July 2018).*
+
+Stewart E. Tolnay, Woody E. Beck, and [**Victoria Sass**]{.blue}
+:::
+:::
+
+::: {.entry}
+::: {.date}
+2017
+:::
+::: {.detail}
+**The Effects of Air Pollution on Individual Psychological Distress**. *Health and Place, 48:72-79, (November 2017).*
+
+[**Victoria Sass**]{.blue}, Nicole Kravitz-Wirtz, Steven M. Karceski, Anjum Hajat, Kyle Crowder, David Takeuchi
+:::
+:::
+
+::: {.entry}
+::: {.date}
+2016
+:::
+::: {.detail}
+**The Long-Term Dynamics of Racial-Ethnic Inequality in Neighborhood Air Pollution Exposure, 1990–2009**. *Du Bois Review, Volume 13 - Issue 2 (October 2016).*
+
+Nicole Kravitz-Wirtz, Kyle Crowder, Anjum Hajat, and [**Victoria Sass**]{.blue}
+:::
+:::
+
+## {{< fa users >}} Selected Conferences
+
+::: {.entry}
+::: {.date}
+May 2022
+:::
+::: {.detail}
+**Paper Session: The Environment and Population Health** — Session Chair
+
+*Population Association of America Annual Meeting* [{{< fa location-dot >}} Atlanta, GA]{.loc} 
+:::
+:::
+
+::: {.entry}
+::: {.date}
+Apr 2021
+:::
+::: {.detail}
+**Paper Session: Climate Change and Health.** — Discussant
+
+*Population Association of America Annual Meeting* [{{< fa house-laptop >}} Virtual]{.loc} 
+:::
+:::
+
+::: {.entry}
+::: {.date}
+Oct 2019
+:::
+::: {.detail}
+**Socioeconomic inequalities in cancer mortality in Belgium.** — Paper Presentation
+
+*Interdisciplinary Association for Population Health Science Annual Meeting* [{{< fa location-dot >}} Seattle, WA]{.loc} 
+:::
+:::
+
+::: {.entry}
+::: {.date}
+Oct 2019
+:::
+::: {.detail}
+**Reframing ‘obesity’ research using a weight-neutral approach** — Paper Presentation
+
+*Interdisciplinary Association for Population Health Science Annual Meeting* [{{< fa location-dot >}} Seattle, WA]{.loc} 
+:::
+:::
+
+::: {.entry}
+::: {.date}
+Nov 2018
+:::
+::: {.detail}
+**The Effects of Air Pollution on Individual Psychological Distress** — Paper Presentation
+
+*American Public Health Association Annual Meeting Paper Presentation.* [{{< fa location-dot >}} Atlanta, GA]{.loc} 
+:::
+:::
+
+::: {.entry}
+::: {.date}
+Jan 2018
+:::
+::: {.detail}
+**Air Pollution and Mental Health** — Plenary Session *(invited speaker)* 
+
+*Cascadia Symposium on Environmental, Occupational, and Population Health* [{{< fa location-dot >}} Abbotsford, BC]{.loc} 
+:::
+:::
+
+::: {.entry}
+::: {.date}
+Mar 2016
+:::
+::: {.detail}
+**The Long-Term Dynamics of Racial-Ethnic Inequality in Neighborhood Air Pollution Exposure, 1990-2009** — Poster Session
+
+*Population Association of America Annual Meeting* [{{< fa location-dot >}} Washington, D.C.]{.loc} 
+:::
+:::
+
+## {{< fa award >}} Selected Awards
+
+::: {.entry}
+::: {.date}
+Spring 2021
+:::
+::: {.detail}
+**Excellence in Teaching (Graduate Student)** [{{< fa location-dot >}} Department of Sociology<br> University of Washington]{.loc} 
+:::
+:::
+
+::: {.entry}
+::: {.date}
+Spring 2016
+:::
+::: {.detail}
+**Poster Session Winner: Migration, Urbanization, Population, Development, and Environment** 
+
+*Population Association of America Annual Meeting* [{{< fa solid location-dot >}} Washington, D.C.]{.loc} 
+:::
+:::
+
+::: {.entry}
+::: {.date}
+Spring 2015
+:::
+::: {.detail}
+**Excellence in Teaching (Graduate Student)** [{{< fa location-dot >}} Department of Sociology<br> University of Washington]{.loc}
+:::
+:::
+
+## {{< fa regular handshake >}} Service & Collaborations
+
+::: {.entry}
+::: {.date}
+2016 – 2017
+:::
+::: {.detail}
+**[Graduate Student Association]{.blue} [{{< fa building-columns >}} Department of Sociology,<br>University of Washington]{.loc} <br> President**
+
+Elected to lead departmental graduate governance, representing graduate students to faculty and administration and coordinating association activities across the year.
+:::
+:::
+
+::: {.entry .svc-compact}
+::: {.date}
+2014 – 2023
+:::
+::: {.detail}
+[**Additional GSA service:** Representative to the Colloquium Committee, Representative to the Chair, Faculty Meeting Representative, Social Committee; Organizer, UW Soc Sem! monthly seminar.]{}
+:::
+:::
+
+::: {.entry}
+::: {.date}
+2021 – 2025
+:::
+::: {.detail}
+**[Social Determinants of Health Working Group]{.blue} <br> Organizer & Member** 
+
+Led and participated in an interdisciplinary group convening researchers from multiple universities around the social and structural determinants of health.
+:::
+:::
+
+::: {.entry .svc-compact}
+::: {.date}
+2020 – 2024
+:::
+::: {.detail}
+[**Additional Membership:** Weight Matters (VA Puget Sound), Gender Working Group (UW), and Contexts Working Group (UW) — interdisciplinary working groups respectively examining how embodiment, gender, and place shape inequality and health.]{}
+:::
+:::
+
+::: {.entry}
+::: {.date}
+2017 – 2018
+:::
+::: {.detail}
+**[Community Resilience + Equity Program]{.blue} [{{< fa landmark-dome >}} King County Public Health]{.loc} <br> Community Partner**
+
+[]{.org}
+
+Collaborated with county public-health staff to explore participatory, community-engaged research approaches for environmental-justice work, translating findings from first-authored research on air pollution and psychological distress toward applied public-health practice.
+:::
+:::
+
+::: {.entry .svc-compact}
+::: {.date}
+2017 – 2018
+:::
+::: {.detail}
+[**Symposia:** Northwest Nature & Health (UW, 2017); Washington State Environmental Justice Mapping (UW, 2018).]{}
+:::
+:::
+
+:::
+
+<!-- ---------- end MAIN ---------- -->
+
+<!-- ---------- ASIDE (right) column ---------- -->
+::: {.col-side}
+
+## {{< fa regular address-card >}} Contact
+
+::: {.contact}
+[{{< fa envelope >}} vsass@uw.edu](mailto:vsass@uw.edu)
+
+[{{< fa brands github >}} GitHub](https://github.com/vsass)
+
+[{{< fa globe >}} Website](https://vsass.github.io/)
+
+[{{< fa brands orcid >}} Orcid](https://orcid.org/0009-0007-5860-5431)
+
+<br>
+
+:::
+
+## {{< fa code >}} Skills
+
+<!-- To edit: add/remove `on` on a <span class="seg"> to set the number of
+     filled segments (out of 5), and change the .yr text to match. -->
+
+::: {.skill}
+[R / RStudio]{.skill-name} <span class="bar"><span class="seg on"></span><span class="seg on"></span><span class="seg on"></span><span class="seg on"></span><span class="seg on"></span></span><span class="yr">5+ yrs</span>
+:::
+
+::: {.skill}
+[R Markdown / Quarto]{.skill-name} <span class="bar"><span class="seg on"></span><span class="seg on"></span><span class="seg on"></span><span class="seg on"></span><span class="seg on"></span></span><span class="yr">5+ yrs</span>
+:::
+
+::: {.skill}
+[SQL]{.skill-name} <span class="bar"><span class="seg on"></span><span class="seg on"></span><span class="seg on"></span><span class="seg on"></span><span class="seg on"></span></span><span class="yr">5+ yrs</span>
+:::
+
+::: {.skill}
+[Git / GitHub]{.skill-name} <span class="bar"><span class="seg on"></span><span class="seg on"></span><span class="seg on"></span><span class="seg on"></span><span class="seg on"></span></span><span class="yr">5+ yrs</span>
+:::
+
+::: {.skill}
+[Excel]{.skill-name} <span class="bar"><span class="seg on"></span><span class="seg on"></span><span class="seg on"></span><span class="seg on"></span><span class="seg on"></span></span><span class="yr">5+ yrs</span>
+:::
+
+::: {.skill}
+[RegEx / Text Analysis]{.skill-name} <span class="bar"><span class="seg on"></span><span class="seg on"></span><span class="seg on"></span><span class="seg on"></span><span class="seg"></span></span><span class="yr">4 yrs</span>
+:::
+
+::: {.skill}
+[HTML]{.skill-name} <span class="bar"><span class="seg on"></span><span class="seg on"></span><span class="seg on"></span><span class="seg on"></span><span class="seg"></span></span><span class="yr">4 yrs</span>
+:::
+
+::: {.skill}
+[CSS / SCSS]{.skill-name} <span class="bar"><span class="seg on"></span><span class="seg on"></span><span class="seg on"></span><span class="seg on"></span><span class="seg"></span></span><span class="yr">4 yrs</span>
+:::
+
+::: {.skill}
+[LaTeX]{.skill-name} <span class="bar"><span class="seg on"></span><span class="seg on"></span><span class="seg on"></span><span class="seg on"></span><span class="seg"></span></span><span class="yr">4 yrs</span>
+:::
+
+::: {.skill}
+[reveal.js]{.skill-name} <span class="bar"><span class="seg on"></span><span class="seg on"></span><span class="seg on"></span><span class="seg on"></span><span class="seg"></span></span><span class="yr">4 yrs</span>
+:::
+
+::: {.skill}
+[Stata]{.skill-name} <span class="bar"><span class="seg on"></span><span class="seg on"></span><span class="seg on"></span><span class="seg"></span><span class="seg"></span></span><span class="yr">3 yrs</span>
+:::
+
+::: {.skill}
+[QGIS]{.skill-name} <span class="bar"><span class="seg on"></span><span class="seg on"></span><span class="seg on"></span><span class="seg"></span><span class="seg"></span></span><span class="yr">3 yrs</span>
+:::
+
+::: {.skill}
+[Python]{.skill-name} <span class="bar"><span class="seg on"></span><span class="seg on"></span><span class="seg"></span><span class="seg"></span><span class="seg"></span></span><span class="yr">2 yrs</span>
+:::
+
+:::
+<!-- ---------- end ASIDE ---------- -->
+
+::::
+<!-- end .two-col -->
+
+::: {.footer}
+Made with [Quarto](https://quarto.org). Last updated `r Sys.Date()`.
+:::
+
+:::::
